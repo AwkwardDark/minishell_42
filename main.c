@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/27 10:44:53 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:57:51 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		buffer = readline(GREEN "minishell~" RESET);
-		ft_parser(buffer);
+		//ft_parser(buffer);
 	}
 	return (0);
 }
