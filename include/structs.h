@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 10:21:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/27 10:43:52 by pajimene         ###   ########.fr       */
+/*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
+/*   Updated: 2024/08/27 10:36:00 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "structs.h"
+typedef struct s_cmd {
+	char			**content;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}		t_cmd;
 
-# define GREEN "\033[0;92m"
-# define RESET "\033[0m"
-
-extern int g_signal;
+typedef struct s_struct {
+	t_cmd	*cmd;
+}		t_struct;
 
 #endif
