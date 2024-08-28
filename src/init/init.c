@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:35:25 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/28 15:26:41 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:26:28 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_init_data(char **envp, t_data *data)
 	{
 		data->env = ft_copy_env(envp);
 		if (!data->env)
-			return (ft_error_clean(data, 1));
+			return (ft_error(2), 1);
 	}
 	data->exit_status = 0;
 	return (0);

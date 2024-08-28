@@ -6,7 +6,7 @@
 #    By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 14:39:49 by pajimene          #+#    #+#              #
-#    Updated: 2024/08/28 15:29:40 by pajimene         ###   ########.fr        #
+#    Updated: 2024/08/28 16:03:11 by pajimene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,7 +118,7 @@ all: $(LIBFT) $(NAME)
 
 #Compilation
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
