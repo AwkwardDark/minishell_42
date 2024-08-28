@@ -6,23 +6,26 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/27 11:57:51 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:50:38 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "../include/minishell.h"
 
 int main(int argc, char **argv, char **envp)
 {
-	char	*buffer;
+	t_data	data;
 	
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	if (ft_init_data(envp, &data));
 	while (1)
 	{
-		buffer = readline(GREEN "minishell~" RESET);
-		//ft_parser(buffer);
+		data.input = readline(GREEN GRAS "minishell ~" RESET);
+		if (!data.input)
+			break ;
+		ft_parser(data.input, &data);
 	}
+	//ft_exit();
 	return (0);
 }

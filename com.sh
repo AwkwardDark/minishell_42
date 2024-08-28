@@ -1,0 +1,1 @@
+cc -Wall -Wextra -Werror main.c src/parsing/parser.c src/parsing/check_syntax.c -lreadline -o minishell
