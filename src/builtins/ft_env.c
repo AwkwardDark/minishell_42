@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 22:22:51 by pierre            #+#    #+#             */
-/*   Updated: 2024/08/28 17:04:23 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/08/28 14:06:08 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/08/28 18:00:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+/* #include "" */
 
-#include "libft.h"
-#include <dirent.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "structs.h"
+#include "builtin.h"
 
-void	ft_cd(char *path);
-void	ft_pwd(void);
-void	ft_env(char **env);
-void	ft_unset(char *var, t_data *data);
+// displays envirement variables if they exist
 
-#endif
+void	ft_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	if (!env)
+		ft_putstr_fd("no envirement variable set\n", 2);
+	else
+	{
+		while (env[i])
+		{
+			printf("%s\n", env[i]);
+			i++;
+		}
+	}
+	printf("LEN: %d\n", i);
+}
