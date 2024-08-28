@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/28 13:48:48 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:48:24 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ typedef enum e_type {
 	AND=10,
 	OR=11,
 	PIPE=12,	
-};
+} t_type;
 
 typedef struct s_token {
 	char			*cmd;
 	int				flag;
-	struct e_type	token_type;
+	t_type			token_type;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }		t_token;
@@ -47,10 +47,10 @@ typedef struct s_cmd {
 // }
 
 typedef struct s_data {
-	t_cmd			*cmd;
 	char			**env;
 	struct s_cmd	**cmd_tab;
 	char			*input;
+	int				exit_status;
 }		t_data;
 
 #endif
