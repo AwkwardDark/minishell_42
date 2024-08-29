@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:06:08 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/28 18:00:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:02:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,13 @@
 
 // displays envirement variables if they exist
 
-void	ft_env(char **env)
+void	ft_env(t_env *env)
 {
-	int	i;
-
-	i = 0;
 	if (!env)
-		ft_putstr_fd("no envirement variable set\n", 2);
-	else
+		return ;
+	while (env != NULL)
 	{
-		while (env[i])
-		{
-			printf("%s\n", env[i]);
-			i++;
-		}
+		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
 	}
-	printf("LEN: %d\n", i);
 }

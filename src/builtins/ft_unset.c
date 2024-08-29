@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:31:13 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/28 18:08:38 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:24:47 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,80 +14,39 @@
 
 #include "builtin.h"
 
-static int	var_exist(char *var, char **env)
+static void	remove_node(char *key, t_env **env)
 {
-	int	i;
+	t_env	*prev;
+	t_env	*cur;
 
-	i = 0;
-	if (!env)
-		return (-1);
-	while (env[i])
+	cur = *env;
+	prev = cur;
+	if (!ft_strcmp(cur->key, key))
 	{
-		if (!ft_strncmp(env[i], var, ft_strlen(var)))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-static int	alloc_copy(char **new_env, char **old_env, int pos)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (old_env[i] != NULL)
-	{
-		if (i != pos)
-		{
-			new_env[j] = ft_strdup(old_env[i]);
-			if (!new_env[j])
-				return (j - 1);
-			j++;
-		}
-		i++;
-	}
-	new_env[i] = 0;
-	return (-1);
-}
-
-static void	envvar_remove(t_data *data, int pos)
-{
-	int		env_len;
-	char	**new_env;
-	int		ret;
-
-	env_len = 0;
-	while (data->env[env_len])
-		env_len++;
-	new_env = (char **)malloc(sizeof(char *) * (env_len));
-	if (!new_env)
-		return ;
-	ret = alloc_copy(new_env, data->env, pos);
-	if (ret >= 0)
-	{
-		while (ret >= 0)
-		{
-			free(new_env[ret]);
-			ret--;
-		}
-		free(new_env);
+		*env = cur->next;
+		clr_envnode(cur);
 		return ;
 	}
-	data->env = new_env;
+	while (cur != NULL && ft_strcmp(cur->key, key))
+	{
+		prev = cur;
+		cur = cur->next;
+	}
+	if (cur != NULL)
+	{
+		prev = cur->next;
+		clr_envnode(cur);
+	}
 }
 
-void	ft_unset(char *var, t_data *data)
+
+void	ft_unset(char *key, t_data *data)
 {
 	int	pos;
 
-	if (!var)
+	if (!key)
 		return ;
-	if (!*var)
+	if (!*key)
 		return ;
-	pos = var_exist(var, data->env);
-	if (pos >= 0)
-		envvar_remove(data, pos);
-	char **new_env = data->env;
+	remove_node(key, &data->env);
 }
