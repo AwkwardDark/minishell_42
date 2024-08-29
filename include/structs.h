@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/28 16:05:12 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:20:09 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define STRUCTS_H
 
 typedef enum e_type {
-	NONE=0,
+	//NONE=0,
 	S_QUOTE=1,
 	d_QUOTE=2,
 	R_IN=3,
@@ -31,15 +31,21 @@ typedef enum e_type {
 
 typedef struct s_token {
 	char			*cmd;
-	int				flag;
+	int				len;
 	t_type			token_type;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	//struct s_cmd	*prev;
 }		t_token;
 
 typedef struct s_cmd {
 	char		**parsed_cmd;
 }	t_cmd;
+
+typedef struct s_env {
+	char		*key;
+	char		*value;
+	struct s_env *next;
+}	t_env;
 
 // typedef struct s_btree {
 // 	void	*content;
@@ -47,7 +53,7 @@ typedef struct s_cmd {
 // }
 
 typedef struct s_data {
-	char			**env;
+	struct s_env	*env;
 	struct s_cmd	**cmd_tab;
 	char			*input;
 	int				exit_status;

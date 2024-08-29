@@ -1,34 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/28 18:06:08 by pajimene         ###   ########.fr       */
+/*   Created: 2024/08/29 10:12:22 by pajimene          #+#    #+#             */
+/*   Updated: 2024/08/29 10:12:35 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-int main(int argc, char **argv, char **envp)
-{
-	t_data	data;
-	
-	(void)argc;
-	(void)argv;
-	if (ft_init_data(envp, &data))
-		return (1);
-	while (1)
-	{
-		data.input = readline(GREEN GRAS "minishell ~" RESET);
-		if (!data.input)
-			break ;
-		add_history(data.input);
-		ft_parser(data.input, &data);
-		free(data.input);
-	}
-	ft_free_exit(&data);
-	return (0);
-}
