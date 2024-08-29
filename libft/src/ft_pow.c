@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 22:22:51 by pierre            #+#    #+#             */
-/*   Updated: 2024/08/29 12:45:33 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/06/21 15:31:12 by pierre            #+#    #+#             */
+/*   Updated: 2024/06/21 15:37:17 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "../includes/libft.h"
 
-
-
-
-
-#endif
+int	ft_pow(int i, int pow)
+{
+	if (pow == 0)
+		return (1);
+	else
+		return (i * ft_pow(i, pow - 1));
+}

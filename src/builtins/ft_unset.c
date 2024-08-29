@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/28 14:31:13 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/29 12:24:47 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/08/29 14:46:55 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/08/29 16:04:43 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* #include "" */
 
-#include "builtin.h"
+#include "minishell.h"
 
 static void	remove_node(char *key, t_env **env)
 {
@@ -24,26 +24,23 @@ static void	remove_node(char *key, t_env **env)
 	if (!ft_strcmp(cur->key, key))
 	{
 		*env = cur->next;
-		clr_envnode(cur);
+		ft_clrenvnode(cur);
 		return ;
 	}
-	while (cur != NULL && ft_strcmp(cur->key, key))
+	while (cur != NULL && ft_strcmp(cur->key, key) != 0)
 	{
 		prev = cur;
 		cur = cur->next;
 	}
 	if (cur != NULL)
 	{
-		prev = cur->next;
-		clr_envnode(cur);
+		prev->next = cur->next;
+		ft_clrenvnode(cur);
 	}
 }
 
-
 void	ft_unset(char *key, t_data *data)
 {
-	int	pos;
-
 	if (!key)
 		return ;
 	if (!*key)

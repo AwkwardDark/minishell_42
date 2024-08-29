@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:32:47 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/27 22:25:26 by pierre           ###   ########.fr       */
+/*   Updated: 2024/08/29 15:18:49 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* include "" */
-// required includes to put in the .h
-#include "builtin.h"
+#include "minishell.h"
 
 /* TODO
    needs the function ft_strtrim
@@ -22,7 +20,6 @@
 void	ft_cd(char *path)
 {
 	char	*trimed_path;
-	char	current[100];
 	char	*home;
 
 	trimed_path = ft_strtrim(path, " ");

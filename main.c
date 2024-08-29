@@ -6,19 +6,21 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:21:37 by pierre            #+#    #+#             */
-/*   Updated: 2024/08/28 16:59:07 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:44:34 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "minishell.h"
 
 int main(int argc, char **argv, char **env)
 {
 	t_data	*data;
 	char *input;
 
+	argv = NULL;
+	argc = 0;
 	data = (t_data *)malloc(sizeof(t_data));
-	data->env = env;
+	data->env = ft_cpyenv(env);
 	while((input = readline("prompt> ")) != 0) 
 	{
 		if (!ft_strcmp(input, "exit"))

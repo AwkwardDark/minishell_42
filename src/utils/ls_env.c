@@ -1,44 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ls_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/29 12:16:21 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:03:40 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
+#include "minishell.h"
 
-t_env *init_env(char *key, char *value)
+// init_env
+t_env	*ft_initenv(char *key, char *value)
 {
-	t_env *env;
+	t_env	*env;
 
-	env = (struct s_env*)malloc(sizeof(struct s_env));
+	env = (struct s_env *)malloc(sizeof(struct s_env));
 	if (!env)
 		return (NULL);
 	env->key = key;
 	env->value = value;
 	env->next = NULL;
+	return (env);
 }
 
-void	addlst_envvar(t_env **env, char *key, char *value)
+void	ft_addlstenv(t_env **env, char *key, char *value)
 {
 	t_env	*new_env;
 	t_env	*cur;
 
 	if (!*env)
+	{
+		*env = ft_initenv(key, value);
 		return ;
+	}
 	cur = *env;
-	new_env = init_env(key, value);
+	new_env = ft_initenv(key, value);
 	while (cur->next != NULL)
 		cur = cur->next;
 	cur->next = new_env;
 }
 
-void	clr_env(t_env **head)
+void	ft_clrenv(t_env **head)
 {
 	t_env	*cur;
 	t_env	*temp;
@@ -48,12 +53,12 @@ void	clr_env(t_env **head)
 	{
 		temp = cur;
 		cur = cur->next;
-		clr_envnode(temp);
+		ft_clrenvnode(temp);
 	}
 	*head = NULL;
 }
 
-void	clr_envnode(t_env *env)
+void	ft_clrenvnode(t_env *env)
 {
 	free(env->key);
 	free(env->value);

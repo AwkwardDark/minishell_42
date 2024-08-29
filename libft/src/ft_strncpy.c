@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 22:16:35 by pierre            #+#    #+#             */
-/*   Updated: 2024/08/29 15:09:06 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/04/15 00:24:12 by pierre            #+#    #+#             */
+/*   Updated: 2024/05/02 14:53:04 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* include "" */
-#include "minishell.h"
+#include "../includes/libft.h"
 
-void	ft_pwd(void)
+char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	char	buffer[1000];
+	size_t	i;
 
-	if (!getcwd(buffer, 1000))
-		perror("minishell");
-	else
-		printf("%s\n", buffer);
+	i = 0;
+	while (src[i] && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

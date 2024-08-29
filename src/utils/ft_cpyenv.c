@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   ft_cpyenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 22:22:51 by pierre            #+#    #+#             */
-/*   Updated: 2024/08/28 17:04:23 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/08/29 15:32:00 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/08/29 16:04:05 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "minishell.h"
 
-#include "libft.h"
-#include <dirent.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "structs.h"
+t_env	*ft_cpyenv(char **env)
+{
+	t_env	*env_lst;
+	char	key[300];
+	int		i;
+	int		j;
 
-void	ft_cd(char *path);
-void	ft_pwd(void);
-void	ft_env(char **env);
-void	ft_unset(char *var, t_data *data);
-
-#endif
+	env_lst = NULL;
+	ft_bzero(key, 300);
+	j = 0;
+	i = 0;
+	while (env[i])
+	{
+		while (env[i][j] != '=')
+			j++;
+		ft_strncpy(key, env[i], j);
+		ft_addlstenv(&env_lst, ft_strdup(key), ft_strdup(&env[i][j + 1]));
+		j = 0;
+		i++;
+	}
+	return (env_lst);
+}

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 22:16:35 by pierre            #+#    #+#             */
-/*   Updated: 2024/08/29 15:09:06 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/04/15 00:21:58 by pierre            #+#    #+#             */
+/*   Updated: 2024/06/03 17:40:57 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* include "" */
-#include "minishell.h"
+#include "../includes/libft.h"
 
-void	ft_pwd(void)
+t_list	*ft_lstnew(void *content, int len)
 {
-	char	buffer[1000];
+	t_list	*liste;
 
-	if (!getcwd(buffer, 1000))
-		perror("minishell");
-	else
-		printf("%s\n", buffer);
+	liste = (t_list *)malloc(sizeof(t_list));
+	if (!liste)
+		return (NULL);
+	liste->content = content;
+	liste->next = NULL;
+	liste->len = len;
+	return (liste);
 }

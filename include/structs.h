@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/29 12:19:01 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:13:38 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define STRUCTS_H
 
 # define NULL 0
+# include "../libft/includes/libft.h"
+# include <dirent.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum e_type {
 	//NONE=0,
@@ -60,11 +67,5 @@ typedef struct s_data {
 	char			*input;
 	int				exit_status;
 }		t_data;
-
-/* env struct functions PABLO*/
-t_env	*init_env(char *key, char *value);
-void	addlst_envvar(t_env **env, char *key, char *value);
-void	clr_env(t_env **head);
-void	clr_envnode(t_env *env);
 
 #endif

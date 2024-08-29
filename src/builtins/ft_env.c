@@ -6,13 +6,13 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:06:08 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/29 12:02:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:09:10 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* #include "" */
 
-#include "builtin.h"
+#include "minishell.h"
 
 // displays envirement variables if they exist
 
