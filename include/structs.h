@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/29 11:20:09 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:06:12 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ typedef enum e_type {
 } t_type;
 
 typedef struct s_token {
-	char			*cmd;
+	char			**cmd;
 	int				len;
 	t_type			token_type;
+	//t_expand 		*expand;
 	struct s_cmd	*next;
 	//struct s_cmd	*prev;
 }		t_token;
@@ -40,6 +41,12 @@ typedef struct s_token {
 typedef struct s_cmd {
 	char		**parsed_cmd;
 }	t_cmd;
+
+// typedef struct s_exp {
+// 	int			expand;
+	//?// char		*value;
+	//?// char		*join;
+// }	t_exp;
 
 typedef struct s_env {
 	char		*key;

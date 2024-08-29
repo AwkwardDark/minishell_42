@@ -6,9 +6,10 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:12:22 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/29 10:12:35 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:44:34 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+int	ft_count_quote_words(char *s, )
