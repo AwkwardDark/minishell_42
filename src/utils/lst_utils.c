@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 14:19:23 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:37:28 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,14 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	last = ft_lstlast(*lst);
 	last->next = new;
 	new->prev = last;
+}
+
+void ft_print_lst(t_token *lst)
+{
+    t_token *current = lst;
+    
+    while (current != NULL) {
+        printf("%s\n", current->content);
+        current = current->next;
+    }
 }

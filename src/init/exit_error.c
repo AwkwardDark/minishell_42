@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:08:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 15:02:42 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:39:39 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_free_exit(t_data *data)
 {
-	if (data->env)
-		clear_wordar(data->env);
+	// if (data->env)
+	// 	ft_free_lst(data->env);
 	if (data->input)
 		free(data->input);
 	if (data->token_lst)
-		ft_free_lst(data->token_lst);
+		ft_free_lst(&data->token_lst);
 	rl_clear_history();
 }
 

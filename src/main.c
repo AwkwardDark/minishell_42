@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 15:05:05 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:44:54 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ int main(int argc, char **argv, char **envp)
 		if (!data->input)
 			break ;
 		add_history(data->input);
-		data->token_lst = ft_parser(data->input, data);
+		ft_parser(data->input, data);
 		free(data->input);
 	}
+	ft_print_lst(data->token_lst);
 	ft_free_exit(data);
 	return (0);
 }
