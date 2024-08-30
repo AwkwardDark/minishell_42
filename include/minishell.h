@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:21:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/28 16:51:24 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:20:26 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,17 @@ extern int g_signal;
 /*Error and Memory managment*/
 void	ft_free_exit(t_data *data);
 
+/*Double Linked List utils*/
+void	ft_free_lst(t_token **a);
+t_token	*ft_lstnew(char *content);
+t_token	*ft_lstlast(t_token *lst);
+void	ft_lstadd_back(t_token **lst, t_token *new);
+
 /*Parser, Lexer and Simple Syntax management*/
 int		ft_init_data(char **envp, t_data *data);
 void	ft_error(int code);
-void	ft_parser(char *input, t_data *data);
+t_token	*ft_parser(char *input, t_data *data);
+t_token *ft_tokenize(char *input, t_data *data);
 int 	ft_quote_syntax(char *input);
 
 /*Testing utils*/
