@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 18:23:24 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:55:24 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_tokenize(char *input, t_data *data)
 				i++;
 			}
 			if (is_special(input, &i))
+				break ;
 			i++;
 		}
 		end = i;

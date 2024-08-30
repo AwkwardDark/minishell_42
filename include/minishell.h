@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:21:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 17:37:51 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:22:45 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int 	ft_quote_syntax(char *input);
 
 /*Parsing Utils*/
 int		is_quote(char c, t_data *data);
+int 	is_special(char *input, int *i);
 
 /*Testing utils*/
 void 	ft_print_lst(t_token *lst);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	is_quote(char c, t_data *data)
 {
@@ -28,19 +28,22 @@ int	is_quote(char c, t_data *data)
 }
 
 int is_special(char *input, int *i)
-{
-	if ((input[*i] == O_PAR) || (input[*i] == O_PAR))
+{	
+	if ((input[*i] == O_PAR) || (input[*i] == C_PAR))
 	{
-		(*i)++;
+		if ((input[*i - 1] == ' ') || (input[*i + 1] == ' '))
+			return (0);
+		//(*i)++;
 		return (1);
 	}
-	if ((input[*i] == I_REDIR) || (input[*i] == O_REDIR) \
-		|| (input[*i] == PIPE) || (input[*i] == '&'))
-	{
-		if ((input[*i] == I_REDIR) || (input[*i] == O_REDIR) \
-		|| (input[*i] == PIPE) || (input[*i] == '&'))
-			(*i)++;
-		(*i)++;
-	}
+	// if ((input[*i] == I_REDIR) || (input[*i] == O_REDIR) 
+	// 	|| (input[*i] == PIPE) || (input[*i] == '&'))
+	// {
+	// 	// if ((input[*i] == I_REDIR) || (input[*i] == O_REDIR) 
+	// 	// || (input[*i] == PIPE) || (input[*i] == '&'))
+	// 	// 	(*i)++;
+	// 	// (*i)++;
+	// 	return (1);
+	// }
 	return (0);
 }

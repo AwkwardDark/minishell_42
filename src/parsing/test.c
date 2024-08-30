@@ -25,6 +25,8 @@ void ft_extract_word(char *input, t_data *data)
 					i++;
 				i++;
 			}
+			if (is_special(input, &i))
+				break ;
 			i++;
 		}
 		end = i;
