@@ -6,13 +6,13 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/29 15:13:38 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:45:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-
+ 
 # define NULL 0
 # include "../libft/includes/libft.h"
 # include <dirent.h>
@@ -23,7 +23,6 @@
 # include <readline/history.h>
 
 typedef enum e_type {
-	//NONE=0,
 	S_QUOTE=1,
 	d_QUOTE=2,
 	R_IN=3,

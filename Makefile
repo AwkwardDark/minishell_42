@@ -1,6 +1,6 @@
 NAME = builtins
 MAIN = main.c
-BUILTINS = ft_cd.c ft_env.c ft_pwd.c ft_unset.c
+BUILTINS = ft_cd.c ft_echo.c ft_export.c ft_env.c ft_pwd.c ft_unset.c
 UTILS = ls_env.c ft_cpyenv.c
 
 # Define the object files for builtins and utils

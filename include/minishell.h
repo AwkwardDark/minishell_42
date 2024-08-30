@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/29 16:03:45 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:51:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ void	ft_cd(char *path);
 void	ft_pwd(void);
 void	ft_env(t_env *env);
 void	ft_unset(char *var, t_data *data);
+void	ft_export(t_env **env, char *key, char *value);
+void	ft_echo(char **str, int NFLAG);
 
 #endif

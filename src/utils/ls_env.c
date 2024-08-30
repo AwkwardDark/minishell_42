@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/29 16:03:40 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:43:02 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_env	*ft_initenv(char *key, char *value)
 	return (env);
 }
 
+// add last
 void	ft_addlstenv(t_env **env, char *key, char *value)
 {
 	t_env	*new_env;
@@ -43,6 +44,7 @@ void	ft_addlstenv(t_env **env, char *key, char *value)
 	cur->next = new_env;
 }
 
+// free all the chained list
 void	ft_clrenv(t_env **head)
 {
 	t_env	*cur;
@@ -58,6 +60,7 @@ void	ft_clrenv(t_env **head)
 	*head = NULL;
 }
 
+// free one node
 void	ft_clrenvnode(t_env *env)
 {
 	free(env->key);

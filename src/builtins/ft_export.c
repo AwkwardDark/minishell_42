@@ -1,49 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 14:46:55 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/30 14:39:06 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/08/30 12:43:01 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/08/30 14:40:15 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "" */
-
 #include "minishell.h"
 
-static void	remove_node(char *key, t_env **env)
+/* TODO In special parsing of the export check that the format 
+	of export is right
+	export key="value" => good
+	export key=value => good
+	export key = value => wrong
+	and display error messages
+*/
+
+void	ft_export(t_env **env, char *key, char *value)
 {
-	t_env	*prev;
 	t_env	*cur;
+	t_env	*prev;
 
 	cur = *env;
 	prev = cur;
-	if (!ft_strcmp(cur->key, key))
+	if (!cur)
 	{
-		*env = cur->next;
-		ft_clrenvnode(cur);
+		*env = ft_initenv(key, value);
 		return ;
 	}
-	while (cur != NULL && ft_strcmp(cur->key, key) != 0)
+	while (cur->next != NULL && ft_strcmp(cur->key, key))
 	{
 		prev = cur;
 		cur = cur->next;
 	}
-	if (cur != NULL)
-	{
-		prev->next = cur->next;
-		ft_clrenvnode(cur);
-	}
-}
-
-void	ft_unset(char *key, t_data *data)
-{
-	if (!key)
-		return ;
-	if (!*key)
-		return ;
-	remove_node(key, &data->env);
+	if (cur->next == NULL)
+		cur->next = ft_initenv(key, value);
+	else
+		cur->value = value;
 }
