@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/30 14:51:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:41:25 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ void	ft_clrenvnode(t_env *env);
 
 /* src/utils/ls_env.c */
 t_env	*ft_cpyenv(char **env);
+
+/* src/utils/ls_env.c */
+void	ft_free_lst(t_token **a);
+t_token	*ft_lstnew(char *content, t_type type);
+t_token	*ft_lstlast(t_token *lst);
+void	ft_lstadd_back(t_token **lst, t_token *new);
+void ft_print_lst(t_token *lst);
+
 
 /* src/builtins */
 void	ft_cd(char *path);
