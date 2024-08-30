@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 16:03:35 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:23:24 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ content and token_type of each word/operator of the prompt command*/
 void	ft_tokenize(char *input, t_data *data)
 {
 	char	*content;
+	//int		flag;
 	int		start;
 	int		end;
 	int		i;
-	
+
 	i = 0;
 	start = 0;
 	end = 0;
@@ -44,9 +45,20 @@ void	ft_tokenize(char *input, t_data *data)
 			break ;
 		start = i;
 		while (input[i] != ' ' && input[i])
+		{
+			if (is_quote(input[i], data))
+			{
+				while(input[i + 1] != data->quote_type)
+					i++;
+				i++;
+			}
+			if (is_special(input, &i))
 			i++;
+		}
 		end = i;
 		content = ft_strndup(input + start, end - start);
 		ft_lstadd_back(&data->token_lst, ft_lstnew(content));
 	}
+	ft_print_lst(data->token_lst);
 }
+

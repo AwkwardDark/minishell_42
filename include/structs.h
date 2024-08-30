@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 16:11:00 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:39:18 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data {
 	struct s_env	*env;
 	struct s_token	*token_lst;
 	char			*input;
+	char			quote_type;
 	int				exit_status;
 }		t_data;
 

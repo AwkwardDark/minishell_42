@@ -6,7 +6,7 @@
 #    By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 14:39:49 by pajimene          #+#    #+#              #
-#    Updated: 2024/08/30 16:10:06 by pajimene         ###   ########.fr        #
+#    Updated: 2024/08/30 17:12:41 by pajimene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC_INIT    =  exit_error.c init.c
                 
 SRC_PARSING =  check_syntax.c parser.c
 
-SRC_UTILS   =  lst_utils.c
+SRC_UTILS   =  lst_utils.c ft_cpyenv.c ls_env.c parsing_utils.c
 
 # Object files
 OBJ_MAIN = $(addprefix src/, $(SRC_MAIN:.c=.o))

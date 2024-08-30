@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 16:03:45 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:44:59 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 void ft_print_lst(t_token *lst)
 {
     t_token *current = lst;
+	int		i = 0;
     
-    while (current != NULL) {
-        printf("%s\n", current->content);
+	while (current != NULL) {
+        printf("n%d -> %s\n", i, current->content);
         current = current->next;
+		i++;
     }
 }

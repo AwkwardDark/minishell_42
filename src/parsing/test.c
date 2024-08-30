@@ -1,6 +1,6 @@
-# include "minishell.h"
+# include "../../include/minishell.h"
 
-void ft_extract_word(char *input)
+void ft_extract_word(char *input, t_data *data)
 {
 	char	*content;
 	int		start;
@@ -18,7 +18,15 @@ void ft_extract_word(char *input)
 			break ;
 		start = i;
 		while (input[i] != ' ' && input[i])
+		{
+			if (is_quote(input[i], data))
+			{
+				while(input[i + 1] != data->quote_type)
+					i++;
+				i++;
+			}
 			i++;
+		}
 		end = i;
 		content = ft_strndup(input + start, end - start);
 		printf("%s\n", content);
@@ -29,7 +37,10 @@ void ft_extract_word(char *input)
 
 int main(int ac, char **av)
 {
+	t_data *data;
+
+	data = malloc(sizeof(t_data));
 	if (ac == 2)
-		ft_extract_word(av[1]);
+		ft_extract_word(av[1], data);
 	return (0);
 }
