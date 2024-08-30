@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 14:45:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:49:47 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+/*Used for tokenize each node in the parsing*/
 typedef enum e_type {
+	//NONE=0?,
 	S_QUOTE=1,
 	d_QUOTE=2,
 	R_IN=3,
@@ -37,32 +39,36 @@ typedef enum e_type {
 	PIPE=12,	
 } t_type;
 
+/*Double linked list that stores all the information
+separated by spaces or special characters/operators*/
 typedef struct s_token {
-	char			*cmd;
-	int				len;
+	char			*content;
 	t_type			token_type;
 	struct s_cmd	*next;
-	//struct s_cmd	*prev;
+	struct s_cmd	*prev;
+	//int				len;
+	//t_expand 		*expand;
 }		t_token;
 
-typedef struct s_cmd {
-	char		**parsed_cmd;
-}	t_cmd;
-
+/*It stores a copy of the enviroment list, used mainly for
+the export, exand and unset built-ins*/
 typedef struct s_env {
 	char		*key;
 	char		*value;
 	struct s_env *next;
 }	t_env;
 
-// typedef struct s_btree {
-// 	void	*content;
-// 	struct s_btree	*....
-// }
+typedef struct s_btree {
+	t_token			*token;
+	struct t_btree	*left_child;
+	struct t_btree	*right_child;
+}	t_btree;
 
+/*Main structure used for sharing information between the
+parsing and the execution*/
 typedef struct s_data {
 	struct s_env	*env;
-	struct s_cmd	**cmd_tab;
+	struct s_token	*token_lst;
 	char			*input;
 	int				exit_status;
 }		t_data;
