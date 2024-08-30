@@ -6,11 +6,11 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 15:44:54 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:13:09 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int main(int argc, char **argv, char **envp)
 {
@@ -21,6 +21,7 @@ int main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_error(2), 1);
+	printf("yoyo");
 	if (ft_init_data(envp, data))
 		return (1);
 	while (1)

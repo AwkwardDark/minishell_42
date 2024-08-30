@@ -1,4 +1,4 @@
-# include "../../include/minishell.h"
+# include "minishell.h"
 
 void ft_extract_word(char *input)
 {

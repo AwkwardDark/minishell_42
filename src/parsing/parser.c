@@ -6,11 +6,11 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 15:46:14 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:03:35 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
+# include "minishell.h"
 
 /*It verifies basic synta on quotes and operators.
 Then it tokenize each command based on operator and prioritis.

@@ -6,11 +6,11 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:08:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 15:39:39 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:03:57 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	ft_free_exit(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 15:09:19 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:11:00 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ separated by spaces or special characters/operators*/
 typedef struct s_token {
 	char			*content;
 	t_type			token_type;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	struct s_token	*next;
+	struct s_token	*prev;
 	//int				len;
 	//t_expand 		*expand;
 }		t_token;
@@ -48,11 +48,6 @@ typedef struct s_env {
 	char		*value;
 	struct s_env *next;
 }	t_env;
-
-// typedef struct s_btree {
-// 	void	*content;
-// 	struct s_btree	*....
-// }
 
 /*Main structure used for sharing information between the
 parsing and the execution*/
