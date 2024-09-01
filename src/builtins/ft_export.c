@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 12:43:01 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/30 14:40:15 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:24:05 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,15 @@
 void	ft_export(t_env **env, char *key, char *value)
 {
 	t_env	*cur;
-	t_env	*prev;
 
 	cur = *env;
-	prev = cur;
 	if (!cur)
 	{
 		*env = ft_initenv(key, value);
 		return ;
 	}
 	while (cur->next != NULL && ft_strcmp(cur->key, key))
-	{
-		prev = cur;
 		cur = cur->next;
-	}
 	if (cur->next == NULL)
 		cur->next = ft_initenv(key, value);
 	else

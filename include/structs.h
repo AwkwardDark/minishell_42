@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 18:55:31 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:54:58 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef enum e_type {
 	PRE_EXP=9,
 	AND=10,
 	OR=11,
-	PIPE=12,	
+	PIPE=12,
+	CMD=13
 } t_type;
 
 /*Double linked list that stores all the information
@@ -44,8 +45,8 @@ separated by spaces or special characters/operators*/
 typedef struct s_token {
 	char			*content;
 	t_type			token_type;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	struct s_token	*next;
+	struct s_token	*prev;
 	//int				len;
 	//t_expand 		*expand;
 }		t_token;
@@ -60,8 +61,8 @@ typedef struct s_env {
 
 typedef struct s_btree {
 	t_token			*token;
-	struct t_btree	*left_child;
-	struct t_btree	*right_child;
+	struct s_btree	*left_child;
+	struct s_btree	*right_child;
 }	t_btree;
 
 /*Main structure used for sharing information between the

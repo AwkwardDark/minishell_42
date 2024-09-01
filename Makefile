@@ -10,14 +10,14 @@ BUILTINS_OBJS = $(addprefix src/builtins/, $(BUILTINS:.c=.o))
 TREE_OBJS = $(addprefix src/tree/, $(TREE:.c=.o))
 
 CC = cc 
-CFLAGS = -Werror -Wall -Wextra
+# CFLAGS = -Werror -Wall -Wextra
 
 all: $(NAME)
 
 # Linking the final executable
-$(NAME): $(MAIN:.c=.o) $(UTILS_OBJS) $(BUILTINS_OBJS) $(TREE_OBJS)
+$(NAME): $(MAIN:.c=.o) $(TREE_OBJS) $(UTILS_OBJS) $(BUILTINS_OBJS) 
 	make -C libft
-	$(CC) $(CFLAGS) $(MAIN:.c=.o) $(UTILS_OBJS) $(BUILTINS_OBJS) -I./include -lft -L./libft -lreadline -o $@
+	$(CC) $(CFLAGS) $(MAIN:.c=.o) $(UTILS_OBJS) $(BUILTINS_OBJS) $(TREE_OBJS) -I./include -lft -L./libft -lreadline -o $@
 
 # Rule to compile .c files into .o files
 %.o: %.c
@@ -25,7 +25,7 @@ $(NAME): $(MAIN:.c=.o) $(UTILS_OBJS) $(BUILTINS_OBJS) $(TREE_OBJS)
 
 # Clean object files and libraries
 clean:
-	rm -f $(UTILS_OBJS) $(BUILTINS_OBJS) $(MAIN:.c=.o)
+	rm -f $(TREE_OBJS) $(UTILS_OBJS) $(BUILTINS_OBJS) $(MAIN:.c=.o)
 	make clean -C libft
 
 # Clean everything including the final executable

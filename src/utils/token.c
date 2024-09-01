@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:33:34 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/30 18:40:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/01 12:09:54 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 void	ft_free_lst(t_token **a)
 {
-	t_token	*temp;
+	t_token	*next;
+	t_token *cur;
 
-	while (*a)
+	cur = *a;
+	while (cur != NULL)
 	{
-		temp = (*a)->next;
-		free(*a);
-		*a = temp;
+		next = cur->next;
+		free(cur);
+		cur = next;
 	}
+	*a = NULL;
 }
 
 t_token	*ft_lstnew(char *content, t_type type)
@@ -35,7 +38,7 @@ t_token	*ft_lstnew(char *content, t_type type)
 	lstnew->next = NULL;
 	lstnew->prev = NULL;
 	if (!type)
-		lstnew->token_type = NULL;
+		lstnew->token_type = 0;
 	else
 		lstnew->token_type = type;
 	return (lstnew);
@@ -79,4 +82,24 @@ void ft_print_lst(t_token *lst)
         current = current->next;
 		i++;
     }
+}
+
+/* switch case to display all the enumerated types */
+void	display_type(t_type type)
+{
+	switch (type)
+	{
+	case PIPE:
+		printf(" | ");
+		break;
+	case OR:
+		printf(" || ");
+		break;
+	case AND:
+		printf(" && ");
+		break;
+	default:
+		printf(" cmd ");
+		break;
+	}
 }
