@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:33:34 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/01 12:09:54 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/01 22:49:51 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	new->prev = last;
 }
 
+/* prints the list of tokens */
 void ft_print_lst(t_token *lst)
 {
     t_token *current = lst;

@@ -2,7 +2,7 @@ NAME = builtins
 MAIN = main.c
 BUILTINS = ft_cd.c ft_echo.c ft_export.c ft_env.c ft_pwd.c ft_unset.c 
 UTILS = ls_env.c ft_cpyenv.c token.c
-TREE = tree.c
+TREE = tree.c tree_utils.c
 
 # Define the object files for builtins and utils
 UTILS_OBJS = $(addprefix src/utils/, $(UTILS:.c=.o))

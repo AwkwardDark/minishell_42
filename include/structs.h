@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/01 11:54:58 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/01 20:02:49 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_type {
 	AND=10,
 	OR=11,
 	PIPE=12,
-	CMD=13
+	CMD=15
 } t_type;
 
 /*Double linked list that stores all the information

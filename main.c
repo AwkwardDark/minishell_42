@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:21:37 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/01 12:03:47 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/01 23:11:33 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,27 @@ int main(int argc, char **argv, char **env)
 
 	t_token	*token = ft_lstnew("ls", CMD);
 	t_token	*tokencmd2 = ft_lstnew("ls", CMD);
-	t_token	*tokencmd3 = ft_lstnew("ls", CMD);
+	t_token	*tokencmd3 = ft_lstnew("echo 'hello'", CMD);
+	t_token *tokencmd4 = ft_lstnew("wc -l", CMD);
+
+	t_token *PO = ft_lstnew("(", O_PAR);
+	t_token *PF = ft_lstnew(")", C_PAR);
 
 	t_token *tokenOR = ft_lstnew("||", OR);
+	t_token *tokenOR2 = ft_lstnew("||", OR);
 	t_token *tokenAND = ft_lstnew("&&", AND);
+
 	ft_lstadd_back(&token, tokenOR);
 	ft_lstadd_back(&token, tokencmd2);
 	ft_lstadd_back(&token, tokenAND);
+	ft_lstadd_back(&token, PO);
 	ft_lstadd_back(&token, tokencmd3);
+	ft_lstadd_back(&token, tokenOR2);
+	ft_lstadd_back(&token, tokencmd4);
+	ft_lstadd_back(&token, PF);
 
 	t_btree *tree_tokens = create_tokentree(&token);
-
+	display_btree(tree_tokens);
+	
 	return (0);;
 }

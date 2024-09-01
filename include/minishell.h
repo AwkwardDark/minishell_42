@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/01 11:59:21 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/01 23:30:09 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ void	ft_print_lst(t_token *lst);
 void	display_type(t_type type);
 
 /* src/tree/tree.c */
-t_btree	*init_tree(t_token *token, t_btree *left, t_btree *right);
-static t_token	*contains_priority(t_token *token, int priority);
-t_token	*get_endlst(t_token *token);
+t_btree	*init_btree(t_token *token, t_btree *left, t_btree *right);
+void	clr_btree(t_btree *tree);
+t_token	*remove_parenthesis(t_token *token);
 t_btree	*create_tokentree(t_token **token);
-void	display_tree(t_btree *tree);
+
+/* src/tree/tree_utils.c */
+t_token	*ignore_parenthesis(t_token *token);
+t_token	*contains_priority(t_token *token, int priority);
+void	display_btree(t_btree *tree);
 
 /* src/builtins */
 void	ft_cd(char *path);

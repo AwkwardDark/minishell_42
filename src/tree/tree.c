@@ -6,16 +6,16 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/01 12:13:44 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/01 23:33:01 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // creates a leaf
-t_btree	*init_tree(t_token *token, t_btree *left, t_btree *right)
+t_btree	*init_btree(t_token *token, t_btree *left, t_btree *right)
 {
-	t_btree *tree;
+	t_btree	*tree;
 
 	tree = (struct s_btree *)malloc(sizeof(struct s_btree));
 	if (!tree)
@@ -26,91 +26,83 @@ t_btree	*init_tree(t_token *token, t_btree *left, t_btree *right)
 	return (tree);
 }
 
-/*  
-	retruns 1 one the first node that has the priority 
-	priority 3 is && or ||
-	priority 2 is |
-	priority 1 is cmd should always return (1)
+/* 
+	free's all the binary tree (not the tokens list *)
 */
-static t_token	*contains_priority(t_token *token, int priority)
+void	clr_btree(t_btree *tree)
 {
-	while (token != NULL)
+	if (!tree)
+		return ;
+	if (!tree->left_child && !tree->right_child)
+		free(tree);
+	else
 	{
-		if (priority == 3)
-		{
-			if (token->token_type == AND || token->token_type == OR)
-				return (token);
-		}
-		else if (priority == 2)
-		{
-			if (token->token_type == PIPE)
-				return (token);
-		}
-		token = token->prev; 
+		clr_btree(tree->left_child);
+		clr_btree(tree->right_child);
 	}
-	return (NULL);
 }
 
 /* 
-	goes to the end of the list
+	TODO
+	check for other free to do for char * content 
 */
-t_token	*get_endlst(t_token *token)
+t_token	*remove_parenthesis(t_token *token)
 {
-	while (token->next != NULL)
-		token = token->next;
+	t_token	*temp;
+
+	if (token->token_type != C_PAR)
+		return (token);
+	temp = ignore_parenthesis(token);
+	if (temp->prev == NULL)
+	{
+		temp = temp->next;
+		free(temp->prev);
+		temp->prev = NULL;
+		while (temp->next->next != NULL)
+			temp = temp->next;
+		free(temp->next);
+		temp->next = NULL;
+		return (temp);
+	}
 	return (token);
 }
 
 /* 
-	NOT TESTED YET
-	creates recursively the tree
-	TODO: 
-	1- parenthesis check
-	2- tests
+	NEEDS Unit tests
 */
 t_btree	*create_tokentree(t_token **token)
 {
-	t_token *temp;
-	t_token *right;
-	t_token *left;
-	temp = get_endlst(*token);
+	t_token	*temp;
+	t_token	*right;
+	t_token	*left;
+
+	temp = ft_lstlast(*token);
+	temp = remove_parenthesis(temp);
 	if (contains_priority(temp, 3))
 	{
 		temp = contains_priority(temp, 3);
 		right = temp->next;
+		right->prev = NULL;
 		left = temp->prev;
 		left->next = NULL;
-/* 		display_type(left->token_type);
-		printf("\n");
-		display_type(temp->token_type);
-		printf("\n");
-		display_type(right->token_type);
-		return NULL; */
-		return (init_tree(temp, create_tokentree(&left), create_tokentree(&right)));
+		return (init_btree(temp, create_tokentree(&left), create_tokentree(&right)));
 	}
 	else if (contains_priority(temp, 2))
 	{
 		temp = contains_priority(temp, 3);
-		right= temp->next;
-		left= temp->prev;
+		right = temp->next;
+		right->prev = NULL;
+		left = temp->prev;
 		left->next = NULL;
-		return (init_tree(temp, create_tokentree(&left), create_tokentree(&right)));
+		return (init_btree(temp, create_tokentree(&left), create_tokentree(&right)));
 	}
-	return (init_tree(*token, NULL, NULL));
+	return (init_btree(*token, NULL, NULL));
 }
 
-void	display_tree(t_btree *tree)
+/* // goes to the start of the token list
+t_token	*get_startlst(t_token *token)
 {
-	if (tree == NULL)
-		return ;
-	else if (tree->left_child == NULL && tree->right_child == NULL)
-		display_type(tree->token->token_type);
-	else
-	{
-		printf("( ");
-		display_tree(tree->left_child);
-		display_type(tree->token->token_type);
-		display_tree(tree->right_child);
-		printf(" )");
-	}
-}
+	while (token->prev != NULL)
+		token = token->prev;
+	return (token);
+} */
