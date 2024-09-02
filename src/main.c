@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 16:40:49 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:18:36 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 int main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-	
+
 	(void)argc;
 	(void)argv;
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (ft_error(2), 1);
+		return (ft_error(6), 1);
+	ft_memset(data, 0, sizeof(t_data));
 	if (ft_init_data(envp, data))
 		return (1);
 	while (1)
 	{
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		if (!data->input)
+			break ;
+		if (!ft_strcmp(data->input, "exit"))
 			break ;
 		add_history(data->input);
 		ft_parser(data->input, data);

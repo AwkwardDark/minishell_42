@@ -6,7 +6,7 @@
 #    By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 14:39:49 by pajimene          #+#    #+#              #
-#    Updated: 2024/08/30 17:12:41 by pajimene         ###   ########.fr        #
+#    Updated: 2024/09/02 16:55:05 by pajimene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,16 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes
+CFLAGS = -Wall -Wextra -Werror -g3 -I include -I libft/includes
 
 # Source Files
 SRC_MAIN    =  main.c
 
 SRC_INIT    =  exit_error.c init.c
                 
-SRC_PARSING =  check_syntax.c parser.c
+SRC_PARSING =  check_syntax.c tokenizer.c lexer_utils.c token_utils.c
 
-SRC_UTILS   =  lst_utils.c ft_cpyenv.c ls_env.c parsing_utils.c
+SRC_UTILS   =  lst_utils.c ft_cpyenv.c ls_env.c symbols.c
 
 # Object files
 OBJ_MAIN = $(addprefix src/, $(SRC_MAIN:.c=.o))

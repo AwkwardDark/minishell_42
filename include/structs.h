@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 17:39:18 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:07:24 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,16 @@
 
 /*Used for tokenize each node in the parsing*/
 typedef enum e_type {
-	//NONE=0?,
-	S_QUOTE=1,
-	d_QUOTE=2,
-	R_IN=3,
-	R_OUT=4,
-	HEREDOC=5,
-	APPEND=6,
-	O_PAR=7,
-	C_PAR=8,
-	PRE_EXP=9,
-	AND=10,
-	OR=11,
-	PIPE=12,	
+	WORD=0,
+	IN_R=1,
+	OUT_R=2,
+	HEREDOC=3,
+	APPEND=4,
+	O_PAR=5,
+	C_PAR=6,
+	AND=7,
+	OR=8,
+	PIPE=9,	
 } t_type;
 
 /*Double linked list that stores all the information
@@ -37,6 +34,7 @@ typedef struct s_token {
 	t_type			token_type;
 	struct s_token	*next;
 	struct s_token	*prev;
+	//expand, quote and wildcard?
 	//int				len;
 	//t_expand 		*expand;
 }		t_token;
@@ -56,7 +54,8 @@ typedef struct s_data {
 	struct s_token	*token_lst;
 	char			*input;
 	char			quote_type;
+	char			symbol;
 	int				exit_status;
 }		t_data;
 
-#endif
+# endif

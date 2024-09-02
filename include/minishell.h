@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:21:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 19:22:45 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:33:45 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,11 @@
 # define D_QUOTE '\"'
 # define SPACE ' '
 # define TAB '\t'
-# define O_PAR '('
-# define C_PAR ')'
-# define PIPE '|'
-# define I_REDIR '<'
-# define O_REDIR '>'
-# define HEREDOC "<<"
-# define APPEND ">>"
-# define AND "&&"
-# define OR "||"
+# define O_PAREN '('
+# define C_PAREN ')'
+# define P '|'
+# define I_R '<'
+# define O_R '>'
 
 extern int g_signal;
 
@@ -67,12 +63,16 @@ t_env	*ft_cpyenv(char **env);
 int		ft_init_data(char **envp, t_data *data);
 void	ft_error(int code);
 void	ft_parser(char *input, t_data *data);
-void	ft_tokenize(char *input, t_data *data);
+void	ft_lexer(char *input, t_data *data);
+void	ft_tokenize(t_token *lst);
 int 	ft_quote_syntax(char *input);
+int		ft_operator_syntax(char *input);
 
 /*Parsing Utils*/
-int		is_quote(char c, t_data *data);
-int 	is_special(char *input, int *i);
+int		ft_is_quote(char c, t_data *data);
+int 	ft_is_special(char *input, int *i, t_data *data);
+int		ft_is_symbol(char c);
+void	ft_token_symbol(char *content, t_token *token);
 
 /*Testing utils*/
 void 	ft_print_lst(t_token *lst);

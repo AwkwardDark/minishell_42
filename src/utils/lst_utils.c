@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/08/30 16:44:59 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:10:16 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_free_lst(t_token **a)
 	while (*a)
 	{
 		temp = (*a)->next;
+		free((*a)->content);
 		free(*a);
 		*a = temp;
 	}
@@ -70,8 +71,10 @@ void ft_print_lst(t_token *lst)
     t_token *current = lst;
 	int		i = 0;
     
-	while (current != NULL) {
-        printf("n%d -> %s\n", i, current->content);
+	while (current != NULL)
+	{
+        printf("n%d -> %s ~~~~", i, current->content);
+		printf(" token -> %d\n", current->token_type);
         current = current->next;
 		i++;
     }
