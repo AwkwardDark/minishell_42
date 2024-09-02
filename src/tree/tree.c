@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/01 23:33:01 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/02 14:18:46 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,10 @@ void	clr_btree(t_btree *tree)
 {
 	if (!tree)
 		return ;
-	if (!tree->left_child && !tree->right_child)
-		free(tree);
-	else
-	{
-		clr_btree(tree->left_child);
-		clr_btree(tree->right_child);
-	}
+	clr_btree(tree->left_child);
+	clr_btree(tree->right_child);
+	ft_free_lst(&tree->token);
+	free(tree);
 }
 
 /* 
@@ -67,42 +64,36 @@ t_token	*remove_parenthesis(t_token *token)
 	return (token);
 }
 
-/* 
-	NEEDS Unit tests
-*/
-t_btree	*create_tokentree(t_token **token)
-{
-	t_token	*temp;
-	t_token	*right;
-	t_token	*left;
-
-	temp = ft_lstlast(*token);
-	temp = remove_parenthesis(temp);
-	if (contains_priority(temp, 3))
-	{
-		temp = contains_priority(temp, 3);
-		right = temp->next;
-		right->prev = NULL;
-		left = temp->prev;
-		left->next = NULL;
-		return (init_btree(temp, create_tokentree(&left), create_tokentree(&right)));
-	}
-	else if (contains_priority(temp, 2))
-	{
-		temp = contains_priority(temp, 3);
-		right = temp->next;
-		right->prev = NULL;
-		left = temp->prev;
-		left->next = NULL;
-		return (init_btree(temp, create_tokentree(&left), create_tokentree(&right)));
-	}
-	return (init_btree(*token, NULL, NULL));
-}
-
-/* // goes to the start of the token list
+// goes to the start of the token list
 t_token	*get_startlst(t_token *token)
 {
 	while (token->prev != NULL)
 		token = token->prev;
 	return (token);
-} */
+}
+
+t_btree	*create_tokentree(t_token **token)
+{
+	t_token	*temp;
+	t_token	*temp2;
+	t_token	*right;
+	t_token	*left;
+
+	temp = ft_lstlast(*token);
+	temp = remove_parenthesis(temp);
+	if (contains_priority(temp, 3) || contains_priority(temp, 2))
+	{
+		temp2 = contains_priority(temp, 3);
+		if (!temp2)
+			temp2 = contains_priority(temp, 2);
+		right = temp2->next;
+		right->prev = NULL;
+		left = temp2->prev;
+		left->next = NULL;
+		temp2->next = NULL;
+		temp2->prev = NULL;
+		return (init_btree(temp2, create_tokentree(&left),
+				create_tokentree(&right)));
+	}
+	return (init_btree(*token, NULL, NULL));
+}

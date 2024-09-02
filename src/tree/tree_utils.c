@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/01 23:33:22 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/02 14:05:05 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ void	display_btree(t_btree *tree)
 	else
 	{
 		printf("( ");
-		display_btree(tree->left_child);
 		display_type(tree->token->token_type);
+		printf(", ");
+		display_btree(tree->left_child);
+		printf(", ");
 		display_btree(tree->right_child);
 		printf(" )");
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:33:34 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/01 22:49:51 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/02 14:41:23 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_free_lst(t_token **a)
 {
 	t_token	*next;
-	t_token *cur;
+	t_token	*cur;
 
 	cur = *a;
 	while (cur != NULL)
@@ -73,16 +73,19 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 }
 
 /* prints the list of tokens */
-void ft_print_lst(t_token *lst)
+void	ft_print_lst(t_token *lst)
 {
-    t_token *current = lst;
-	int		i = 0;
-    
-	while (current != NULL) {
-        printf("n%d -> %s\n", i, current->content);
-        current = current->next;
+	t_token	*current;
+	int		i;
+
+	i = 0;
+	current = lst;
+	while (current != NULL)
+	{
+		printf("n%d -> %s\n", i, current->content);
+		current = current->next;
 		i++;
-    }
+	}
 }
 
 /* switch case to display all the enumerated types */
