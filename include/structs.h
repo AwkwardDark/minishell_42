@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/01 20:02:49 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/03 11:12:39 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_type {
 	AND=10,
 	OR=11,
 	PIPE=12,
-	CMD=15
+	WORD=0
 } t_type;
 
 /*Double linked list that stores all the information
@@ -73,5 +73,21 @@ typedef struct s_data {
 	char			*input;
 	int				exit_status;
 }		t_data;
+
+/* pipex structure */
+# define READ_FROM_FILE 1
+# define PIPE 2
+# define WRITE_TO_FILE 3
+# define HERE_DOC 4
+# include <errno.h>
+
+typedef struct s_pipe
+{
+	char			*outfile;
+	char			*infile;
+	struct s_env	*env;
+	int				heredoc;
+	char			*limiter;
+}	t_pipe;
 
 #endif

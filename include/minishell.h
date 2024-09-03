@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/02 13:53:09 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:28:42 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_btree	*create_tokentree(t_token **token);
 t_token	*ignore_parenthesis(t_token *token);
 t_token	*contains_priority(t_token *token, int priority);
 void	display_btree(t_btree *tree);
+int	is_leaf(t_btree *tree);
 
 /* src/builtins */
 void	ft_cd(char *path);
@@ -50,5 +51,23 @@ void	ft_env(t_env *env);
 void	ft_unset(char *var, t_data *data);
 void	ft_export(t_env **env, char *key, char *value);
 void	ft_echo(char **str, int NFLAG);
+
+/* pipex and bonus */
+int		pipex(char **cmds, t_pipe data, int argc);
+int		pipex_bonus(char **cmds, t_pipe data, int argc);
+int		redirect_io(t_pipe data, char *cmd, int flag);
+void	redirect_files(char *cmd, t_pipe data, int *pipe, int flag);
+void	executer(t_pipe data, char *cmd);
+char	*get_paths(t_env *env);
+char	*test_path(char *envpath, char *cmd);
+void	clear_wordar(char **str);
+char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
+t_pipe	init_data(char **argv, int argc, char **envp);
+void	error_disp(char *cmd, char *error_message);
+void	error_disp_exit(char *cmd, char *mdl, char *error_message, int eno);
+int		wait_children(pid_t last_child);
+
+// single_exec
+char	**lstenv_towordarr(t_env *env);
 
 #endif

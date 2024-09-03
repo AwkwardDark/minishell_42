@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/02 14:05:05 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:28:27 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,11 @@ void	display_btree(t_btree *tree)
 		display_btree(tree->right_child);
 		printf(" )");
 	}
+}
+
+int	is_leaf(t_btree *tree)
+{
+	if (!tree->left_child && !tree->right_child)
+		return (1);
+	return (0);
 }
