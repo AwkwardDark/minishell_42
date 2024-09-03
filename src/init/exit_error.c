@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:08:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/02 18:19:02 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:02:12 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	ft_error(int code)
 	if (code == 5)
 		ft_putstr_fd("Parenthesis syntax error\n", 2);
 	if (code == 6)
+		ft_putstr_fd(RED "\nGrammar syntax error\n\n" RESET, 2);
+	if (code == 7)
 		ft_putstr_fd("Malloc error\n", 2);
 }

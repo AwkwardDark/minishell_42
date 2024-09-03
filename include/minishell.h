@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:21:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 10:56:03 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:01:10 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 /*color for the minishell prompt*/
 # define GREEN "\033[0;92m"
+# define RED "\033[0;91m"
 # define GRAS "\033[1m"
 # define RESET "\033[0m"
 
@@ -68,6 +69,7 @@ void	ft_tokenize(t_token *lst);
 int 	ft_quote_syntax(char *input);
 int		ft_operator_syntax(char *input);
 int		ft_parenthesis_syntax(char *input);
+int		ft_grammar_syntax(t_token *lst);
 
 /*Parsing Utils*/
 int		ft_is_quote(char c, t_data *data);

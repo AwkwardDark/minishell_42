@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/02 17:07:24 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:47:46 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef enum e_type {
 separated by spaces or special characters/operators*/
 typedef struct s_token {
 	char			*content;
+	// char			**infile;
+	// char			**outfile;
+	// char			*delimiter;
 	t_type			token_type;
 	struct s_token	*next;
 	struct s_token	*prev;

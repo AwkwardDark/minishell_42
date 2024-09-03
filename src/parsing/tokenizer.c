@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 10:43:53 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:56:28 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_parser(char *input, t_data *data)
 		return (ft_error(5));
 	ft_lexer(input, data);
 	ft_tokenize(data->token_lst);
-	//ft_grammar_syntax(data->token_lst);
+	if (ft_grammar_syntax(data->token_lst))
+		return (ft_error(6));
 }
 
 static void	ft_isolate_node(char *input, t_data *data, int *i)

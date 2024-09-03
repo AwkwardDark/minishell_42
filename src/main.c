@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/02 18:18:36 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:56:32 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (ft_error(6), 1);
+		return (ft_error(7), 1);
 	ft_memset(data, 0, sizeof(t_data));
 	if (ft_init_data(envp, data))
 		return (1);
