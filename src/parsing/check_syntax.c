@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:04:29 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 10:38:09 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:19:02 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,31 @@ int	ft_operator_syntax(char *input)
 	return (0);
 }
 
-// int	ft_parenthesis_syntax(char *input)
-// {
-// 	int	i;
-// 	int	flag;
+int	ft_parenthesis_syntax(char *input)
+{
+	int	i;
+	int	count;
 	
-// 	i = 0;
-// 	flag = 0;
-// 	while (input[i])
-// 	{
-// 		if (input[i] == O_PAREN)
-// 			flag = 1;
-// 		if ()
-// 	}
-// 	return (0);
-// }
+	i = 0;
+	count = 0;
+	while (input[i])
+	{
+		if (input[i] && input[i] == O_PAREN)
+		{
+			count++;
+			i++;
+		}
+		if (input[i] && input[i] == C_PAREN)
+		{
+			count--;
+			i++;
+		}
+		if (input[i] && input[i] != O_PAREN && input[i] != C_PAREN)
+			i++;
+		if (count < 0)
+			break ;
+	}
+	if (count != 0)
+		return (1);
+	return (0);
+}
