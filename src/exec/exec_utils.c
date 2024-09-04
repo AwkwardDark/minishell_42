@@ -6,12 +6,13 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:29:03 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/04 10:42:48 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/04 23:30:17 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// check if thes command is a here doc or not
 int	is_heredoc(t_token *token)
 {
 	if (!token)
@@ -25,7 +26,8 @@ int	is_heredoc(t_token *token)
 	return (0);
 }
 
-char *get_limiter(t_token *token)
+// get the limiter
+char	*get_limiter(t_token *token)
 {
 	while (token != NULL)
 	{

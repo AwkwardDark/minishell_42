@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/04 16:57:57 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/04 23:54:14 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,6 @@ void	ft_unset(char *var, t_data *data);
 void	ft_export(t_env **env, char *key, char *value);
 void	ft_echo(char **str, int NFLAG);
 
-/* pipex and bonus */
-int		pipex(char **cmds, t_pipe data, int argc);
-int		pipex_bonus(char **cmds, t_pipe data, int argc);
-int		redirect_io(t_env env, t_token *token, int flag);
-void	clear_wordar(char **str);
-char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
-t_pipe	init_data(char **argv, int argc, char **envp);
-void	error_disp(char *cmd, char *error_message);
-void	error_disp_exit(char *cmd, char *mdl, char *error_message, int eno);
-int		wait_children(pid_t last_child);
-
 // single_exec
 void	executer(t_env *env, t_token *token);
 char	**lstenv_towordarr(t_env *env);
@@ -86,12 +75,14 @@ void	in_redirection(t_token *token);
 void	out_redirection(t_token *token);
 void	redirect_files(t_token *token, int *pipe, int flag, t_env *env);
 
-
 // exec.c
 int		exec_btree(t_btree *tree, t_env *env);
 int		wait_children(pid_t last_child);
 // static int		exec_pipes(t_btree *tree, t_env *env, int last_command)
 // static int		parse_exec(t_token *token, t_env *env, int flag);
 
+// src/errors/error.c
+void	error_disp(char *cmd, char *error_message);
+void	error_disp_exit(char *cmd, char *error_message, int eno);
 
 #endif

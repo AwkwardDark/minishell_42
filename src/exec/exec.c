@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/04 17:11:40 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/05 00:08:57 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	parse_exec(t_token *token, t_env *env, int flag)
 {
-	int fd[2];
+	int	fd[2];
 	int	child;
 
 	if (is_heredoc(token))
@@ -22,16 +22,18 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 	if (flag == PIPE)
 	{
 		if (pipe(fd) < 0)
-			fprintf(stderr, "error\n");
+			error_disp_exit("minishell: pipe: ", strerror(errno), 1);
 	}
 	child = fork();
+	if (child < 0)
+		error_disp_exit("minishell: fork: ", strerror(errno), 1);
 	if (child == 0)
 		redirect_files(token, fd, flag, env);
 	if (flag == PIPE)
 	{
 		close(fd[1]);
 		if (dup2(fd[0], STDIN_FILENO) < 0)
-			fprintf(stderr, "error\n");
+			error_disp_exit("minishell: dup2: ", strerror(errno), 1);
 		close(fd[0]);
 	}
 	return (child);
@@ -47,7 +49,8 @@ static int	exec_pipes(t_btree *tree, t_env *env, int last_command)
 	else if (last_command)
 	{
 		exec_pipes(tree->left_child, env, 0);
-		return (wait_children(parse_exec(tree->right_child->token, env, SIMPLE_COMMAND)));
+		return (wait_children(parse_exec(tree->right_child->token,
+					env, SIMPLE_COMMAND)));
 	}
 	else
 	{
@@ -75,24 +78,38 @@ int	wait_children(pid_t last_child)
 	return (retcode);
 }
 
-/* 
-	general function of execution
-*/
-int	exec_btree(t_btree *tree, t_env *env)
+// waits for one process SIMPLE_COMMAND
+static int	simplecmd_wait(int pid)
 {
-	if (is_leaf(tree))
-		parse_exec(tree->token, env, SIMPLE_COMMAND);
-	else if (tree->token->token_type == PIPE)
-		return (exec_pipes(tree, env,  1));
-	else if (tree->token->token_type == OR)
-		return (exec_btree(tree->left_child, env) || exec_btree(tree->right_child, env));
-	else if (tree->token->token_type == AND)
-	{
-		if (!exec_btree(tree->left_child, env))
-			return (0);
-		if (!exec_btree(tree->right_child, env))
-			return (0);
-		return (1);
-	}
+	int	status;
+
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
 }
 
+//	general function of execution
+int	exec_btree(t_btree *tree, t_env *env)
+{
+	int	ret;
+
+	if (is_leaf(tree))
+		return (simplecmd_wait(parse_exec(tree->token, env, SIMPLE_COMMAND)));
+	else if (tree->token->token_type == PIPE)
+		return (exec_pipes(tree, env, 1));
+	else if (tree->token->token_type == OR)
+	{
+		exec_btree(tree->left_child, env);
+		return (exec_btree(tree->right_child, env));
+	}
+	else if (tree->token->token_type == AND)
+	{
+		ret = exec_btree(tree->left_child, env);
+		if (ret != 0)
+			return (ret);
+		ret = exec_btree(tree->right_child, env);
+		if (ret != 0)
+			return (ret);
+		return (0);
+	}
+}

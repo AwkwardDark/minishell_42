@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/04 16:55:46 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/04 23:25:20 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_token	*contains_priority(t_token *token, int priority)
 }
 
 // displays the tree in the following format (node, left child, right child)
-void	display_btree(t_btree *tree)
+/* void	display_btree(t_btree *tree)
 {
 	if (tree == NULL)
 		return ;
@@ -80,7 +80,7 @@ void	display_btree(t_btree *tree)
 		display_btree(tree->right_child);
 		printf(" )");
 	}
-}
+} */
 
 int	is_leaf(t_btree *tree)
 {

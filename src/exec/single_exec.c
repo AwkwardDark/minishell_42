@@ -6,17 +6,19 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/04 15:33:08 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/05 00:11:24 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* 
-	function that will execute a single command it's basicaly the exec part
-	of pipex but with different arguments, TODO exit status with the signal (128 + signal)
-	this function most be called by a chld process the redirectiosn most be made before !!
-	the t_pipe data
+	function that will execute a single command it's basicaly 
+	the exec part of pipex but with different arguments, 
+	TODO exit status with the signal (128 + signal)
+	this function most be called by a chld process the 
+	redirectiosn most be made before !!
+	the t_pipe data TODO
  */
 void	executer(t_env *env, t_token *token)
 {
@@ -28,12 +30,12 @@ void	executer(t_env *env, t_token *token)
 		path = token->content;
 	else
 	{
-		argv = cmdlst_tocmdarr(token); // TODO see how we will get this data !
+		argv = cmdlst_tocmdarr(token);
 		path = test_path(get_paths(env), token->content);
 		if (!path)
 		{
 			clear_wordar(argv);
-			// error_disp_exit("pipex: ", argv[0], "command not found", 127);
+			error_disp_exit("minishell: command not found: ", argv[0], 127);
 		}
 	}
 	env_arr = lstenv_towordarr(env);
@@ -42,7 +44,7 @@ void	executer(t_env *env, t_token *token)
 		free(path);
 		free(env);
 		clear_wordar(argv);
-		// error_disp_exit("pipex: ", "", strerror(errno), 126);
+		error_disp_exit("minishell: exec: ", strerror(errno), 126);
 	}
 }
 
@@ -74,6 +76,8 @@ char	*test_path(char *envpath, char *cmd)
 	i = 0;
 	cmd_len = ft_strlen(cmd);
 	paths = ft_split(envpath, ':');
+	if (!envpath)
+		return (NULL);
 	while (paths[i])
 	{
 		path = add_cmdtopath(paths, cmd, cmd_len, i);
@@ -109,7 +113,7 @@ char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx)
 	return (path);
 }
 
-// +2 in the malloc because '=' and '\0'
+// +2 in the malloc because '=' and '\0' TODO
 static void	alloc_keyvalue(t_env *env, char **word_arr, int len)
 {
 	t_env	*temp;
@@ -119,9 +123,10 @@ static void	alloc_keyvalue(t_env *env, char **word_arr, int len)
 	temp = env;
 	while (i < len)
 	{
-		word_arr[i] = (char *)malloc(sizeof(char) * (ft_strlen(temp->key) + ft_strlen(temp->value) + 2));
+		word_arr[i] = (char *)malloc(sizeof(char)
+				* (ft_strlen(temp->key) + ft_strlen(temp->value) + 2));
 		if (!word_arr[i])
-			// TODO
+			fprintf(stderr, "error");
 		word_arr[i][0] = 0;
 		ft_strcpy(word_arr[i], temp->key);
 		ft_strcpy(&word_arr[i][ft_strlen(temp->key)], "=");
@@ -131,6 +136,7 @@ static void	alloc_keyvalue(t_env *env, char **word_arr, int len)
 	}
 	word_arr[i] = NULL;
 }
+
 char	**lstenv_towordarr(t_env *env)
 {
 	int	len;

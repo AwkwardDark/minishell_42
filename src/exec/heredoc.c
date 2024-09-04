@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/04 15:08:10 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/05 00:12:23 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 		line = get_next_line(STDIN_FILENO);
 	}
 	if (!line)
-		printf("SIGAL");// error_disp_exit("heredoc: ", "CTRL + d", 127); 
+		error_disp_exit("heredoc: ", "CTRL + d", 127);
 	else
 		free(line);
 	close(pipe_fd[1]);
@@ -49,16 +49,15 @@ void	do_mydoc(t_token *token, char *limiter)
 	int	ret;
 
 	if (pipe(fd) < 0)
-		fprintf(stderr, "minishell: pipe error\n");// error_disp_exit("pipex: pipe: ", strerror(errno), 1);
+		error_disp_exit("pipex: pipe: ", strerror(errno), 1);
 	ret = fork();
 	if (ret < 0)
-		fprintf(stderr, "fork error\n");// error_disp_exit("fork", strerror(errno), 1);
+		error_disp_exit("fork", strerror(errno), 1);
 	if (ret == 0)
 		heredoc_work(limiter, fd);
 	wait(NULL);
 	close(fd[1]);
 	if (dup2(fd[0], STDIN_FILENO) < 0)
-		// error_disp_exit("minishell", strerror(errno), 1);
+		error_disp_exit("minishell", strerror(errno), 1);
 	close(fd[0]);
 }
-

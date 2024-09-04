@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:21:37 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/04 17:12:29 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/04 21:29:49 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,16 +138,23 @@
 	t_token *tokenpipe = ft_lstnew("|", PIPE);
 	t_token *token3 = ft_lstnew("wc", WORD);
 	t_token *token4 = ft_lstnew("-l", WORD);
+	t_token *tokenand = ft_lstnew("&&", AND);
+	t_token *token5 = ft_lstnew("ls", WORD);
 
 	ft_lstadd_back(&token, token2);
 	ft_lstadd_back(&token, tokenpipe);
 	ft_lstadd_back(&token, token3);
 	ft_lstadd_back(&token, token4);
+	ft_lstadd_back(&token, tokenand);
+	ft_lstadd_back(&token, token5);
+	// ft_lstadd_back(&token, token6);
 
 	// ft_print_lst(token);
 	t_btree *tree_tokens = create_tokentree(&token); 
 	// display_btree(tree_tokens);
-	exec_btree(tree_tokens, env_lst);
+	int ret = exec_btree(tree_tokens, env_lst);
+	printf("exit status: %d\n", ret);
+	// display_btree(tree_tokens);
 	ft_clrenv(&env_lst);
 	clr_btree(tree_tokens);
 	return (0);;

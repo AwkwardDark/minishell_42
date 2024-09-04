@@ -6,12 +6,13 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:33:34 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/04 16:47:39 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/04 23:20:33 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// free the list of tokens
 void	ft_free_lst(t_token **a)
 {
 	t_token	*next;
@@ -27,6 +28,7 @@ void	ft_free_lst(t_token **a)
 	*a = NULL;
 }
 
+// initiate a new token
 t_token	*ft_lstnew(char *content, t_type type)
 {
 	t_token		*lstnew;
@@ -44,6 +46,7 @@ t_token	*ft_lstnew(char *content, t_type type)
 	return (lstnew);
 }
 
+// get the last token
 t_token	*ft_lstlast(t_token *lst)
 {
 	t_token	*current;
@@ -56,6 +59,7 @@ t_token	*ft_lstlast(t_token *lst)
 	return (current);
 }
 
+// add a token at the end of the list
 void	ft_lstadd_back(t_token **lst, t_token *new)
 {
 	t_token	*last;
@@ -89,7 +93,7 @@ void	ft_print_lst(t_token *lst)
 }
 
 /* switch case to display all the enumerated types */
-void	display_type(t_type type)
+/* void	display_type(t_type type)
 {
 	switch (type)
 	{
@@ -106,4 +110,4 @@ void	display_type(t_type type)
 		printf(" cmd ");
 		break;
 	}
-}
+} */

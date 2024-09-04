@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/04 17:06:59 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/05 00:02:09 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	in_redirection(t_token *token)
 		{
 			fd = open(token->content, O_RDONLY);
 			if (fd < 0)
-				// open error
+				error_disp_exit(token->content, ": open error", 1);
 			if (dup2(fd, STDIN_FILENO) < 0)
-				printf("minishell");
+				error_disp_exit("minishell: dup2: ", strerror(errno), 1);
 			close(fd);
 		}
 		token = token->next;
@@ -46,9 +46,9 @@ void	out_redirection(t_token *token)
 			else if (token->token_type == APPEND)
 				fd = open(token->content, O_CREAT | O_WRONLY | O_APPEND, 0664);
 			if (fd < 0)
-				// open error
+				error_disp_exit(token->content, ": open error", 1);
 			if (dup2(fd, STDIN_FILENO) < 0)
-				printf("minishell");
+				error_disp_exit("minishell: dup2: ", strerror(errno), 1);
 			close(fd);
 		}
 		token = token->next;
@@ -64,11 +64,9 @@ void	redirect_files(t_token *token, int *pipe, int flag, t_env *env)
 	if (flag == PIPE)
 	{
 		if (dup2(pipe[1], STDOUT_FILENO) < 0)
-			fprintf(stderr, "minishell dup error");// error_disp_exit("pipex: dup2: ", strerror(errno), 1);
+			error_disp_exit("minishell: dup2: ", strerror(errno), 1);
 		close(pipe[1]);
-		// return ;
 	}
 	out_redirection(token);
-
 	executer(env, token);
 }
