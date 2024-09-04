@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/30 14:43:02 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:02:26 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_addlstenv(t_env **env, char *key, char *value)
 	cur->next = new_env;
 }
 
-// free all the chained list
+/*free all the chained list*/
 void	ft_clrenv(t_env **head)
 {
 	t_env	*cur;

@@ -6,15 +6,16 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 18:19:46 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:07:10 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*It verifies basic syntax on quotes and operators.
-Then it tokenize each command based on operator and prioritis.
-Finally it ranges each*/
+/*It verifies basic syntax on quotes, operators and parenthesis,
+then it creates a double linked list where each node is separated by an space
+or and special symbol. Then it tokenize each node, and lastly it checks if
+the grammar between each node is correct*/
 void	ft_parser(char *input, t_data *data)
 {	
 	if (ft_quote_syntax(input) == 1)
@@ -27,16 +28,15 @@ void	ft_parser(char *input, t_data *data)
 	ft_tokenize(data->token_lst);
 	if (ft_grammar_syntax(data->token_lst, data))
 	{
-		if (data->syntax_error)
-			printf("minishell: syntax error near unexpected token `%s'\n", \
-			data->syntax_error);
-		else//not sure that it will ever enter here
-			ft_error(6);
+		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		ft_putstr_fd(data->syntax_error, 2);
+		ft_putstr_fd("'\n", 2);
 		return ;
 	}
 	//...
 }
-
+/*If there are quotes it will be in the same node, a special symbol (operator)
+is stocked in a new node*/
 static void	ft_isolate_node(char *input, t_data *data, int *i)
 {
 	while (input[*i] != ' ' && input[*i])

@@ -6,13 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 16:56:32 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:17:59 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
@@ -27,9 +27,7 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
-		if (!data->input)
-			break ;
-		if (!ft_strcmp(data->input, "exit"))
+		if (!data->input || !ft_strcmp(data->input, "exit"))
 			break ;
 		add_history(data->input);
 		ft_parser(data->input, data);

@@ -6,12 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:53:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 18:21:44 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:07:53 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*checks if the char c is a single or double quote*/
 int	ft_is_quote(char c, t_data *data)
 {
 	if (c == S_QUOTE)
@@ -27,6 +28,7 @@ int	ft_is_quote(char c, t_data *data)
 	return (0);
 }
 
+/*Checks if the char is a simple or double symbol (operator)*/
 static int	ft_is_symbol_lexer(char c, t_data *data)
 {
 	if (c == O_PAREN)

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 16:47:46 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:46:31 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,29 @@ typedef enum e_type {
 	AND=7,
 	OR=8,
 	PIPE=9,	
-} t_type;
+}	t_type;
 
 /*Double linked list that stores all the information
-separated by spaces or special characters/operators*/
+separated by spaces or special characters*/
+//TODO: Add redir, expand or wildcar metadata?
 typedef struct s_token {
 	char			*content;
-	// char			**infile;
-	// char			**outfile;
-	// char			*delimiter;
-	t_type			token_type;
+	t_type			token_type;	
 	struct s_token	*next;
 	struct s_token	*prev;
-	//expand, quote and wildcard?
-	//int				len;
-	//t_expand 		*expand;
 }		t_token;
 
 /*It stores a copy of the enviroment list, used mainly for
-the export, exand and unset built-ins*/
+the export, expand and unset built-ins*/
 typedef struct s_env {
-	char		*key;
-	char		*value;
-	struct s_env *next;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }	t_env;
 
 /*Main structure used for sharing information between the
-parsing and the execution*/
+parsing and the execution, also used for some small features
+ on error management*/
 typedef struct s_data {
 	struct s_env	*env;
 	struct s_token	*token_lst;
@@ -59,6 +55,7 @@ typedef struct s_data {
 	char			quote_type;
 	char			symbol;
 	int				exit_status;
+	char			*syntax_error;
 }		t_data;
 
-# endif
+#endif

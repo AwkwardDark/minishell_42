@@ -6,12 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:04:29 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 18:21:24 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:05:49 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*It checks that all the quotes are correctly closed*/
 int	ft_quote_syntax(char *input)
 {
 	int	i;
@@ -40,6 +41,7 @@ int	ft_quote_syntax(char *input)
 	return (0);
 }
 
+/*It advances in the input when it's inside some quote*/
 static void	ft_check_quote(char *input, int *i, t_data *data)
 {
 	if (input[*i])
@@ -54,6 +56,8 @@ static void	ft_check_quote(char *input, int *i, t_data *data)
 	}
 }
 
+/*It makes sure that logical and redirection operators are well typed,
+& or &&& or >>> or ||| is a syntax error for example*/
 int	ft_operator_syntax(char *input, t_data *data)
 {
 	int	i;
@@ -79,6 +83,8 @@ int	ft_operator_syntax(char *input, t_data *data)
 	return (0);
 }
 
+/*It makes sure all the parenthesis are well used, ) or ( isolated are a
+syntax error*/
 int	ft_parenthesis_syntax(char *input, t_data *data)
 {
 	int	i;

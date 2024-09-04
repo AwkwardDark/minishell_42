@@ -6,22 +6,23 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/02 18:10:16 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:02:10 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-void	ft_free_lst(t_token **a)
+/*It frees the content of each node and the node itself*/
+void	ft_free_lst(t_token **lst)
 {
 	t_token	*temp;
 
-	while (*a)
+	while (*lst)
 	{
-		temp = (*a)->next;
-		free((*a)->content);
-		free(*a);
-		*a = temp;
+		temp = (*lst)->next;
+		free((*lst)->content);
+		free(*lst);
+		*lst = temp;
 	}
 }
 
@@ -32,6 +33,7 @@ t_token	*ft_lstnew(char *content)
 	lstnew = malloc(sizeof(t_token));
 	if (!lstnew)
 		return (NULL);
+	ft_memset(lstnew, 0, sizeof(t_token));//inutile?
 	lstnew->content = content;
 	lstnew->next = NULL;
 	lstnew->prev = NULL;
@@ -66,16 +68,18 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	new->prev = last;
 }
 
-void ft_print_lst(t_token *lst)
+void	ft_print_lst(t_token *lst)
 {
-    t_token *current = lst;
-	int		i = 0;
-    
-	while (current != NULL)
+	int		i;
+	t_token	*current;
+
+	i = 0;
+	current = lst;
+	while (current)
 	{
-        printf("n%d -> %s ~~~~", i, current->content);
+		printf("n%d -> %s ~~~~", i, current->content);
 		printf(" token -> %d\n", current->token_type);
-        current = current->next;
+		current = current->next;
 		i++;
-    }
+	}
 }
