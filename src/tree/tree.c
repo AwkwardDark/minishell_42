@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/02 14:18:46 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:01:48 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ t_btree	*create_tokentree(t_token **token)
 		if (!temp2)
 			temp2 = contains_priority(temp, 2);
 		right = temp2->next;
-		right->prev = NULL;
 		left = temp2->prev;
+		right->prev = NULL;
 		left->next = NULL;
 		temp2->next = NULL;
 		temp2->prev = NULL;
 		return (init_btree(temp2, create_tokentree(&left),
 				create_tokentree(&right)));
 	}
-	return (init_btree(*token, NULL, NULL));
+	return (init_btree(get_startlst(*token), NULL, NULL));
 }

@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 22:03:56 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/04 15:08:53 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
+# include <sys/wait.h>
 /*Used for tokenize each node in the parsing*/
 typedef enum e_type {
 	//NONE=0?,

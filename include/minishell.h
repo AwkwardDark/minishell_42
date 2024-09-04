@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/03 22:04:28 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/04 16:57:57 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	display_type(t_type type);
 t_btree	*init_btree(t_token *token, t_btree *left, t_btree *right);
 void	clr_btree(t_btree *tree);
 t_token	*remove_parenthesis(t_token *token);
+t_token	*get_startlst(t_token *token);
 t_btree	*create_tokentree(t_token **token);
 
 /* src/tree/tree_utils.c */
@@ -56,10 +57,6 @@ void	ft_echo(char **str, int NFLAG);
 int		pipex(char **cmds, t_pipe data, int argc);
 int		pipex_bonus(char **cmds, t_pipe data, int argc);
 int		redirect_io(t_env env, t_token *token, int flag);
-void	redirect_files(char *cmd, t_pipe data, int *pipe, int flag);
-void	executer(t_pipe data, char *cmd);
-char	*get_paths(t_env *env);
-char	*test_path(char *envpath, char *cmd);
 void	clear_wordar(char **str);
 char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
 t_pipe	init_data(char **argv, int argc, char **envp);
@@ -68,6 +65,33 @@ void	error_disp_exit(char *cmd, char *mdl, char *error_message, int eno);
 int		wait_children(pid_t last_child);
 
 // single_exec
+void	executer(t_env *env, t_token *token);
 char	**lstenv_towordarr(t_env *env);
+char	*get_paths(t_env *env);
+char	*test_path(char *envpath, char *cmd);
+char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
+char	**lstenv_towordarr(t_env *env);
+char	**cmdlst_tocmdarr(t_token *token);
+
+// exec_utils.c
+int		is_heredoc(t_token *token);
+char 	*get_limiter(t_token *token);
+
+//heredoc.c
+void	do_mydoc(t_token *token, char *limiter);
+// static void	heredoc_work(char *limiter, int *pipe_fd)
+
+//src/exec/redirections.c
+void	in_redirection(t_token *token);
+void	out_redirection(t_token *token);
+void	redirect_files(t_token *token, int *pipe, int flag, t_env *env);
+
+
+// exec.c
+int		exec_btree(t_btree *tree, t_env *env);
+int		wait_children(pid_t last_child);
+// static int		exec_pipes(t_btree *tree, t_env *env, int last_command)
+// static int		parse_exec(t_token *token, t_env *env, int flag);
+
 
 #endif

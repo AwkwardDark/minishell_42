@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:33:34 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/02 14:41:23 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:47:39 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_print_lst(t_token *lst)
 	current = lst;
 	while (current != NULL)
 	{
-		printf("n%d -> %s\n", i, current->content);
+		printf("%d -> %s\n", i, current->content);
 		current = current->next;
 		i++;
 	}

@@ -6,31 +6,24 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:21:37 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/03 12:32:32 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/04 17:12:29 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **env)
+ int main(int argc, char **argv, char **env)
 {
-	t_data	*data;
+/*  	t_data	*data;
 	char *input;
 
 	argv = argv;
 	argc = argc + 1;
-	data = (t_data *)malloc(sizeof(t_data));
-	data->env = ft_cpyenv(env);
-	char **format_env = lstenv_towordarr(data->env);
+	data = (t_data *)malloc(sizeof(t_data)); 
+	data->env = ft_cpyenv(env);*/
+/*	char **format_env = lstenv_towordarr(data->env);
 	int i = 0;
-	while (format_env[i])
-	{
-		fprintf(stderr, "%s\n", format_env[i]);
-		i++;
-	}
-	clear_wordar(format_env);
-	ft_clrenv(&data->env);
-	free(data);
+ */
 	
 	// while((input = readline("prompt> ")) != 0) 
 	// {
@@ -104,7 +97,7 @@ int main(int argc, char **argv, char **env)
 	ft_lstadd_back(&token, tokencmd4);
 	ft_lstadd_back(&token, PF); */
 
-/* 	t_token *token = ft_lstnew("cmd1", CMD);
+/* 	t_token *token = ft_lstnew("cmd1", WORD);
 	t_token *tokencmd2 = ft_lstnew("cmd2", CMD);
 	t_token *tokencmd3 = ft_lstnew("cmd3", CMD);
 	t_token *tokencmd4 = ft_lstnew("cmd4", CMD);
@@ -137,11 +130,49 @@ int main(int argc, char **argv, char **env)
 	ft_lstadd_back(&token, tokencmd6);
 	ft_lstadd_back(&token, tokenCP);
 	ft_lstadd_back(&token, tokenAND3);
-	ft_lstadd_back(&token, tokencmd7);
+	ft_lstadd_back(&token, tokencmd7); */
 
-	t_btree *tree_tokens = create_tokentree(&token);
-	display_btree(tree_tokens);
-	 clr_btree(tree_tokens)*/;
-	// ft_free_lst(&token);
+	t_env *env_lst = ft_cpyenv(env);
+	t_token *token = ft_lstnew("ls", WORD);
+	t_token *token2 = ft_lstnew("-l", WORD);
+	t_token *tokenpipe = ft_lstnew("|", PIPE);
+	t_token *token3 = ft_lstnew("wc", WORD);
+	t_token *token4 = ft_lstnew("-l", WORD);
+
+	ft_lstadd_back(&token, token2);
+	ft_lstadd_back(&token, tokenpipe);
+	ft_lstadd_back(&token, token3);
+	ft_lstadd_back(&token, token4);
+
+	// ft_print_lst(token);
+	t_btree *tree_tokens = create_tokentree(&token); 
+	// display_btree(tree_tokens);
+	exec_btree(tree_tokens, env_lst);
+	ft_clrenv(&env_lst);
+	clr_btree(tree_tokens);
 	return (0);;
 }
+
+/* int	main(int argc, char **argv, char **env)
+{
+	argc = 0;
+	argv = 0;
+	int	i = 0;
+
+	char	*tab[3] = {"ls", "-l", 0};
+	char	*file[3] = {"file1", "file2", 0};
+	int child = fork();
+	int	fd;
+	if (child == 0)
+	{
+		while (file[i])
+		{
+			fd = open(file[i], O_CREAT | O_TRUNC | O_WRONLY, 0644);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+			i++;
+		}
+		execve("/usr/bin/ls", tab, env);
+	}
+	return (0);
+} */
