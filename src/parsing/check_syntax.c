@@ -6,28 +6,28 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:04:29 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 11:19:02 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:21:24 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_quote_syntax(char *input)
+int	ft_quote_syntax(char *input)
 {
-	int		i;
-	int		count;
-	int		flag;
+	int	i;
+	int	count;
+	int	flag;
 
 	i = -1;
 	count = 1;
 	while (input[++i])
 	{
-		if ((input[i] == '\'') && (flag == 0 || flag == 1))
+		if ((input[i] == S_QUOTE) && (flag == 0 || flag == 1))
 		{
 			flag = 1;
 			count *= -1;
 		}
-		if ((input[i] == '"') && (flag == 0|| flag == 2))
+		if ((input[i] == D_QUOTE) && (flag == 0 || flag == 2))
 		{
 			flag = 2;
 			count *= -1;
@@ -40,13 +40,28 @@ int ft_quote_syntax(char *input)
 	return (0);
 }
 
-int	ft_operator_syntax(char *input)
+static void	ft_check_quote(char *input, int *i, t_data *data)
+{
+	if (input[*i])
+	{
+		if (input[*i] == S_QUOTE || input[*i] == D_QUOTE)
+		{
+			data->quote_type = input[*i];
+			(*i)++;
+			while (input[*i] != data->quote_type)
+				(*i)++;
+		}
+	}
+}
+
+int	ft_operator_syntax(char *input, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
+		ft_check_quote(input, &i, data);
 		if (input[i] == '&')
 		{
 			i++;
@@ -64,15 +79,16 @@ int	ft_operator_syntax(char *input)
 	return (0);
 }
 
-int	ft_parenthesis_syntax(char *input)
+int	ft_parenthesis_syntax(char *input, t_data *data)
 {
 	int	i;
 	int	count;
-	
+
 	i = 0;
 	count = 0;
 	while (input[i])
 	{
+		ft_check_quote(input, &i, data);
 		if (input[i] && input[i] == O_PAREN)
 		{
 			count++;
@@ -88,7 +104,5 @@ int	ft_parenthesis_syntax(char *input)
 		if (count < 0)
 			break ;
 	}
-	if (count != 0)
-		return (1);
-	return (0);
+	return (count != 0);
 }

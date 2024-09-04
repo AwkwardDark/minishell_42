@@ -6,27 +6,35 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 16:56:28 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:19:46 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*It verifies basic synta on quotes and operators.
+/*It verifies basic syntax on quotes and operators.
 Then it tokenize each command based on operator and prioritis.
 Finally it ranges each*/
 void	ft_parser(char *input, t_data *data)
 {	
 	if (ft_quote_syntax(input) == 1)
-		return(ft_error(0));
-	if (ft_operator_syntax(input) == 1)
-	 	return ;
-	if (ft_parenthesis_syntax(input) == 1)
+		return (ft_error(0));
+	if (ft_operator_syntax(input, data) == 1)
+		return ;
+	if (ft_parenthesis_syntax(input, data) == 1)
 		return (ft_error(5));
 	ft_lexer(input, data);
 	ft_tokenize(data->token_lst);
-	if (ft_grammar_syntax(data->token_lst))
-		return (ft_error(6));
+	if (ft_grammar_syntax(data->token_lst, data))
+	{
+		if (data->syntax_error)
+			printf("minishell: syntax error near unexpected token `%s'\n", \
+			data->syntax_error);
+		else//not sure that it will ever enter here
+			ft_error(6);
+		return ;
+	}
+	//...
 }
 
 static void	ft_isolate_node(char *input, t_data *data, int *i)

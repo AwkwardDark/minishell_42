@@ -1,12 +1,24 @@
-# include "../../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/04 16:14:30 by pajimene          #+#    #+#             */
+/*   Updated: 2024/09/04 16:15:14 by pajimene         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void ft_extract_word(char *input, t_data *data)
+#include "../../include/minishell.h"
+
+void	ft_extract_word(char *input, t_data *data)
 {
 	char	*content;
 	int		start;
 	int		end;
 	int		i;
-	
+
 	i = 0;
 	start = 0;
 	end = 0;
@@ -21,7 +33,7 @@ void ft_extract_word(char *input, t_data *data)
 		{
 			if (is_quote(input[i], data))
 			{
-				while(input[i + 1] != data->quote_type)
+				while (input[i + 1] != data->quote_type)
 					i++;
 				i++;
 			}
@@ -37,9 +49,9 @@ void ft_extract_word(char *input, t_data *data)
 	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = malloc(sizeof(t_data));
 	if (ac == 2)
