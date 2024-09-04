@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/03 11:12:39 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/03 22:03:56 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,8 @@ typedef struct s_data {
 }		t_data;
 
 /* pipex structure */
-# define READ_FROM_FILE 1
-# define PIPE 2
-# define WRITE_TO_FILE 3
-# define HERE_DOC 4
+# define PIPE 1
+# define SIMPLE_COMMAND 2 
 # include <errno.h>
 
 typedef struct s_pipe

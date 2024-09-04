@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/03 14:28:42 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/03 22:04:28 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_echo(char **str, int NFLAG);
 /* pipex and bonus */
 int		pipex(char **cmds, t_pipe data, int argc);
 int		pipex_bonus(char **cmds, t_pipe data, int argc);
-int		redirect_io(t_pipe data, char *cmd, int flag);
+int		redirect_io(t_env env, t_token *token, int flag);
 void	redirect_files(char *cmd, t_pipe data, int *pipe, int flag);
 void	executer(t_pipe data, char *cmd);
 char	*get_paths(t_env *env);

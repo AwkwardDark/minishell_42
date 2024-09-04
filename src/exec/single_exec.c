@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/03 14:40:04 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/03 15:41:07 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* 
 	function that will execute a single command it's basicaly the exec part
-	of pipex but with different arguments, TODO exite status with the signal (128 + signal)
+	of pipex but with different arguments, TODO exit status with the signal (128 + signal)
 	this function most be called by a chld process the redirectiosn most be made before !!
 	the t_pipe data
  */
