@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 16:16:23 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:06:35 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ int	exec_btree(t_btree *tree, t_env *env)
 	if (is_leaf(tree))
 		return (simplecmd_wait(parse_exec(tree->token, env, SIMPLE_COMMAND)));
 	else if (tree->token->token_type == PIPE)
+	{
+		printf("here\n");
 		return (exec_pipes(tree, env, 1));
+	}
 	else if (tree->token->token_type == OR)
 	{
 		exec_btree(tree->left_child, env);

@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 15:57:55 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:47:00 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	in_redirection(t_token *token)
 	int	fd;
 
 	while (token != NULL)
-	{
+	{			
+
 		if (token->token_type == R_IN)
 		{
+			printf("\n\n\NERRREEEVVEERRR\n\n\n");
 			fd = open(token->content, O_RDONLY);
 			if (fd < 0)
 				error_disp_exit(token->content, ": open error", 1);
@@ -41,6 +43,7 @@ void	out_redirection(t_token *token)
 	{
 		if (token->token_type == R_OUT || token->token_type == APPEND)
 		{
+			printf("\n\n\NERRREEEVVEERRR\n\n\n");
 			if (token->token_type == R_OUT)
 				fd = open(token->content, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 			else if (token->token_type == APPEND)
