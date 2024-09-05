@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 19:02:10 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:12:08 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,13 @@ void	ft_print_lst(t_token *lst)
 	current = lst;
 	while (current)
 	{
-		printf("n%d -> %s ~~~~", i, current->content);
+		if ((current->token_type == IN_R) || (current->token_type == OUT_R) || \
+			(current->token_type == HEREDOC) || (current->token_type == APPEND))
+			printf("\n");
+		printf("n%d -> %s ----", i, current->content);
 		printf(" token -> %d\n", current->token_type);
+		if (current->redir)
+			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
 		current = current->next;
 		i++;
 	}

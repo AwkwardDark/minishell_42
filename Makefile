@@ -6,7 +6,7 @@
 #    By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 14:39:49 by pajimene          #+#    #+#              #
-#    Updated: 2024/09/04 16:08:32 by pajimene         ###   ########.fr        #
+#    Updated: 2024/09/05 14:00:55 by pajimene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC_MAIN    =  main.c
 
 SRC_INIT    =  exit_error.c init.c
                 
-SRC_PARSING =  check_syntax.c tokenizer.c lexer_utils.c token_utils.c check_grammar.c
+SRC_PARSING =  check_syntax.c tokenizer.c lexer_utils.c token_utils.c check_grammar.c redir.c
 
 SRC_UTILS   =  lst_utils.c ft_cpyenv.c ls_env.c symbols.c
 

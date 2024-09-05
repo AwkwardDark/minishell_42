@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 18:46:31 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:59:13 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ separated by spaces or special characters*/
 //TODO: Add redir, expand or wildcar metadata?
 typedef struct s_token {
 	char			*content;
-	t_type			token_type;	
+	t_type			token_type;
+	//int				expand[2];
+	//int				wildcard;
+	char			*redir;
 	struct s_token	*next;
 	struct s_token	*prev;
 }		t_token;

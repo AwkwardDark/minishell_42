@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 19:07:10 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:03:41 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ void	ft_parser(char *input, t_data *data)
 	ft_tokenize(data->token_lst);
 	if (ft_grammar_syntax(data->token_lst, data))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		ft_putstr_fd(RED"minishell: syntax error near unexpected token `", 2);
 		ft_putstr_fd(data->syntax_error, 2);
-		ft_putstr_fd("'\n", 2);
+		ft_putstr_fd("'\n"RESET, 2);
 		return ;
 	}
-	//...
+	//ft_pre_expand(data->token_lst, data);
+	ft_redir_check(data->token_lst);
+	ft_print_lst(data->token_lst);
 }
 /*If there are quotes it will be in the same node, a special symbol (operator)
 is stocked in a new node*/
@@ -84,7 +86,7 @@ void	ft_tokenize(t_token *lst)
 	t_token	*current;
 
 	current = lst;
-	while (current != NULL)
+	while (current)
 	{
 		if (ft_is_symbol(current->content[0]))
 			ft_token_symbol(current->content, current);
@@ -92,5 +94,4 @@ void	ft_tokenize(t_token *lst)
 			current->token_type = WORD;
 		current = current->next;
 	}
-	ft_print_lst(lst);
 }

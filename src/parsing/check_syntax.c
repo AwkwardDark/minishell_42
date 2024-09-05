@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:04:29 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 19:05:49 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/05 11:25:53 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_quote_syntax(char *input)
 
 	i = -1;
 	count = 1;
+	flag = 0;
 	while (input[++i])
 	{
 		if ((input[i] == S_QUOTE) && (flag == 0 || flag == 1))
