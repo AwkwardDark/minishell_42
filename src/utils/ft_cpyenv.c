@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_wordarr.c                                    :+:      :+:    :+:   */
+/*   ft_cpyenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 16:37:56 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 15:14:22 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/08/29 15:32:00 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/08/29 16:04:05 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "minishell.h"
 
-void	clear_wordar(char **str)
+t_env	*ft_cpyenv(char **env)
 {
-	int	i;
+	t_env	*env_lst;
+	char	key[300];
+	int		i;
+	int		j;
 
-	if (!str)
-		return ;
+	env_lst = NULL;
+	ft_bzero(key, 300);
+	j = 0;
 	i = 0;
-	while (str[i])
+	while (env[i])
 	{
-		free(str[i]);
+		while (env[i][j] != '=')
+			j++;
+		ft_strncpy(key, env[i], j);
+		ft_addlstenv(&env_lst, ft_strdup(key), ft_strdup(&env[i][j + 1]));
+		j = 0;
 		i++;
 	}
-	free(str);
+	return (env_lst);
 }

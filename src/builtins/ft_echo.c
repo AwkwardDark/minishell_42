@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_wordarr.c                                    :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 16:37:56 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 15:14:22 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/08/30 14:47:04 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/09/02 18:27:22 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "minishell.h"
 
-void	clear_wordar(char **str)
+void	ft_echo(char **str, int NFLAG)
 {
-	int	i;
-
-	if (!str)
+	if (!str && !NFLAG)
+		printf("\n");
+	else if (!str && NFLAG)
 		return ;
-	i = 0;
-	while (str[i])
+	else
 	{
-		free(str[i]);
-		i++;
+		while (*str)
+		{
+			printf("%s", *str);
+			if (*(str + 1) != NULL)
+				printf(" ");
+			str++;
+		}
 	}
-	free(str);
+	if (!NFLAG)
+		printf("\n");
 }

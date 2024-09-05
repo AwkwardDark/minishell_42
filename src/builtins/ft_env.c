@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_wordarr.c                                    :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 16:37:56 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 15:14:22 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/08/28 14:06:08 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/08/29 15:09:10 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+/* #include "" */
 
-void	clear_wordar(char **str)
+#include "minishell.h"
+
+// displays envirement variables if they exist
+
+void	ft_env(t_env *env)
 {
-	int	i;
-
-	if (!str)
+	if (!env)
 		return ;
-	i = 0;
-	while (str[i])
+	while (env != NULL)
 	{
-		free(str[i]);
-		i++;
+		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
 	}
-	free(str);
 }

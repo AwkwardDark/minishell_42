@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_wordarr.c                                    :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 16:37:56 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 15:14:22 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/08/27 22:16:35 by pierre            #+#    #+#             */
+/*   Updated: 2024/08/29 15:09:06 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+/* include "" */
+#include "minishell.h"
 
-void	clear_wordar(char **str)
+void	ft_pwd(void)
 {
-	int	i;
+	char	buffer[1000];
 
-	if (!str)
-		return ;
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
+	if (!getcwd(buffer, 1000))
+		perror("minishell");
+	else
+		printf("%s\n", buffer);
 }

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 00:22:57 by pierre            #+#    #+#             */
-/*   Updated: 2024/07/23 10:08:31 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/05 15:14:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
+#include "stdio.h"
 
 static int	ft_count_words(char const *s, char c)
 {
@@ -91,6 +92,8 @@ char	**ft_split(char const *s, char c)
 	if (!strs)
 		return (0);
 	strs[words] = 0;
+	if (words == 0)
+		return (strs);
 	ret = ft_alloc_words(s, c, strs);
 	if (ret >= 0)
 	{
@@ -106,20 +109,25 @@ char	**ft_split(char const *s, char c)
 	return (strs);
 }
 
-/* #include "stdio.h"
-int main()
+/* int main()
 {
 	char *cmd = "";
 	char **s = ft_split(cmd, ' ');
-	if (!s)
-	{
-		printf("error");
-		return (0);
-	}
-	while (*s)
-	{
-		printf("%s", *s);
-		s++;
-	}
+
+	clear_wordar(s);
 	return (0);
+}
+void	clear_wordar(char **str)
+{
+	int	i;
+
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 } */
