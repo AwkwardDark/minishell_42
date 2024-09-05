@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 00:08:57 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/05 16:16:23 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 	int	child;
 
 	if (is_heredoc(token))
-		do_mydoc(token, get_limiter(token));
+		do_mydoc(get_limiter(token));
 	if (flag == PIPE)
 	{
 		if (pipe(fd) < 0)
@@ -56,6 +56,7 @@ static int	exec_pipes(t_btree *tree, t_env *env, int last_command)
 	{
 		exec_pipes(tree->left_child, env, 0);
 		exec_pipes(tree->right_child, env, 0);
+		// return (1);
 	}
 }
 
@@ -86,6 +87,7 @@ static int	simplecmd_wait(int pid)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
+	return (-1);
 }
 
 //	general function of execution
@@ -112,4 +114,5 @@ int	exec_btree(t_btree *tree, t_env *env)
 			return (ret);
 		return (0);
 	}
+	// return (-1);
 }

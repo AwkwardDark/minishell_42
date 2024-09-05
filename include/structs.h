@@ -6,14 +6,14 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 15:45:23 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:59:24 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
  
-# define NULL 0
+// # define NULL 0
 # include "../libft/includes/libft.h"
 # include <dirent.h>
 # include <unistd.h>
@@ -28,8 +28,8 @@
 /*Used for tokenize each node in the parsing*/
 typedef enum e_type {
 	WORD=0,
-	IN_R=1,
-	OUT_R=2,
+	R_IN=1,
+	R_OUT=2,
 	HEREDOC=3,
 	APPEND=4,
 	O_PAR=5,

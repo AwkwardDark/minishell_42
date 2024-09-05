@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_grammar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:01:05 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 16:51:31 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:58:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int	ft_redir_grammar(t_token *current)
 	if (current->prev)
 	{
 		if ((current->prev->token_type == C_PAR) || \
-			(current->prev->token_type == IN_R) || \
-				(current->prev->token_type == OUT_R) || \
+			(current->prev->token_type == R_IN) || \
+				(current->prev->token_type == R_OUT) || \
 					(current->prev->token_type == HEREDOC) || \
 						(current->prev->token_type == APPEND))
 			return (1);
@@ -111,7 +111,7 @@ int	ft_grammar_syntax(t_token *lst, t_data *data)
 			(current->token_type == PIPE))
 			if (ft_and_or_pipe_grammar(current))
 				return (1);
-		if ((current->token_type == IN_R) || (current->token_type == OUT_R) || \
+		if ((current->token_type == R_IN) || (current->token_type == R_OUT) || \
 			(current->token_type == HEREDOC) || (current->token_type == APPEND))
 			if (ft_redir_grammar(current))
 				return (1);

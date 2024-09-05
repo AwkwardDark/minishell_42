@@ -6,19 +6,18 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 00:22:57 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 15:29:16 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:01:33 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 #include "stdio.h"
 
-static int	ft_count_words(char const *s, char c, int quote)
+static int	ft_count_words(char const *s, char c)
 {
 	int	n;
 	int	words;
 
-	(void)quote;
 	words = 0;
 	n = 0;
 	while (s[n])
@@ -82,14 +81,13 @@ static int	ft_alloc_words(char const *s, char c, char **strs)
 	return (-1);
 }
 
-char	**ft_split(char const *s, char c, int quote)
+char	**ft_split(char const *s, char c)
 {
 	char	**strs;
 	int		words;
 	int		ret;
 
-	(void)quote;
-	words = ft_count_words(s, c, quote);
+	words = ft_count_words(s, c);
 	strs = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!strs)
 		return (0);

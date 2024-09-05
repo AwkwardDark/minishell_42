@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/05 15:49:14 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:07:25 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int		is_heredoc(t_token *token);
 char 	*get_limiter(t_token *token);
 
 //heredoc.c
-void	do_mydoc(t_token *token, char *limiter);
+void	do_mydoc(char *limiter);
 // static void	heredoc_work(char *limiter, int *pipe_fd)
 
 //src/exec/redirections.c

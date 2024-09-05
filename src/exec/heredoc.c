@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 00:12:23 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/05 16:07:13 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 	exit(EXIT_SUCCESS);
 }
 
-void	do_mydoc(t_token *token, char *limiter)
+void	do_mydoc(char *limiter)
 {
 	int	fd[2];
 	int	ret;
