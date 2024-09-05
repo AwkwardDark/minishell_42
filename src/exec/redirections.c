@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 16:47:00 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:37:10 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void	in_redirection(t_token *token)
 
 		if (token->token_type == R_IN)
 		{
-			printf("\n\n\NERRREEEVVEERRR\n\n\n");
-			fd = open(token->content, O_RDONLY);
+			fd = open(token->redir, O_RDONLY);
 			if (fd < 0)
-				error_disp_exit(token->content, ": open error", 1);
+				error_disp_exit(token->redir, ": open error", 1);
 			if (dup2(fd, STDIN_FILENO) < 0)
 				error_disp_exit("minishell: dup2: ", strerror(errno), 1);
 			close(fd);
@@ -43,14 +42,13 @@ void	out_redirection(t_token *token)
 	{
 		if (token->token_type == R_OUT || token->token_type == APPEND)
 		{
-			printf("\n\n\NERRREEEVVEERRR\n\n\n");
 			if (token->token_type == R_OUT)
-				fd = open(token->content, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+				fd = open(token->redir, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 			else if (token->token_type == APPEND)
-				fd = open(token->content, O_CREAT | O_WRONLY | O_APPEND, 0664);
+				fd = open(token->redir, O_CREAT | O_WRONLY | O_APPEND, 0664);
 			if (fd < 0)
-				error_disp_exit(token->content, ": open error", 1);
-			if (dup2(fd, STDIN_FILENO) < 0)
+				error_disp_exit(token->redir, ": open error", 1);
+			if (dup2(fd, STDOUT_FILENO) < 0)
 				error_disp_exit("minishell: dup2: ", strerror(errno), 1);
 			close(fd);
 		}

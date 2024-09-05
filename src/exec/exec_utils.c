@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:29:03 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/04 23:30:17 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/05 17:39:02 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_limiter(t_token *token)
 	while (token != NULL)
 	{
 		if (token->token_type == HEREDOC)
-			return (token->content);
+			return (token->redir);
 		token = token->next;
 	}
 	return (NULL);
