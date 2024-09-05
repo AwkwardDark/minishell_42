@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   symbols.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 00:21:28 by pierre            #+#    #+#             */
-/*   Updated: 2024/08/30 14:43:53 by pajimene         ###   ########.fr       */
+/*   Created: 2024/09/02 16:22:21 by pajimene          #+#    #+#             */
+/*   Updated: 2024/09/05 15:28:22 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "minishell.h"
 
-void	ft_lstadd_back_b(t_list **lst, t_list *new)
+int	ft_is_symbol(char c)
 {
-	t_list	*temp;
+	char	*set;
+	int		i;
 
-	temp = *lst;
-	if (*lst == NULL)
-		*lst = new;
-	else
+	i = 0;
+	set = "()><|&";
+	while (set[i])
 	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		if (c == set[i])
+			return (1);
+		i++;
 	}
+	return (0);
 }

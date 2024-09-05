@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 00:21:58 by pierre            #+#    #+#             */
-/*   Updated: 2024/06/03 17:40:57 by pierre           ###   ########.fr       */
+/*   Updated: 2024/08/30 14:44:30 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-t_list	*ft_lstnew(void *content, int len)
+t_list	*ft_lstnew_b(void *content, int len)
 {
 	t_list	*liste;
 

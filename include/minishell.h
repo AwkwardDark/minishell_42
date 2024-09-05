@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/05 15:13:34 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:39:28 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "structs.h"
+# include "../libft/includes/libft.h"
 
 /* src/utils/ls_env.c */
 t_env	*ft_initenv(char *key, char *value);
