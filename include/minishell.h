@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:21:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 14:00:43 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:44:53 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_clrenvnode(t_env *env);
 t_env	*ft_cpyenv(char **env);
 
 /*Redir*/
-void	ft_redir_check(t_token *lst);
+void	ft_redir_check(t_token **lst);
 
 /*Parser, Lexer and Simple Syntax management*/
 int		ft_init_data(char **envp, t_data *data);
