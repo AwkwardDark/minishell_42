@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 17:06:35 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 15:16:16 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,26 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 */
 static int	exec_pipes(t_btree *tree, t_env *env, int last_command)
 {
+	int	in;
+	int	re;
+
 	if (is_leaf(tree))
 		return (parse_exec(tree->token, env, PIPE));
 	else if (last_command)
 	{
+		in = dup(0);
 		exec_pipes(tree->left_child, env, 0);
-		return (wait_children(parse_exec(tree->right_child->token,
-					env, SIMPLE_COMMAND)));
+		re = wait_children(parse_exec(tree->right_child->token,
+					env, SIMPLE_COMMAND));
+		dup2(in, STDIN_FILENO);
+		close(in);
+		return (re);
 	}
 	else
 	{
 		exec_pipes(tree->left_child, env, 0);
 		exec_pipes(tree->right_child, env, 0);
-		// return (1);
+		return (1);
 	}
 }
 
@@ -99,7 +106,6 @@ int	exec_btree(t_btree *tree, t_env *env)
 		return (simplecmd_wait(parse_exec(tree->token, env, SIMPLE_COMMAND)));
 	else if (tree->token->token_type == PIPE)
 	{
-		printf("here\n");
 		return (exec_pipes(tree, env, 1));
 	}
 	else if (tree->token->token_type == OR)
@@ -117,5 +123,5 @@ int	exec_btree(t_btree *tree, t_env *env)
 			return (ret);
 		return (0);
 	}
-	// return (-1);
+	return (-1);
 }

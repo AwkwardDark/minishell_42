@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 17:37:10 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 15:16:25 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	in_redirection(t_token *token)
 
 	while (token != NULL)
 	{			
-
 		if (token->token_type == R_IN)
 		{
 			fd = open(token->redir, O_RDONLY);
@@ -33,7 +32,7 @@ void	in_redirection(t_token *token)
 	}
 }
 
-// series of open and redirections to an OUT FILE
+// series of open and reenvdirections to an OUT FILE
 void	out_redirection(t_token *token)
 {
 	int	fd;
