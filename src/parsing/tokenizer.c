@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 14:44:39 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/06 17:33:17 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ void	ft_parser(char *input, t_data *data)
 		return ;
 	}
 	//ft_pre_expand(data->token_lst, data);
+	ft_remove_quotes(data->token_lst, data);
 	ft_redir_check(&data->token_lst);
-	ft_print_lst(data->token_lst);
+	//ft_print_lst(data->token_lst);
 }
+
 /*If there are quotes it will be in the same node, a special symbol (operator)
 is stocked in a new node*/
 static void	ft_isolate_node(char *input, t_data *data, int *i)

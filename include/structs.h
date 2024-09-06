@@ -3,21 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 13:59:13 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:59:24 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+ 
+// # define NULL 0
+# include "../libft/includes/libft.h"
+# include <dirent.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/wait.h>
+# define SIMPLE_COMMAND 2 
+# include <errno.h>
 
 /*Used for tokenize each node in the parsing*/
 typedef enum e_type {
 	WORD=0,
-	IN_R=1,
-	OUT_R=2,
+	R_IN=1,
+	R_OUT=2,
 	HEREDOC=3,
 	APPEND=4,
 	O_PAR=5,
@@ -60,5 +72,22 @@ typedef struct s_data {
 	int				exit_status;
 	char			*syntax_error;
 }		t_data;
+
+/* Pierre */
+
+typedef struct s_btree {
+	t_token			*token;
+	struct s_btree	*left_child;
+	struct s_btree	*right_child;
+}	t_btree;
+
+typedef struct s_pipe
+{
+	char			*outfile;
+	char			*infile;
+	struct s_env	*env;
+	int				heredoc;
+	char			*limiter;
+}	t_pipe;
 
 #endif

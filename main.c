@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 18:17:59 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/06 17:33:37 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-
+	t_btree *tree;
 	(void)argc;
 	(void)argv;
 	data = malloc(sizeof(t_data));
@@ -31,8 +31,12 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(data->input);
 		ft_parser(data->input, data);
+		tree = create_tokentree(&data->token_lst);
+		exec_btree(tree, data->env);
+		clr_btree(tree);
+		data->token_lst = NULL;
 		free(data->input);
-		ft_free_lst(&data->token_lst);
+		//ft_free_lst(&data->token_lst);
 	}
 	ft_free_exit(data);
 	return (0);

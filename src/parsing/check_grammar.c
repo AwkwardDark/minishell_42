@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:01:05 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 16:51:31 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:54:48 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int	ft_redir_grammar(t_token *current)
 	if (current->prev)
 	{
 		if ((current->prev->token_type == C_PAR) || \
-			(current->prev->token_type == IN_R) || \
-				(current->prev->token_type == OUT_R) || \
+			(current->prev->token_type == R_IN) || \
+				(current->prev->token_type == R_OUT) || \
 					(current->prev->token_type == HEREDOC) || \
 						(current->prev->token_type == APPEND))
 			return (1);
@@ -70,31 +70,30 @@ static int	ft_word_grammar(t_token *current)
 	return (0);
 }
 
-static int	ft_parenthesis_grammar(t_token *current)
+static int	ft_parenthesis_grammar(t_token *curr)
 {
-	if ((current->next) && (current->token_type == O_PAR))
+	if ((curr->next) && (curr->token_type == O_PAR))
 	{
-		if ((current->next->token_type == AND) || \
-			(current->next->token_type == OR) || \
-				(current->next->token_type == PIPE) || \
-					(current->next->token_type == C_PAR))
+		if ((curr->next->token_type == AND) || (curr->next->token_type == OR) \
+			|| (curr->next->token_type == PIPE) || \
+				(curr->next->token_type == C_PAR))
 			return (1);
 	}
-	if ((current->prev) && (current->token_type == O_PAR))
+	if ((curr->prev) && (curr->token_type == O_PAR))
 	{
-		if ((!current->next) || ((current->prev->token_type != AND) && \
-			(current->prev->token_type != OR) && \
-				(current->prev->token_type != O_PAR)))
+		if ((!curr->next) || ((curr->prev->token_type != AND) && \
+			(curr->prev->token_type != OR) && \
+				(curr->prev->token_type != O_PAR)))
 			return (1);
 	}
-	if ((current->next) && (current->token_type == C_PAR))
+	if ((curr->next) && (curr->token_type == C_PAR))
 	{
-		if ((current->next->token_type != AND) && \
-			(current->next->token_type != OR))
+		if ((curr->next->token_type != AND) && (curr->next->token_type != OR) \
+			&& (curr->next->token_type != C_PAR))
 			return (1);
 	}
-	if (((!current->prev) || (current->prev->token_type != WORD)) && \
-		(current->token_type == C_PAR))
+	if (((!curr->prev) || ((curr->prev->token_type != WORD) && \
+		(curr->prev->token_type != C_PAR))) && (curr->token_type == C_PAR))
 		return (1);
 	return (0);
 }
@@ -111,7 +110,7 @@ int	ft_grammar_syntax(t_token *lst, t_data *data)
 			(current->token_type == PIPE))
 			if (ft_and_or_pipe_grammar(current))
 				return (1);
-		if ((current->token_type == IN_R) || (current->token_type == OUT_R) || \
+		if ((current->token_type == R_IN) || (current->token_type == R_OUT) || \
 			(current->token_type == HEREDOC) || (current->token_type == APPEND))
 			if (ft_redir_grammar(current))
 				return (1);

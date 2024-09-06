@@ -1,16 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_error.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/28 14:08:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/04 18:59:04 by pajimene         ###   ########.fr       */
+/*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
+/*   Updated: 2024/09/05 15:55:04 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* concatenate cmd and error_messsage and adds a \n (Without any Malloc) */
+void	error_disp(char *cmd, char *error_message)
+{
+	char	buffer[500];
+	int		cmd_len;
+	int		error_len;
+
+	cmd_len = ft_strlen(cmd);
+	error_len = ft_strlen(error_message);
+	ft_memcpy(buffer, cmd, cmd_len);
+	ft_memcpy(buffer + cmd_len, error_message, error_len);
+	ft_memcpy(buffer + cmd_len + error_len, "\n", 1);
+	buffer[cmd_len + error_len + 2] = 0;
+	write(STDERR_FILENO, buffer, error_len + cmd_len + 1);
+}
+
+/* concatenate cmd and error_messsage and adds a \n 
+(Without any Malloc) and exits */
+void	error_disp_exit(char *cmd, char *error_message, int eno)
+{
+	char	buffer[500];
+	int		cmd_len;
+	int		error_len;
+
+	cmd_len = ft_strlen(cmd);
+	error_len = ft_strlen(error_message);
+	ft_memcpy(buffer, cmd, cmd_len);
+	ft_memcpy(buffer + cmd_len, error_message, error_len);
+	ft_memcpy(buffer + cmd_len + error_len, "\n", 1);
+	buffer[cmd_len + error_len + 2] = 0;
+	write(STDERR_FILENO, buffer, error_len + cmd_len + 1);
+	exit(eno);
+}
 
 /*Before exiting the program, it free the environment list, the prompt input,
 the token parsing list and the rest of malloc'd structs*/
