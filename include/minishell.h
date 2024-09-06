@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/05 16:07:25 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:11:19 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_token	*ft_lstlast(t_token *lst);
 void	ft_lstadd_back(t_token **lst, t_token *new);
 void	ft_print_lst(t_token *lst);
 void	ft_free_lst(t_token **lst);
+void	ft_free_onetoken(t_token *token);
 
 /*Redir*/
 void	ft_redir_check(t_token **lst);
@@ -98,6 +99,7 @@ t_token	*ignore_parenthesis(t_token *token);
 t_token	*contains_priority(t_token *token, int priority);
 void	display_btree(t_btree *tree);
 int	is_leaf(t_btree *tree);
+void	display_type(t_type type);
 
 /* src/builtins */
 void	ft_cd(char *path);

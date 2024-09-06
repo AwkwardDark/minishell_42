@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/06 15:21:01 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:43:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 /* 
 	returns pointer to the opening parenthesis corresponding 
-	exemple: cmd && (cmd || cmd) points to  (
+	exemple: cmd && (cmd || cmd) points to  ( ls && (ls || ls ))
 */
 t_token	*ignore_parenthesis(t_token *token)
 {
 	int		i;
 	t_token	*temp;
-
+	i = 1;
 	temp = token->prev;
-	i = 0;
-	while (temp->token_type != O_PAR && i == 0)
+	while (i != 0)
 	{
 		if (temp->token_type == C_PAR)
 			i++;
-		if (temp->token_type == O_PAR)
+		else if (temp->token_type == O_PAR)
 			i--;
+		if (i == 0)
+			break ;
 		temp = temp->prev;
 	}
-	return (temp);
+	return (temp->next);
 }
 
 /*  
@@ -45,7 +46,10 @@ t_token	*contains_priority(t_token *token, int priority)
 	while (token != NULL)
 	{
 		if (token->token_type == C_PAR)
+		{
 			token = ignore_parenthesis(token->prev);
+			token = token->prev;
+		}
 		if (priority == 3)
 		{
 			if (token->token_type == AND || token->token_type == OR)
@@ -61,7 +65,7 @@ t_token	*contains_priority(t_token *token, int priority)
 	return (NULL);
 }
 
-/* static void	display_type(t_type type)
+void	display_type(t_type type)
 {
 	switch (type)
 	{
@@ -76,10 +80,10 @@ t_token	*contains_priority(t_token *token, int priority)
 			printf("WORD");
 			break;
 	}
-} */
+}
 
 // displays the tree in the following format (node, left child, right child)
-/* void	display_btree(t_btree *tree)
+void	display_btree(t_btree *tree)
 {
 	if (tree == NULL)
 	{
@@ -100,7 +104,7 @@ t_token	*contains_priority(t_token *token, int priority)
 		display_btree(tree->right_child);
 		printf(" )");
 	}
-} */
+}
 
 int	is_leaf(t_btree *tree)
 {

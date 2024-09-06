@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:01:05 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 15:58:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:43:43 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ static int	ft_parenthesis_grammar(t_token *current)
 	if ((current->next) && (current->token_type == C_PAR))
 	{
 		if ((current->next->token_type != AND) && \
-			(current->next->token_type != OR))
+			(current->next->token_type != OR) && (current->next->token_type != C_PAR))
 			return (1);
 	}
-	if (((!current->prev) || (current->prev->token_type != WORD)) && \
+	if (((!current->prev) || ((current->prev->token_type != WORD) && (current->prev->token_type != C_PAR))) && \
 		(current->token_type == C_PAR))
 		return (1);
 	return (0);

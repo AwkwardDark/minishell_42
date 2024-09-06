@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/06 15:02:17 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:49:15 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	executer(t_env *env, t_token *token)
 	char	**argv;
 	char	**env_arr;
 
-	if (!access(token->content, F_OK))
+	if (!access(token->content, F_OK | X_OK))
 		path = token->content;
 	else
 	{

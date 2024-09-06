@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/05 16:34:13 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:37:41 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,17 @@ void	clr_btree(t_btree *tree)
 t_token	*remove_parenthesis(t_token *token)
 {
 	t_token	*temp;
+	t_token	*end;
 
-	if (token->token_type != C_PAR)
+	if (token->token_type != C_PAR || get_startlst(token)->token_type != O_PAR)
 		return (token);
-	temp = ignore_parenthesis(token);
-	if (temp->prev == NULL)
+	end = ignore_parenthesis(token);
+	if (end->prev->token_type == O_PAR)
 	{
-		temp = temp->next;
-		free(temp->prev);
-		temp->prev = NULL;
-		while (temp->next->next != NULL)
-			temp = temp->next;
-		free(temp->next);
+		ft_free_onetoken(end->prev);
+		end->prev = NULL;
+		temp = temp->prev;
+		ft_free_onetoken(temp->next);
 		temp->next = NULL;
 		return (temp);
 	}

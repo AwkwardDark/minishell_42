@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 17:31:39 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 15:56:58 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	last = ft_lstlast(*lst);
 	last->next = new;
 	new->prev = last;
+}
+
+void	ft_free_onetoken(t_token *token)
+{
+	if (!token)
+		return ;
+	free(token->content);
+	free(token);
 }
 
 void	ft_print_lst(t_token *lst)

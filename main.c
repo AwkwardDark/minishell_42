@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 17:44:21 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:38:26 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 	t_btree *tree;
+	t_token *temp;
 	(void)argc;
 	(void)argv;
 	data = malloc(sizeof(t_data));
@@ -31,13 +32,18 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(data->input);
 		ft_parser(data->input, data);
+		// temp = ft_lstlast(data->token_lst);
+		// temp = remove_parenthesis(temp);
+		// temp = contains_priority(temp, 3);
 		tree = create_tokentree(&data->token_lst);
+		// display_btree(tree);
 		exec_btree(tree, data->env);
-		clr_btree(tree);
+		// clr_btree(tree);
 		data->token_lst = NULL;
 		free(data->input);
-		// ft_free_lst(&data->token_lst);
 	}
 	ft_free_exit(data);
 	return (0);
 }
+
+
