@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/06 16:11:19 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:40:33 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 # include "structs.h"
 # include "../libft/includes/libft.h"
-
+# include <signal.h>
 /*color for the minishell prompt*/
 # define GREEN "\033[0;92m"
 # define RED "\033[0;91m"

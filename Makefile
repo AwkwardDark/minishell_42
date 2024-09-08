@@ -23,7 +23,7 @@ EXEC_OBJS = $(addprefix src/exec/, $(EXEC:.c=.o))
 ERROR_OBJ= $(addprefix src/errors/, $(ERROR:.c=.o))
 
 CC = cc 
-# CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra
 
 all: $(NAME)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/06 15:16:16 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:41:00 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,15 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 */
 static int	exec_pipes(t_btree *tree, t_env *env, int last_command)
 {
-	int	in;
 	int	re;
 
 	if (is_leaf(tree))
 		return (parse_exec(tree->token, env, PIPE));
 	else if (last_command)
 	{
-		in = dup(0);
 		exec_pipes(tree->left_child, env, 0);
 		re = wait_children(parse_exec(tree->right_child->token,
 					env, SIMPLE_COMMAND));
-		dup2(in, STDIN_FILENO);
-		close(in);
 		return (re);
 	}
 	else
@@ -97,31 +93,56 @@ static int	simplecmd_wait(int pid)
 	return (-1);
 }
 
-//	general function of execution
-int	exec_btree(t_btree *tree, t_env *env)
+int	exec_or(t_btree *tree, t_env *env)
 {
 	int	ret;
 
+	ret = exec_btree(tree->left_child, env);
+	if (ret == 0)
+		return (0);
+	return (exec_btree(tree->right_child, env));
+}
+
+int	exec_and(t_btree *tree, t_env *env)
+{
+	int	ret;
+
+	ret = exec_btree(tree->left_child, env);
+	if (ret != 0)
+		return (ret);
+	ret = exec_btree(tree->right_child, env);
+	if (ret != 0)
+		return (ret);
+	return (0);
+}
+
+/* 
+	General function of execution TODO: ADJUSTEMENT ON THE FILE 
+	DESCRIPTOR FOR THE HEREDOC SAME PROBLEM AS FOR THE PIPES.
+
+	norm it also
+*/
+static int	exec_btree_aux(t_btree *tree, t_env *env)
+{
 	if (is_leaf(tree))
 		return (simplecmd_wait(parse_exec(tree->token, env, SIMPLE_COMMAND)));
 	else if (tree->token->token_type == PIPE)
-	{
 		return (exec_pipes(tree, env, 1));
-	}
 	else if (tree->token->token_type == OR)
-	{
-		exec_btree(tree->left_child, env);
-		return (exec_btree(tree->right_child, env));
-	}
+		return (exec_or(tree, env));
 	else if (tree->token->token_type == AND)
-	{
-		ret = exec_btree(tree->left_child, env);
-		if (ret != 0)
-			return (ret);
-		ret = exec_btree(tree->right_child, env);
-		if (ret != 0)
-			return (ret);
-		return (0);
-	}
+		return (exec_and(tree, env));
 	return (-1);
+}
+
+int	exec_btree(t_btree *tree, t_env *env)
+{
+	int	infd;
+	int ret;
+
+	infd = dup(0);
+	ret = exec_btree_aux(tree, env);
+	dup2(infd, STDIN_FILENO);
+	close(infd);
+	return (ret);
 }

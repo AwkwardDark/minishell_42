@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/06 18:43:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:43:33 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_token	*contains_priority(t_token *token, int priority)
 	return (NULL);
 }
 
-void	display_type(t_type type)
+/* void	display_type(t_type type)
 {
 	switch (type)
 	{
@@ -80,10 +80,10 @@ void	display_type(t_type type)
 			printf("WORD");
 			break;
 	}
-}
+} */
 
 // displays the tree in the following format (node, left child, right child)
-void	display_btree(t_btree *tree)
+/* void	display_btree(t_btree *tree)
 {
 	if (tree == NULL)
 	{
@@ -104,7 +104,7 @@ void	display_btree(t_btree *tree)
 		display_btree(tree->right_child);
 		printf(" )");
 	}
-}
+} */
 
 int	is_leaf(t_btree *tree)
 {

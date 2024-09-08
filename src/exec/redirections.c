@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/06 15:16:25 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/08 01:02:06 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,19 @@ void	out_redirection(t_token *token)
 	}
 }
 
+// function that returns the next word useful in case fo redir or hereodocs
+static t_token	*ft_getnextword(t_token *token)
+{
+	if (!token)
+	{
+		ft_putstr_fd("big problem man\n", 2);
+		exit(1);
+	}
+	while (token->token_type != WORD)
+		token = token->next;
+	return (token);
+}
+
 /* manages children behaviour depending on the flag */
 void	redirect_files(t_token *token, int *pipe, int flag, t_env *env)
 {
@@ -68,5 +81,5 @@ void	redirect_files(t_token *token, int *pipe, int flag, t_env *env)
 		close(pipe[1]);
 	}
 	out_redirection(token);
-	executer(env, token);
+	executer(env, ft_getnextword(token));
 }
