@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/08 00:50:56 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:45:04 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	executer(t_env *env, t_token *token)
 	{
 		argv = cmdlst_tocmdarr(token);
 		path = test_path(get_paths(env), token->content);
-		if (!path)
+		if (!path || !ft_strcmp(*argv, ""))
 		{
 			error_disp_exit("minishell: command not found: ", argv[0], 127);
 			clear_wordar(argv);

@@ -1,60 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   symbols.c                                          :+:      :+:    :+:   */
+/*   testing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 16:22:21 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/09 14:02:14 by pajimene         ###   ########.fr       */
+/*   Created: 2024/09/09 15:01:14 by pajimene          #+#    #+#             */
+/*   Updated: 2024/09/09 16:09:39 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_symbol(char c)
-{
-	char	*set;
-	int		i;
-
-	i = 0;
-	set = "()><|&";
-	while (set[i])
-	{
-		if (c == set[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	ft_str_is_quote(char *str)
+void	ft_print_expand_table(int *tab, int len)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (!tab)
 	{
-		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
-			return (1);
+		printf("NULL\n");
+		return ;
+	}
+	if (tab[0] == 0)
+			printf("null\n");
+	while (i < len)
+	{
+		printf("%d\n", tab[i]);
 		i++;
 	}
-	return (0);
-}
-
-int	ft_is_special(char c)
-{
-	char	*special;
-	int		i;
-
-	i = 0;
-	special = "!@#$%^&*()-+=[]{}|\\;:'\"<>,.?/~`";
-
-	while (special[i])
-	{
-		if (c == special[i])
-			return (1);
-		i++;
-	}
-	return (0);
 }

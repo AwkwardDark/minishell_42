@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 15:59:24 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:08:01 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ separated by spaces or special characters*/
 typedef struct s_token {
 	char			*content;
 	t_type			token_type;
-	//int				expand[2];
+	int				*pre_expand;
+	int				table_exp_len;
 	//int				wildcard;
 	char			*redir;
 	struct s_token	*next;

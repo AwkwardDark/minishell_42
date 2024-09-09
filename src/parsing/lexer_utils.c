@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:53:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/06 16:16:41 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:43:33 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	ft_is_symbol_lexer(char c, t_data *data)
 }
 
 //data->symbol can create an unconditional jump because not initialized in init_data?
-int	ft_is_special(char *input, int *i, t_data *data)
+int	ft_is_operator(char *input, int *i, t_data *data)
 {	
 	if ((input[*i] == O_PAREN) || (input[*i] == C_PAREN))
 		return ((*i)++, 1);

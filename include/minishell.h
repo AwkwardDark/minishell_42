@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/08 14:40:33 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/09 18:06:45 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,27 @@ void	ft_redir_check(t_token **lst);
 /*Parser, Lexer and Simple Syntax management*/
 int		ft_init_data(char **envp, t_data *data);
 void	ft_error(int code);
-void	ft_parser(char *input, t_data *data);
+int		ft_parser(char *input, t_data *data);
 void	ft_lexer(char *input, t_data *data);
 void	ft_tokenize(t_token *lst);
 int		ft_quote_syntax(char *input);
 int		ft_operator_syntax(char *input, t_data *data);
 int		ft_parenthesis_syntax(char *input, t_data *data);
 int		ft_grammar_syntax(t_token *lst, t_data *data);
+void	ft_remove_quotes(t_token *lst, t_data *data);
+void	ft_pre_expand(t_token *lst);
 
 /*Parsing Utils*/
+int		ft_str_is_quote(char *str);
 int		ft_is_quote(char c, t_data *data);
-int		ft_is_special(char *input, int *i, t_data *data);
+int		ft_is_operator(char *input, int *i, t_data *data);
 int		ft_is_symbol(char c);
+int		ft_is_special(char c);
 void	ft_token_symbol(char *content, t_token *token);
+int		ft_count_exp(char *str);
 
 /*Testing utils*/
+void	ft_print_expand_table(int *tab, int len);
 
 // Pierre
 /* src/utils/ls_env.c */
@@ -98,7 +104,7 @@ t_btree	*create_tokentree(t_token **token);
 t_token	*ignore_parenthesis(t_token *token);
 t_token	*contains_priority(t_token *token, int priority);
 void	display_btree(t_btree *tree);
-int	is_leaf(t_btree *tree);
+int		is_leaf(t_btree *tree);
 void	display_type(t_type type);
 
 /* src/builtins */
@@ -117,6 +123,10 @@ char	*test_path(char *envpath, char *cmd);
 char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
 char	**lstenv_towordarr(t_env *env);
 char	**cmdlst_tocmdarr(t_token *token);
+
+// expand.c
+void	ft_expand(t_token *lst, t_env *env);
+char	*ft_find_exp_value(char *key, t_env *env);
 
 // exec_utils.c
 int		is_heredoc(t_token *token);

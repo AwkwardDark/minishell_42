@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/08 14:41:00 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/09 18:35:32 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 	int	fd[2];
 	int	child;
 
+	ft_expand(token, env);
+	//ft_print_lst(token);
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token));
 	if (flag == PIPE)

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/09 11:58:53 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:07:31 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 then it creates a double linked list where each node is separated by an space
 or and special symbol. Then it tokenize each node, and lastly it checks if
 the grammar between each node is correct*/
-void	ft_parser(char *input, t_data *data)
+int	ft_parser(char *input, t_data *data)
 {	
 	if (ft_quote_syntax(input) == 1)
-		return (ft_error(0));
+		return (ft_error(0), 0);
 	if (ft_operator_syntax(input, data) == 1)
-		return ;
+		return (0);
 	if (ft_parenthesis_syntax(input, data) == 1)
-		return (ft_error(5));
+		return (ft_error(5), 0);
 	ft_lexer(input, data);
 	ft_tokenize(data->token_lst);
 	if (ft_grammar_syntax(data->token_lst, data))
@@ -31,12 +31,13 @@ void	ft_parser(char *input, t_data *data)
 		ft_putstr_fd(RED"minishell: syntax error near unexpected token `", 2);
 		ft_putstr_fd(data->syntax_error, 2);
 		ft_putstr_fd("'\n"RESET, 2);
-		return ;
+		return (0);
 	}
-	//ft_pre_expand(data->token_lst, data);
+	ft_pre_expand(data->token_lst);
 	ft_remove_quotes(data->token_lst, data);
 	ft_redir_check(&data->token_lst);
 	//ft_print_lst(data->token_lst);
+	return (1);
 }
 
 /*If there are quotes it will be in the same node, a special symbol (operator)
@@ -51,7 +52,7 @@ static void	ft_isolate_node(char *input, t_data *data, int *i)
 				(*i)++;
 			(*i)++;
 		}
-		if (ft_is_special(input, i, data))
+		if (ft_is_operator(input, i, data))
 			break ;
 		(*i)++;
 	}
