@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/08 15:46:31 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/09 16:48:02 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 	int		limiter_len;
 	char	*line;
 
+	signal(SIGQUIT, handler_slash);
 	limiter_len = ft_strlen(limiter);
 	close(pipe_fd[0]);
 	write(STDOUT_FILENO, "here_doc > ", 11);
@@ -45,7 +46,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 
 void	do_mydoc(char *limiter)
 {
- 	int	fd[2];
+	int	fd[2];
 	int	ret;
 
 	if (pipe(fd) < 0)

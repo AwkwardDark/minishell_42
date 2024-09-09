@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/08 14:40:33 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/09 17:37:51 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,15 @@ void	ft_token_symbol(char *content, t_token *token);
 /*Testing utils*/
 
 // Pierre
+
+// src/signals/handler.c
+void	handler_slash(int code);
+void	handler_c(int code);
+void	handler_main(int code);
+
+/* /src/utils/free_exec.c */
+void	free_exec(char *path, char **argv, char **env_arr);
+
 /* src/utils/ls_env.c */
 t_env	*ft_initenv(char *key, char *value);
 void	ft_addlstenv(t_env **env, char *key, char *value);
@@ -109,20 +118,31 @@ void	ft_unset(char *var, t_data *data);
 void	ft_export(t_env **env, char *key, char *value);
 void	ft_echo(char **str, int NFLAG);
 
-// single_exec
+// src/exec/wait.c
+int		wait_children(pid_t last_child);
+int		simplecmd_wait(int pid);
+
+// src/exec/exec_operators.c
+int		exec_or(t_btree *tree, t_env *env);
+int		exec_and(t_btree *tree, t_env *env);
+
+
+// exec/single_exec
 void	executer(t_env *env, t_token *token);
 char	**lstenv_towordarr(t_env *env);
 char	*get_paths(t_env *env);
 char	*test_path(char *envpath, char *cmd);
+
+// utils/exec_utils.c
 char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
 char	**lstenv_towordarr(t_env *env);
-char	**cmdlst_tocmdarr(t_token *token);
+char	**cmdlst_tocmdarr(t_token *token, int absolut);
 
-// exec_utils.c
+// exec/exec_utils.c
 int		is_heredoc(t_token *token);
 char 	*get_limiter(t_token *token);
 
-//heredoc.c
+// exec/heredoc.c
 void	do_mydoc(char *limiter);
 // static void	heredoc_work(char *limiter, int *pipe_fd)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/08 14:41:00 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:48:14 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,59 +63,6 @@ static int	exec_pipes(t_btree *tree, t_env *env, int last_command)
 	}
 }
 
-/* waits for all children */
-int	wait_children(pid_t last_child)
-{
-	int	status;
-	int	retcode;
-
-	while (ECHILD != errno)
-	{
-		if (waitpid(0, &status, 0) == last_child)
-		{
-			if (WIFEXITED(status))
-				retcode = WEXITSTATUS(status);
-			else
-				retcode = WSTOPSIG(status);
-		}
-	}
-	return (retcode);
-}
-
-// waits for one process SIMPLE_COMMAND
-static int	simplecmd_wait(int pid)
-{
-	int	status;
-
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (-1);
-}
-
-int	exec_or(t_btree *tree, t_env *env)
-{
-	int	ret;
-
-	ret = exec_btree(tree->left_child, env);
-	if (ret == 0)
-		return (0);
-	return (exec_btree(tree->right_child, env));
-}
-
-int	exec_and(t_btree *tree, t_env *env)
-{
-	int	ret;
-
-	ret = exec_btree(tree->left_child, env);
-	if (ret != 0)
-		return (ret);
-	ret = exec_btree(tree->right_child, env);
-	if (ret != 0)
-		return (ret);
-	return (0);
-}
-
 /* 
 	General function of execution TODO: ADJUSTEMENT ON THE FILE 
 	DESCRIPTOR FOR THE HEREDOC SAME PROBLEM AS FOR THE PIPES.
@@ -138,7 +85,7 @@ static int	exec_btree_aux(t_btree *tree, t_env *env)
 int	exec_btree(t_btree *tree, t_env *env)
 {
 	int	infd;
-	int ret;
+	int	ret;
 
 	infd = dup(0);
 	ret = exec_btree_aux(tree, env);

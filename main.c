@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/08 15:47:30 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/09 17:40:02 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-
 	t_data	*data;
 	t_btree *tree;
 	(void)argc;
 	(void)argv;
+
+	// signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handler_main);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_error(7), 1);
@@ -40,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 		// display_btree(tree);
 		exec_btree(tree, data->env);
 		// ft_print_lst(data->token_lst);
-		// clr_btree(tree);
+		clr_btree(tree);
 		data->token_lst = NULL;
 		free(data->input);
 	}
