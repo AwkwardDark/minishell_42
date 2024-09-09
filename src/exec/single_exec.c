@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 16:01:53 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/08 00:50:56 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	executer(t_env *env, t_token *token)
 	char	**argv;
 	char	**env_arr;
 
-	if (!access(token->content, F_OK))
+	if (!access(token->content, F_OK | X_OK))
 		path = token->content;
 	else
 	{
@@ -34,17 +34,17 @@ void	executer(t_env *env, t_token *token)
 		path = test_path(get_paths(env), token->content);
 		if (!path)
 		{
-			clear_wordar(argv);
 			error_disp_exit("minishell: command not found: ", argv[0], 127);
+			clear_wordar(argv);
 		}
 	}
 	env_arr = lstenv_towordarr(env);
 	if (execve(path, argv, env_arr) < 0)
 	{
+		error_disp_exit("minishell: exec: ", strerror(errno), 126);
 		free(path);
 		free(env);
 		clear_wordar(argv);
-		error_disp_exit("minishell: exec: ", strerror(errno), 126);
 	}
 }
 

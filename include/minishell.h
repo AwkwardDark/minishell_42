@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/06 16:05:33 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:40:33 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 # include "structs.h"
 # include "../libft/includes/libft.h"
-
+# include <signal.h>
 /*color for the minishell prompt*/
 # define GREEN "\033[0;92m"
 # define RED "\033[0;91m"
@@ -53,6 +53,7 @@ t_token	*ft_lstlast(t_token *lst);
 void	ft_lstadd_back(t_token **lst, t_token *new);
 void	ft_print_lst(t_token *lst);
 void	ft_free_lst(t_token **lst);
+void	ft_free_onetoken(t_token *token);
 
 /*Redir*/
 void	ft_redir_check(t_token **lst);
@@ -67,15 +68,12 @@ int		ft_quote_syntax(char *input);
 int		ft_operator_syntax(char *input, t_data *data);
 int		ft_parenthesis_syntax(char *input, t_data *data);
 int		ft_grammar_syntax(t_token *lst, t_data *data);
-void	ft_remove_quotes(t_token *lst, t_data *data);
 
 /*Parsing Utils*/
 int		ft_is_quote(char c, t_data *data);
-int		ft_str_is_quote(char *str);
 int		ft_is_special(char *input, int *i, t_data *data);
 int		ft_is_symbol(char c);
 void	ft_token_symbol(char *content, t_token *token);
-int 	ft_count_quotes(char *input);
 
 /*Testing utils*/
 
@@ -100,7 +98,8 @@ t_btree	*create_tokentree(t_token **token);
 t_token	*ignore_parenthesis(t_token *token);
 t_token	*contains_priority(t_token *token, int priority);
 void	display_btree(t_btree *tree);
-int		is_leaf(t_btree *tree);
+int	is_leaf(t_btree *tree);
+void	display_type(t_type type);
 
 /* src/builtins */
 void	ft_cd(char *path);
