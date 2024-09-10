@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/09 17:40:02 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/10 00:45:27 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int g_signal;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -19,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	// signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handler_main);
 	data = malloc(sizeof(t_data));
 	if (!data)
@@ -29,6 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
+		g_signal = 0;
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		if (!data->input || !ft_strcmp(data->input, "exit"))
 			break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/09 17:36:53 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:53:17 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static t_token	*ft_getnextword(t_token *token)
 /* manages children behaviour depending on the flag */
 void	redirect_files(t_token *token, int *pipe, int flag, t_env *env)
 {
-	signal(SIGINT, handler_c);
 	if (flag == PIPE)
 		close(pipe[0]);
 	in_redirection(token);

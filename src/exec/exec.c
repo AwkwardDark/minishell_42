@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/09 15:48:14 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/10 01:02:48 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,28 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 	int	fd[2];
 	int	child;
 
+	child = 0;
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token));
-	if (flag == PIPE)
+	if (g_signal == 0)
 	{
-		if (pipe(fd) < 0)
-			error_disp_exit("minishell: pipe: ", strerror(errno), 1);
-	}
-	child = fork();
-	if (child < 0)
-		error_disp_exit("minishell: fork: ", strerror(errno), 1);
-	if (child == 0)
-		redirect_files(token, fd, flag, env);
-	if (flag == PIPE)
-	{
-		close(fd[1]);
-		if (dup2(fd[0], STDIN_FILENO) < 0)
-			error_disp_exit("minishell: dup2: ", strerror(errno), 1);
-		close(fd[0]);
+		if (flag == PIPE)
+		{
+			if (pipe(fd) < 0)
+				error_disp_exit("minishell: pipe: ", strerror(errno), 1);
+		}
+		child = fork();
+		if (child < 0)
+			error_disp_exit("minishell: fork: ", strerror(errno), 1);
+		if (child == 0)
+			redirect_files(token, fd, flag, env);
+		if (flag == PIPE)
+		{
+			close(fd[1]);
+			if (dup2(fd[0], STDIN_FILENO) < 0)
+				error_disp_exit("minishell: dup2: ", strerror(errno), 1);
+			close(fd[0]);
+		}
 	}
 	return (child);
 }

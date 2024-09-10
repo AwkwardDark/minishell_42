@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/09 18:04:58 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:11:52 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 void	handler_slash(int code)
 {
-	code = 0;
+	(void)code;
 	// rl_on_new_line();
 	rl_redisplay();
 }
 
 void	handler_c(int code)
 {
-	exit(code);
+	(void )code;
+	exit(0);
 }
 
 void	handler_main(int code)
 {
-	// char tab[500];
-
-	code = 0;
-	// ft_bzero(tab, 500);
+	(void)code;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	rl_redisplay();
+	if (g_signal == 0)
+		rl_redisplay();
 }

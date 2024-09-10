@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/09 16:48:02 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:11:30 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 	int		limiter_len;
 	char	*line;
 
-	signal(SIGQUIT, handler_slash);
+	signal(SIGINT, handler_c);
 	limiter_len = ft_strlen(limiter);
 	close(pipe_fd[0]);
 	write(STDOUT_FILENO, "here_doc > ", 11);
@@ -56,9 +56,11 @@ void	do_mydoc(char *limiter)
 		error_disp_exit("fork", strerror(errno), 1);
 	if (ret == 0)
 		heredoc_work(limiter, fd);
-	wait(NULL);
+	wait_children(ret);
 	close(fd[1]);
 	if (dup2(fd[0], STDIN_FILENO) < 0)
 		error_disp_exit("minishell", strerror(errno), 1);
 	close(fd[0]);
+	// close(fd[0]);
+	// close(fd[1]);
 }
