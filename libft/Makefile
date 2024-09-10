@@ -15,7 +15,7 @@ NAME = libft.a
 ARC = ar
 OPT = -rcs
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fno-omit-frame-pointer -fsanitize=address -fsanitize=undefined -fsanitize=null -fsanitize=return
 
 all: $(NAME)
 

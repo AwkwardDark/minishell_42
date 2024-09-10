@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/09 18:06:45 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:09:12 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char 	*get_limiter(t_token *token);
 
 //heredoc.c
 void	do_mydoc(char *limiter);
-// static void	heredoc_work(char *limiter, int *pipe_fd)
+//static void	heredoc_work(char *limiter, int *pipe_fd);
 
 //src/exec/redirections.c
 void	in_redirection(t_token *token);

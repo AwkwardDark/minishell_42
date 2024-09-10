@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/09 16:08:01 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:04:04 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,12 @@ typedef enum e_type {
 
 /*Double linked list that stores all the information
 separated by spaces or special characters*/
-//TODO: Add redir, expand or wildcar metadata?
 typedef struct s_token {
 	char			*content;
 	t_type			token_type;
 	int				*pre_expand;
-	int				table_exp_len;
-	//int				wildcard;
+	//int				wildcard;??
+	int				quote_flag;
 	char			*redir;
 	struct s_token	*next;
 	struct s_token	*prev;

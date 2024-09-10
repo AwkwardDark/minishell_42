@@ -6,13 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:56:01 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/09 17:19:17 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:00:31 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_save_expand(char *str, int *i)
+static int	ft_save_expand(char *str, int *i)
 {
 	int	pre_expand_len;
 	int	k;
@@ -24,13 +24,13 @@ int	ft_save_expand(char *str, int *i)
 	k = *i;
 	while (str[*i] && !ft_is_special(str[*i]))
 		(*i)++;
-	pre_expand_len =  *i - k;
+	pre_expand_len = *i - k;
 	if (pre_expand_len > 0)
 		(*i)--;
 	return (pre_expand_len);
 }
 
-int		ft_count_exp(char *str)
+int	ft_count_exp(char *str)
 {
 	int	i;
 	int	count;
@@ -46,16 +46,44 @@ int		ft_count_exp(char *str)
 	return (count);
 }
 
+static void	ft_create_exp_tab(t_token *cur, char *str, int *s_flag, int *d_flag)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == D_QUOTE && *s_flag == 1)
+			*d_flag *= -1;
+		if (str[i] == S_QUOTE && *d_flag == 1)
+			*s_flag *= -1;
+		if (str[i] == DOLLAR && *s_flag == 1)
+		{
+			i++;
+			cur->pre_expand[j++] = ft_save_expand(str, &i);
+		}
+		if (str[i] == DOLLAR && *s_flag == -1)
+		{
+			i++;
+			cur->pre_expand[j++] = -1;
+		}
+		else if (str[i] && str[i] != DOLLAR)
+			i++;
+	}
+}
+
 void	ft_pre_expand(t_token *lst)
 {
 	t_token	*current;
 	char	*str;
-	int		i;
-	int		d_flag = 1;
-	int		s_flag = 1;
-	int		j;
+	int		s_flag;
+	int		d_flag;
 
 	current = lst;
+	s_flag = 1;
+	d_flag = 1;
 	while (current)
 	{
 		if (current->token_type == WORD && ft_count_exp(current->content) > 0)
@@ -64,30 +92,7 @@ void	ft_pre_expand(t_token *lst)
 			current->pre_expand = ft_calloc(sizeof(int), ft_count_exp(str));
 			if (!current->pre_expand)
 				return (ft_error(7));
-			current->table_exp_len = ft_count_exp(str);
-			i = 0;
-			j = 0;
-			while (str[i])
-			{
-				if (str[i] == D_QUOTE && s_flag == 1)
-					d_flag *= -1;
-				if (str[i] == S_QUOTE && d_flag == 1)
-					s_flag *= -1;
-				if (str[i] == DOLLAR && s_flag == 1)
-				{
-					i++;
-					current->pre_expand[j] = ft_save_expand(str, &i);
-					j++;
-				}
-				if (str[i] == DOLLAR && s_flag == -1)
-				{
-					i++;
-					current->pre_expand[j] = -1;
-					j++;
-				}
-				else if (str[i] != DOLLAR)
-					i++;
-			}
+			ft_create_exp_tab(current, str, &s_flag, &d_flag);
 		}
 		else
 			current->pre_expand = NULL;

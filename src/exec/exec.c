@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/09 18:35:32 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:56:57 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 	int	child;
 
 	ft_expand(token, env);
-	//ft_print_lst(token);
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token));
 	if (flag == PIPE)

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/09 16:09:12 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:02:50 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ft_free_onetoken(t_token *token)
 	free(token);
 }
 
+/*Just for visual and debugging purpose*/
 void	ft_print_lst(t_token *lst)
 {
 	int		i;
@@ -94,7 +95,7 @@ void	ft_print_lst(t_token *lst)
 		printf(" token -> %d\n", current->token_type);
 		if (current->redir)
 			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
-		ft_print_expand_table(current->pre_expand, current->table_exp_len);
+		ft_print_expand_table(current->pre_expand, ft_count_exp(current->content));
 		current = current->next;
 		i++;
 	}
