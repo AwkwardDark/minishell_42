@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/09 13:56:15 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:15:55 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	redirectiosn most be made before !!
 	the t_pipe data TODO
  */
-void	executer(t_env *env, t_token *token)
+void	executer(t_data *data, t_token *token)
 {
 	char	*path;
 	char	**argv;
@@ -34,14 +34,14 @@ void	executer(t_env *env, t_token *token)
 	else
 	{
 		argv = cmdlst_tocmdarr(token, 0);
-		path = test_path(get_paths(env), token->content);
+		path = test_path(get_paths(data->env), token->content);
 		if (!path || !ft_strcmp(*argv, ""))
 		{
 			error_disp_exit("minishell: command not found: ", argv[0], 127);
 			clear_wordar(argv);
 		}
 	}
-	env_arr = lstenv_towordarr(env);
+	env_arr = lstenv_towordarr(data->env);
 	if (execve(path, argv, env_arr) < 0)
 	{
 		error_disp_exit("minishell: exec: ", strerror(errno), 126);

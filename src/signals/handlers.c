@@ -3,27 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/10 12:11:52 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/10 17:47:17 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handler_slash(int code)
+/* void	handler_slash(int code)
 {
 	(void)code;
 	// rl_on_new_line();
+	rl_replace_line("minishell ~", 11);
 	rl_redisplay();
-}
-
-void	handler_c(int code)
-{
-	(void )code;
-	exit(0);
-}
+	// rl_redisplay();
+} */
 
 void	handler_main(int code)
 {
@@ -32,5 +28,13 @@ void	handler_main(int code)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	if (g_signal == 0)
+	{
 		rl_redisplay();
+	}
+}
+
+void	child_sigs()
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }

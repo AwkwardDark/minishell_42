@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/10 00:45:27 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/11 13:33:06 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,21 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		g_signal = 0;
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
+		g_signal = 0;
 		if (!data->input || !ft_strcmp(data->input, "exit"))
 			break ;
 		add_history(data->input);
 		ft_parser(data->input, data);
-		// ft_print_lst(data->token_lst);
-		// temp = ft_lstlast(data->token_lst);
-		// temp = remove_parenthesis(temp);
-		// temp = contains_priority(temp, 3);
 		tree = create_tokentree(&data->token_lst);
-		// display_btree(tree);
-		exec_btree(tree, data->env);
-		// ft_print_lst(data->token_lst);
+		exec_btree(tree, data);
 		clr_btree(tree);
 		data->token_lst = NULL;
 		free(data->input);
+		if (g_signal == 0)
+			fprintf(stderr, "exit status: %d\n", data->exit_status);
+		else
+			fprintf(stderr, "sigexit status: %d\n", data->exit_status);
 	}
 	ft_free_exit(data);
 	return (0);

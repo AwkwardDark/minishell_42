@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/09 23:35:00 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/11 13:47:34 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_token_symbol(char *content, t_token *token);
 void	handler_slash(int code);
 void	handler_c(int code);
 void	handler_main(int code);
+void	child_sigs();
 
 /* /src/utils/free_exec.c */
 void	free_exec(char *path, char **argv, char **env_arr);
@@ -119,16 +120,16 @@ void	ft_export(t_env **env, char *key, char *value);
 void	ft_echo(char **str, int NFLAG);
 
 // src/exec/wait.c
-int		wait_children(pid_t last_child);
-int		simplecmd_wait(int pid);
+void	wait_children(pid_t last_childm, t_data *data);
+void	simplecmd_wait(int pid, t_data *data);
 
 // src/exec/exec_operators.c
-int		exec_or(t_btree *tree, t_env *env);
-int		exec_and(t_btree *tree, t_env *env);
+void	exec_or(t_btree *tree, t_data *data);
+void	exec_and(t_btree *tree, t_data *data);
 
 
 // exec/single_exec
-void	executer(t_env *env, t_token *token);
+void	executer(t_data *data, t_token *token);
 char	**lstenv_towordarr(t_env *env);
 char	*get_paths(t_env *env);
 char	*test_path(char *envpath, char *cmd);
@@ -149,11 +150,10 @@ void	do_mydoc(char *limiter);
 //src/exec/redirections.c
 void	in_redirection(t_token *token);
 void	out_redirection(t_token *token);
-void	redirect_files(t_token *token, int *pipe, int flag, t_env *env);
+void	redirect_files(t_token *token, int *pipe, int flag, t_data *data);
 
 // exec.c
-int		exec_btree(t_btree *tree, t_env *env);
-int		wait_children(pid_t last_child);
+void	exec_btree(t_btree *tree, t_data *data);
 // static int		exec_pipes(t_btree *tree, t_env *env, int last_command)
 // static int		parse_exec(t_token *token, t_env *env, int flag);
 

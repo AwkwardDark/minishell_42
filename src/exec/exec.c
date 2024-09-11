@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/10 01:02:48 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/11 13:36:20 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	parse_exec(t_token *token, t_env *env, int flag)
+static int	parse_exec(t_token *token, t_data *data, int flag)
 {
 	int	fd[2];
 	int	child;
@@ -20,7 +20,7 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 	child = 0;
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token));
-	if (g_signal == 0)
+	if (g_signal < 128)
 	{
 		if (flag == PIPE)
 		{
@@ -31,7 +31,7 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 		if (child < 0)
 			error_disp_exit("minishell: fork: ", strerror(errno), 1);
 		if (child == 0)
-			redirect_files(token, fd, flag, env);
+			redirect_files(token, fd, flag, data);
 		if (flag == PIPE)
 		{
 			close(fd[1]);
@@ -39,31 +39,28 @@ static int	parse_exec(t_token *token, t_env *env, int flag)
 				error_disp_exit("minishell: dup2: ", strerror(errno), 1);
 			close(fd[0]);
 		}
+		return (child);
 	}
-	return (child);
+	return (g_signal);
 }
 
 /* 
 	general function of exewcution of the pipes
 */
-static int	exec_pipes(t_btree *tree, t_env *env, int last_command)
+static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 {
-	int	re;
-
 	if (is_leaf(tree))
-		return (parse_exec(tree->token, env, PIPE));
+		parse_exec(tree->token, data, PIPE);
 	else if (last_command)
 	{
-		exec_pipes(tree->left_child, env, 0);
-		re = wait_children(parse_exec(tree->right_child->token,
-					env, SIMPLE_COMMAND));
-		return (re);
+		exec_pipes(tree->left_child, data, 0);
+		wait_children(parse_exec(tree->right_child->token, 
+				data, SIMPLE_COMMAND), data);
 	}
 	else
 	{
-		exec_pipes(tree->left_child, env, 0);
-		exec_pipes(tree->right_child, env, 0);
-		return (1);
+		exec_pipes(tree->left_child, data, 0);
+		exec_pipes(tree->right_child, data, 0);
 	}
 }
 
@@ -73,27 +70,24 @@ static int	exec_pipes(t_btree *tree, t_env *env, int last_command)
 
 	norm it also
 */
-static int	exec_btree_aux(t_btree *tree, t_env *env)
+static void	exec_btree_aux(t_btree *tree, t_data *data)
 {
 	if (is_leaf(tree))
-		return (simplecmd_wait(parse_exec(tree->token, env, SIMPLE_COMMAND)));
+		simplecmd_wait(parse_exec(tree->token, data, SIMPLE_COMMAND), data);
 	else if (tree->token->token_type == PIPE)
-		return (exec_pipes(tree, env, 1));
+		 exec_pipes(tree, data, 1);
 	else if (tree->token->token_type == OR)
-		return (exec_or(tree, env));
+		 exec_or(tree, data);
 	else if (tree->token->token_type == AND)
-		return (exec_and(tree, env));
-	return (-1);
+ 			exec_and(tree, data);
 }
 
-int	exec_btree(t_btree *tree, t_env *env)
+void	exec_btree(t_btree *tree, t_data *data)
 {
 	int	infd;
-	int	ret;
 
 	infd = dup(0);
-	ret = exec_btree_aux(tree, env);
+	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);
 	close(infd);
-	return (ret);
 }
