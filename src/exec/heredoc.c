@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/10 14:56:45 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:53:28 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 	while (line && !(ft_strncmp(limiter, line, limiter_len) == 0
 			&& line[limiter_len] == '\n'))
 	{
-		//ft_expand...
+		//ft_expand... and use data struct for expansion flag
 		write(pipe_fd[1], line, ft_strlen(line));
 		free(line);
 		write(STDOUT_FILENO, "here_doc > ", 11);

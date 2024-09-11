@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testing.c                                          :+:      :+:    :+:   */
+/*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/09 15:01:14 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 11:06:32 by pajimene         ###   ########.fr       */
+/*   Created: 2024/09/11 16:57:07 by pajimene          #+#    #+#             */
+/*   Updated: 2024/09/11 16:59:10 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_expand_table(int *tab, int len)
+void	ft_wildcard(t_token *lst)
 {
-	int	i;
-
-	i = 0;
-	if (!tab)
+	t_token	*current;
+	
+	current = lst;
+	while(current)
 	{
-		printf("NULL\n");
-		return ;
-	}
-	while (i < len)
-	{
-		printf("%d\n", tab[i]);
-		i++;
+		if (current->wildcard)
+			/...
+		current = current->next;
 	}
 }

@@ -6,13 +6,12 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/10 15:09:12 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:58:00 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 
 // Pablo 
 # include <unistd.h>
@@ -22,7 +21,8 @@
 # include "structs.h"
 # include "../libft/includes/libft.h"
 # include <signal.h>
-/*color for the minishell prompt*/
+
+/*Color for the minishell prompt*/
 # define GREEN "\033[0;92m"
 # define RED "\033[0;91m"
 # define GRAS "\033[1m"
@@ -70,6 +70,7 @@ int		ft_parenthesis_syntax(char *input, t_data *data);
 int		ft_grammar_syntax(t_token *lst, t_data *data);
 void	ft_remove_quotes(t_token *lst, t_data *data);
 void	ft_pre_expand(t_token *lst);
+void	ft_pre_wildcard(t_token *lst);
 
 /*Parsing Utils*/
 int		ft_str_is_quote(char *str);
@@ -127,6 +128,9 @@ char	**cmdlst_tocmdarr(t_token *token);
 // expand.c
 void	ft_expand(t_token *lst, t_env *env);
 char	*ft_find_exp_value(char *key, t_env *env);
+
+// wildcard.c
+void	ft_wildcard(t_token *lst);
 
 // exec_utils.c
 int		is_heredoc(t_token *token);

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/10 19:04:04 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:08:24 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ typedef struct s_token {
 	char			*content;
 	t_type			token_type;
 	int				*pre_expand;
-	//int				wildcard;??
+	int				exp_tab_len;
+	int				wildcard;
 	int				quote_flag;
 	char			*redir;
 	struct s_token	*next;

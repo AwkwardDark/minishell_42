@@ -3,12 +3,12 @@ MAIN = main.c
 BUILTINS = ft_cd.c ft_echo.c ft_export.c ft_env.c ft_pwd.c ft_unset.c 
 UTILS = ls_env.c lst_utils.c symbols.c ft_cpyenv.c testing.c
 TREE = tree.c tree_utils.c
-EXEC= exec_utils.c exec.c heredoc.c redirections.c single_exec.c expand.c
+EXEC= exec_utils.c exec.c heredoc.c redirections.c single_exec.c expand.c wildcard.c
 ERROR= error.c
 
 # Pablo
 SRC_INIT    =  init.c
-SRC_PARSING =  check_syntax.c tokenizer.c lexer_utils.c token_utils.c check_grammar.c redir.c quotes.c pre_expand.c
+SRC_PARSING =  check_syntax.c tokenizer.c lexer_utils.c token_utils.c check_grammar.c redir.c quotes.c pre_expand.c pre_wildcard.c
 
 # Object files Pablo
 OBJ_INIT = $(addprefix src/init/, $(SRC_INIT:.c=.o))

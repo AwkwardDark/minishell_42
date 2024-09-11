@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/10 18:46:10 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:06:48 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_parser(char *input, t_data *data)
 		return (0);
 	}
 	ft_pre_expand(data->token_lst);
+	ft_pre_wildcard(data->token_lst);
 	ft_remove_quotes(data->token_lst, data);
 	ft_redir_check(&data->token_lst);
 	return (1);
