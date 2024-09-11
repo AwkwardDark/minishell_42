@@ -6,20 +6,11 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/10 17:47:17 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:47:58 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* void	handler_slash(int code)
-{
-	(void)code;
-	// rl_on_new_line();
-	rl_replace_line("minishell ~", 11);
-	rl_redisplay();
-	// rl_redisplay();
-} */
 
 void	handler_main(int code)
 {
@@ -28,13 +19,16 @@ void	handler_main(int code)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	if (g_signal == 0)
-	{
 		rl_redisplay();
-	}
 }
 
-void	child_sigs()
+void	child_sigint(int code)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	exit(128 + code);
+}
+
+void	parenthandler(int code)
+{
+	(void)code;
+	write(1, "\n", 1);
 }

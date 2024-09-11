@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/11 13:47:34 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:48:02 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ void	ft_token_symbol(char *content, t_token *token);
 void	handler_slash(int code);
 void	handler_c(int code);
 void	handler_main(int code);
-void	child_sigs();
+void	parenthandler(int code);
+// void	child_sigs();red
+void	handler_main(int code);
+void	child_sigint(int code);
+// void	child_heredoc(int code, siginfo_t *info, void *content);
 
 /* /src/utils/free_exec.c */
 void	free_exec(char *path, char **argv, char **env_arr);
@@ -144,7 +148,7 @@ int		is_heredoc(t_token *token);
 char 	*get_limiter(t_token *token);
 
 // exec/heredoc.c
-void	do_mydoc(char *limiter);
+void	do_mydoc(char *limiter, t_data *data);
 // static void	heredoc_work(char *limiter, int *pipe_fd)
 
 //src/exec/redirections.c

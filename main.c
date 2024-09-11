@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 13:33:06 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:50:16 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handler_main);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_error(7), 1);
 	ft_memset(data, 0, sizeof(t_data));
+	char **arg;
 	if (ft_init_data(envp, data))
 		return (1);
 	while (1)
 	{
-		data->input = readline(GREEN GRAS "minishell ~" RESET);
+		signal(SIGINT, handler_main);
 		g_signal = 0;
+		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		if (!data->input || !ft_strcmp(data->input, "exit"))
 			break ;
 		add_history(data->input);
@@ -42,10 +43,13 @@ int	main(int argc, char **argv, char **envp)
 		clr_btree(tree);
 		data->token_lst = NULL;
 		free(data->input);
-		if (g_signal == 0)
+/* 		if (g_signal == 0)
 			fprintf(stderr, "exit status: %d\n", data->exit_status);
 		else
-			fprintf(stderr, "sigexit status: %d\n", data->exit_status);
+			fprintf(stderr, "sigexit status: %d\n", data->exit_status); */
+/* 		arg = cmdlst_tocmdarr(data->token_lst, 0);
+		ft_free_lst(&data->token_lst);
+		clear_wordar(arg); */
 	}
 	ft_free_exit(data);
 	return (0);

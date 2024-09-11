@@ -25,7 +25,7 @@ ERROR_OBJ= $(addprefix src/errors/, $(ERROR:.c=.o))
 SIGNAL_OBJ = $(addprefix src/signals/, $(SIGNAL:.c=.o))
 
 CC = cc 
-CFLAGS = -Werror -Wall -Wextra
+# CFLAGS = -Werror -Wall -Wextra
 
 all: $(NAME)
 

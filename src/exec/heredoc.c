@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/10 17:48:32 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:54:28 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 	int		limiter_len;
 	char	*line;
 
+	signal(SIGINT, child_sigint);
 	limiter_len = ft_strlen(limiter);
 	close(pipe_fd[0]);
-	child_sigs();
-	write(STDOUT_FILENO, "here_doc > ", 11);
+	write(STDOUT_FILENO, "> ", 2);
 	line = get_next_line(STDIN_FILENO);
 	while (line && !(ft_strncmp(limiter, line, limiter_len) == 0
 			&& line[limiter_len] == '\n'))
 	{
 		write(pipe_fd[1], line, ft_strlen(line));
 		free(line);
-		write(STDOUT_FILENO, "here_doc > ", 11);
+		write(STDOUT_FILENO, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 	}
 	if (!line)
@@ -44,7 +44,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 	exit(EXIT_SUCCESS);
 }
 
-void	do_mydoc(char *limiter)
+void	do_mydoc(char *limiter, t_data *data)
 {
 	int	fd[2];
 	int	ret;
@@ -56,7 +56,7 @@ void	do_mydoc(char *limiter)
 		error_disp_exit("fork", strerror(errno), 1);
 	if (ret == 0)
 		heredoc_work(limiter, fd);
-	simplecmd_wait(ret);
+	simplecmd_wait(ret, data);
 	if (g_signal == 0)
 	{
 		close(fd[1]);

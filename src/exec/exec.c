@@ -6,11 +6,36 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/11 13:36:20 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:50:15 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static	int	exec(t_token *token, t_data *data, int flag)
+{
+	int	child;
+	int fd[2];
+
+	if (flag == PIPE)
+	{
+		if (pipe(fd) < 0)
+			error_disp_exit("minishell: pipe: ", strerror(errno), 1);
+	}
+	child = fork();
+	if (child < 0)
+		error_disp_exit("minishell: fork: ", strerror(errno), 1);
+	if (child == 0)
+		redirect_files(token, fd, flag, data);
+	if (flag == PIPE)
+	{
+		close(fd[1]);
+		if (dup2(fd[0], STDIN_FILENO) < 0)
+			error_disp_exit("minishell: dup2: ", strerror(errno), 1);
+		close(fd[0]);
+	}
+	return (child);
+}
 
 static int	parse_exec(t_token *token, t_data *data, int flag)
 {
@@ -19,29 +44,10 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 
 	child = 0;
 	if (is_heredoc(token))
-		do_mydoc(get_limiter(token));
-	if (g_signal < 128)
-	{
-		if (flag == PIPE)
-		{
-			if (pipe(fd) < 0)
-				error_disp_exit("minishell: pipe: ", strerror(errno), 1);
-		}
-		child = fork();
-		if (child < 0)
-			error_disp_exit("minishell: fork: ", strerror(errno), 1);
-		if (child == 0)
-			redirect_files(token, fd, flag, data);
-		if (flag == PIPE)
-		{
-			close(fd[1]);
-			if (dup2(fd[0], STDIN_FILENO) < 0)
-				error_disp_exit("minishell: dup2: ", strerror(errno), 1);
-			close(fd[0]);
-		}
-		return (child);
-	}
-	return (g_signal);
+		do_mydoc(get_limiter(token), data);
+	if (g_signal == 0)
+		return (exec(token, data, flag));
+	return (-1);
 }
 
 /* 
@@ -86,6 +92,7 @@ void	exec_btree(t_btree *tree, t_data *data)
 {
 	int	infd;
 
+	signal(SIGINT, parenthandler);
 	infd = dup(0);
 	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);
