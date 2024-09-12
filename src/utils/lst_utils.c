@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 10:56:06 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:51:08 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_free_lst(t_token **lst)
 
 	while (*lst)
 	{
+		//printf("%s\n", (*lst)->content);
 		temp = (*lst)->next;
 		free((*lst)->content);
 		free(*lst);
@@ -34,6 +35,7 @@ t_token	*ft_lstnew(char *content)
 	if (!lstnew)
 		return (NULL);
 	ft_memset(lstnew, 0, sizeof(t_token));//inutile?
+	lstnew->redir = NULL;
 	lstnew->content = content;
 	lstnew->next = NULL;
 	lstnew->prev = NULL;
@@ -105,7 +107,7 @@ void	ft_print_lst(t_token *lst)
 		printf(" token -> %d\n", current->token_type);
 		if (current->redir)
 			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
-		//ft_print_expand_table(current->pre_expand, ft_count_exp(current->content));
+		ft_print_expand_table(current->pre_expand, ft_count_exp(current->content));
 		printf("Wildcard flag -> %d\n", current->wildcard);
 		printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 		current = current->next;

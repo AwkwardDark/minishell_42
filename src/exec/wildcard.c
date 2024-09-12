@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:57:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 11:21:55 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:37:35 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_simple_wildcard(t_token *current, int *flag)
 	closedir(dirp);
 }
 
-void	ft_wildcard(t_token **lst)
+void	ft_wildcard(t_token **lst, t_data *data)
 {
 	t_token	*current;
 	t_token *next;
@@ -49,15 +49,14 @@ void	ft_wildcard(t_token **lst)
 		if (delete_flag)
 		{
 			if (*lst == current)
+			{
 				*lst = current->next;
+				data->token_lst = current->next;
+			}
 			if (current->next)
 				current->next->prev = current->prev;
-			// if (!current->next)
-			// 	current->next->prev = NULL;
 			if (current->prev)
 				current->prev->next = current->next;
-			// if (!current->prev)
-			// 	current->prev->next = NULL;
 			free(current);
 		}
 		current = next;

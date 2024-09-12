@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 15:08:24 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:43:33 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef enum e_type {
 	PIPE=9,	
 }	t_type;
 
+/*Useless structure just to bypass the norminette on the ft_expand function :(*/
+typedef struct s_index {
+	int	i;
+	int	j;
+}		t_index;
+
 /*Double linked list that stores all the information
 separated by spaces or special characters*/
 typedef struct s_token {
@@ -46,8 +52,9 @@ typedef struct s_token {
 	t_type			token_type;
 	int				*pre_expand;
 	int				exp_tab_len;
+	int				exp_idx;
 	int				wildcard;
-	int				quote_flag;
+	int				quote_flag; //for heredoc but useless on this structure
 	char			*redir;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -72,6 +79,7 @@ typedef struct s_data {
 	char			symbol;
 	int				exit_status;
 	char			*syntax_error;
+	int				*child_ps;
 }		t_data;
 
 /* Pierre */

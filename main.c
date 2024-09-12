@@ -6,18 +6,22 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/10 15:32:43 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:14:50 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int g_signal;
+
 int main(int argc, char **argv, char **envp)
 {
 	t_data *data;
 	t_btree *tree;
+	
 	(void)argc;
 	(void)argv;
+	signal(SIGQUIT, SIG_IGN);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_error(7), 1);
@@ -26,6 +30,8 @@ int main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
+		signal(SIGINT, handler_main);
+		g_signal = 0;
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		if (!data->input || !ft_strcmp(data->input, "exit"))
 			break;
@@ -33,7 +39,7 @@ int main(int argc, char **argv, char **envp)
 		if (ft_parser(data->input, data))
 		{
 			tree = create_tokentree(&data->token_lst);
-			exec_btree(tree, data->env);
+			exec_btree(tree, data);
 			clr_btree(tree);
 			data->token_lst = NULL;
 		}

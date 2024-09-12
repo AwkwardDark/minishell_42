@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/11 18:04:13 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:13:06 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,20 @@ int		ft_count_exp(char *str);
 void	ft_print_expand_table(int *tab, int len);
 
 // Pierre
+
+// src/signals/handler.c
+void	handler_slash(int code);
+void	handler_c(int code);
+void	handler_main(int code);
+void	parenthandler(int code);
+// void	child_sigs();red
+void	handler_main(int code);
+void	child_sigint(int code);
+// void	child_heredoc(int code, siginfo_t *info, void *content);
+
+/* /src/utils/free_exec.c */
+void	free_exec(char *path, char **argv, char **env_arr);
+
 /* src/utils/ls_env.c */
 t_env	*ft_initenv(char *key, char *value);
 void	ft_addlstenv(t_env **env, char *key, char *value);
@@ -117,38 +131,45 @@ void	ft_unset(char *var, t_data *data);
 void	ft_export(t_env **env, char *key, char *value);
 void	ft_echo(char **str, int NFLAG);
 
+// src/exec/wait.c
+void	wait_children(pid_t last_childm, t_data *data);
+void	simplecmd_wait(int pid, t_data *data);
+
+// src/exec/exec_operators.c
+void	exec_or(t_btree *tree, t_data *data);
+void	exec_and(t_btree *tree, t_data *data);
+
 // single_exec
-void	executer(t_env *env, t_token *token);
+void	executer(t_data *data, t_token *token);
 char	**lstenv_towordarr(t_env *env);
 char	*get_paths(t_env *env);
 char	*test_path(char *envpath, char *cmd);
 char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
 char	**lstenv_towordarr(t_env *env);
-char	**cmdlst_tocmdarr(t_token *token);
+char	**cmdlst_tocmdarr(t_token *token, int absolut);
 
 // expand.c
-void	ft_expand(t_token *lst, t_env *env);
+void	ft_expand(t_token *lst, t_data *data);
 char	*ft_find_exp_value(char *key, t_env *env);
 
 // wildcard.c
-void	ft_wildcard(t_token **lst);
+void	ft_wildcard(t_token **lst, t_data *data);
 
 // exec_utils.c
 int		is_heredoc(t_token *token);
 char 	*get_limiter(t_token *token);
 
 //heredoc.c
-void	do_mydoc(char *limiter);
+void	do_mydoc(char *limiter, t_data *data);
 //static void	heredoc_work(char *limiter, int *pipe_fd);
 
 //src/exec/redirections.c
 void	in_redirection(t_token *token);
 void	out_redirection(t_token *token);
-void	redirect_files(t_token *token, int *pipe, int flag, t_env *env);
+void	redirect_files(t_token *token, int *pipe, int flag, t_data *data);
 
 // exec.c
-int		exec_btree(t_btree *tree, t_env *env);
-int		wait_children(pid_t last_child);
+void		exec_btree(t_btree *tree, t_data *data);
 // static int		exec_pipes(t_btree *tree, t_env *env, int last_command)
 // static int		parse_exec(t_token *token, t_env *env, int flag);
 

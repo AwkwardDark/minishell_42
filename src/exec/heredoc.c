@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/11 14:53:28 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:58:41 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,24 @@
 	we should add a flag EXPAND to know it should be evaluatd in the do_mydoc
 	Also check for Signals
 */
-static void	heredoc_work(char *limiter, int *pipe_fd)
+static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data)
 {
 	int		limiter_len;
 	char	*line;
+	(void)data;
 
+	signal(SIGINT, child_sigint);
 	limiter_len = ft_strlen(limiter);
 	close(pipe_fd[0]);
-	write(STDOUT_FILENO, "here_doc > ", 11);
+	write(STDOUT_FILENO, "> ", 2);
 	line = get_next_line(STDIN_FILENO);
 	while (line && !(ft_strncmp(limiter, line, limiter_len) == 0
 			&& line[limiter_len] == '\n'))
 	{
-		//ft_expand... and use data struct for expansion flag
+		//ft_expand_heredoc(line, data);
 		write(pipe_fd[1], line, ft_strlen(line));
 		free(line);
-		write(STDOUT_FILENO, "here_doc > ", 11);
+		write(STDOUT_FILENO, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 	}
 	if (!line)
@@ -44,9 +46,9 @@ static void	heredoc_work(char *limiter, int *pipe_fd)
 	exit(EXIT_SUCCESS);
 }
 
-void	do_mydoc(char *limiter)
+void	do_mydoc(char *limiter, t_data *data)
 {
- 	int	fd[2];
+	int	fd[2];
 	int	ret;
 
 	if (pipe(fd) < 0)
@@ -55,10 +57,18 @@ void	do_mydoc(char *limiter)
 	if (ret < 0)
 		error_disp_exit("fork", strerror(errno), 1);
 	if (ret == 0)
-		heredoc_work(limiter, fd);
-	wait(NULL);
-	close(fd[1]);
-	if (dup2(fd[0], STDIN_FILENO) < 0)
-		error_disp_exit("minishell", strerror(errno), 1);
-	close(fd[0]);
+		heredoc_work(limiter, fd, data);
+	simplecmd_wait(ret, data);
+	if (g_signal == 0)
+	{
+		close(fd[1]);
+		if (dup2(fd[0], STDIN_FILENO) < 0)
+			error_disp_exit("minishell", strerror(errno), 1);
+		close(fd[0]);
+	}
+	else
+	{
+		close(fd[0]);
+		close(fd[1]);
+	}
 }

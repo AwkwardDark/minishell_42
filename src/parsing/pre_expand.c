@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:56:01 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 12:06:33 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:23:12 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,21 @@ static int	ft_is_alone(char *str, int *i)
 	return (1);
 }
 
-static int	ft_save_expand(char *str, int *i, int d_flag)
+static int	ft_save_expand(char *str, int *i, int *d_flag, int *s_flag)
 {
 	int	pre_expand_len;
 	int	k;
 
 	if (str[*i] == '?')
 		return (1);
-	if ((str[*i] == D_QUOTE || str[*i] == S_QUOTE) && (d_flag != -1))
+	if ((str[*i] == D_QUOTE || str[*i] == S_QUOTE) && (*d_flag != -1))
+	{
+		if (str[*i] == D_QUOTE)
+			*d_flag *= -1;
+		if (str[*i] == S_QUOTE)
+			*s_flag *= -1;
 		return (0);
+	}
 	if ((!str[*i]) || ft_is_special(str[*i]) || ft_is_alone(str, i))
 		return (-1);
 	k = *i;
@@ -75,7 +81,7 @@ static void	ft_create_exp_tab(t_token *cur, char *str, int *s_flag, int *d_flag)
 		if (str[i] == DOLLAR && *s_flag == 1)
 		{
 			i++;
-			cur->pre_expand[j++] = ft_save_expand(str, &i, *d_flag);
+			cur->pre_expand[j++] = ft_save_expand(str, &i, d_flag, s_flag);
 		}
 		if (str[i] == DOLLAR && *s_flag == -1)
 		{

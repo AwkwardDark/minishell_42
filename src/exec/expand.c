@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:37:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 14:52:37 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:46:52 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static char	*ft_create_new_expansion(char *str, int i, char *expanded, int n_l)
 	free(temp);
 	return (new);
 }
-/*It doesnt work with the norm*/
-static char	*ft_calc_expan(char *str, t_env *env, int *i, int *j, t_token *curr)
+
+static char	*ft_calc_expan(char *str, t_env *env, t_index *x, t_token *curr)
 {
 	char	*pre_exp;
 	char	*expanded;
@@ -45,50 +45,50 @@ static char	*ft_calc_expan(char *str, t_env *env, int *i, int *j, t_token *curr)
 	char	*new;
 	int		new_len;
 
-	pre_exp = ft_extract_exp(str + *i + 1, curr->pre_expand[*j]);
+	pre_exp = ft_extract_exp(str + x->i + 1, curr->pre_expand[x->j]);
 	expanded = ft_find_exp_value(pre_exp, env);
 	free(pre_exp);
-	new_len = ft_strlen(str) + ft_strlen(expanded) - curr->pre_expand[*j] - 1;
+	new_len = ft_strlen(str) + ft_strlen(expanded) - curr->pre_expand[x->j] - 1;
 	if (new_len == 0)
 		new_len = 1;
-	new_temp = ft_create_new_expansion(str, *i, expanded, new_len);
-	new = ft_strjoin(new_temp, str + *i + curr->pre_expand[*j] + 1);
+	new_temp = ft_create_new_expansion(str, x->i, expanded, new_len);
+	new = ft_strjoin(new_temp, str + x->i + curr->pre_expand[x->j] + 1);
 	free(new_temp);
 	if (ft_strlen(expanded) > 1)
-		*i += ft_strlen(expanded) - 1;
+		x->i += ft_strlen(expanded) - 1;
 	free(str);
 	str = ft_strdup(new);
 	free (new);
-	if (*j < curr->exp_tab_len)
-		(*j)++;
+	if (x->j < curr->exp_tab_len)
+		(x->j)++;
 	return (str);
 }
 
 static char	*ft_str_to_exp(char *str, t_env *env, t_token *curr)
 {
-	int		i;
-	int		j;
+	t_index	x;
 	int		*tab;
 
-	i = 0;
-	j = 0;
+	x.i = 0;
+	x.j = 0;
 	tab = curr->pre_expand;
-	while (str[i])
+	while (str[x.i])
 	{
-		if (str[i] == DOLLAR && tab[j] != -1)
-			str = ft_calc_expan(str, env, &i, &j, curr);
-		if (str[i] && str[i] == '$' && j < curr->exp_tab_len && tab[j] == -1)
+		if (str[x.i] == DOLLAR && tab[x.j] != -1)
+			str = ft_calc_expan(str, env, &x, curr);
+		if (str[x.i] && str[x.i] == '$' && \
+			x.j < curr->exp_tab_len && tab[x.j] == -1)
 		{
-			i++;
-			j++;
+			x.i++;
+			x.j++;
 		}
-		else if (str[i] && str[i] != DOLLAR)
-			i++;
+		else if (str[x.i] && str[x.i] != DOLLAR)
+			x.i++;
 	}
 	return (str);
 }
 
-void	ft_expand(t_token *lst, t_env *env)
+void	ft_expand(t_token *lst, t_data *data)
 {
 	t_token	*current;
 	char	*result;
@@ -98,7 +98,7 @@ void	ft_expand(t_token *lst, t_env *env)
 	{
 		if (current->token_type == WORD && ft_count_exp(current->content) > 0)
 		{
-			result = ft_str_to_exp(current->content, env, current);
+			result = ft_str_to_exp(current->content, data->env, current);
 			if (result)
 			{
 				current->content = ft_strdup(result);
