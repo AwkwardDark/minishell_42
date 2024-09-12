@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/08 14:43:33 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/12 16:35:52 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,46 +65,46 @@ t_token	*contains_priority(t_token *token, int priority)
 	return (NULL);
 }
 
-/* void	display_type(t_type type)
-{
-	switch (type)
-	{
-		case PIPE:
-			printf("PIPE");
-			break;
-		case AND:
-			printf("AND");
-		case OR: 
-			printf("OR");
-		default:
-			printf("WORD");
-			break;
-	}
-} */
+// void	display_type(t_type type)
+// {
+// 	switch (type)
+// 	{
+// 		case PIPE:
+// 			printf("PIPE");
+// 			break;
+// 		case AND:
+// 			printf("AND");
+// 		case OR: 
+// 			printf("OR");
+// 		default:
+// 			printf("WORD");
+// 			break;
+// 	}
+// } 
 
-// displays the tree in the following format (node, left child, right child)
-/* void	display_btree(t_btree *tree)
-{
-	if (tree == NULL)
-	{
-		printf("\n");
-		return ;
-	}
-	else if (tree->left_child == NULL && tree->right_child == NULL)
-	{
-		display_type(tree->token->token_type);
-	}
-	else
-	{
-		printf("( ");
-		display_type(tree->token->token_type);
-		printf(", ");
-		display_btree(tree->left_child);
-		printf(", ");
-		display_btree(tree->right_child);
-		printf(" )");
-	}
-} */
+// // displays the tree in the following format (node, left child, right child)
+// void	display_btree(t_btree *tree)
+// {
+// 	if (tree == NULL)
+// 	{
+// 		printf("\n");
+// 		return ;
+// 	}
+// 	else if (tree->left_child == NULL && tree->right_child == NULL)
+// 	{
+// 		display_type(tree->token->token_type);
+// 	}
+// 	else
+// 	{
+// 		printf("( ");
+// 		display_type(tree->token->token_type);
+// 		printf(", ");
+// 		display_btree(tree->left_child);
+// 		printf(", ");
+// 		display_btree(tree->right_child);
+// 		printf(" )");
+// 	}
+// } 
 
 int	is_leaf(t_btree *tree)
 {

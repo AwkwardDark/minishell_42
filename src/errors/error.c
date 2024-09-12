@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 15:55:04 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:15:15 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,14 @@ void	ft_free_exit(t_data *data)
 		ft_clrenv(&data->env);
 	if (data->input)
 		free(data->input);
-	if (data->token_lst)
-		ft_free_lst(&data->token_lst);
+	// if (data->token_lst)
+	// 	ft_free_lst(&data->token_lst);
 	if (data)
+	{
+		if (data->bin)
+			free(data->bin);
 		free(data);
+	}
 	rl_clear_history();
 }
 

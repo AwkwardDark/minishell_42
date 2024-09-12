@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 15:43:33 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:41:37 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,36 @@ typedef struct s_env {
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_btree {
+	t_token			*token;
+	struct s_btree	*left_child;
+	struct s_btree	*right_child;
+}	t_btree;
+
+typedef struct s_garbagecolector 
+{
+	int		fds[1000];
+	t_btree *tree;
+} t_gbcolector;
+
 /*Main structure used for sharing information between the
 parsing and the execution, also used for some small features
  on error management*/
 typedef struct s_data {
 	struct s_env	*env;
 	struct s_token	*token_lst;
+	struct s_btree	*b_tree;
 	char			*input;
 	char			quote_type;
 	char			symbol;
 	int				exit_status;
 	char			*syntax_error;
 	int				*child_ps;
+	t_gbcolector	*bin;
 }		t_data;
 
 /* Pierre */
 
-typedef struct s_btree {
-	t_token			*token;
-	struct s_btree	*left_child;
-	struct s_btree	*right_child;
-}	t_btree;
 
 typedef struct s_pipe
 {

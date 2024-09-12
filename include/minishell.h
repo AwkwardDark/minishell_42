@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 15:13:06 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:32:52 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ void	ft_print_expand_table(int *tab, int len);
 
 // Pierre
 
+// src/utils/clr_gb.c
+void	clr_gb(t_gbcolector *bin);
+
 // src/signals/handler.c
 void	handler_slash(int code);
 void	handler_c(int code);
@@ -144,6 +147,8 @@ void	executer(t_data *data, t_token *token);
 char	**lstenv_towordarr(t_env *env);
 char	*get_paths(t_env *env);
 char	*test_path(char *envpath, char *cmd);
+
+// utils/exec_utils.c
 char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
 char	**lstenv_towordarr(t_env *env);
 char	**cmdlst_tocmdarr(t_token *token, int absolut);

@@ -1,7 +1,7 @@
 NAME = minishell
 MAIN = main.c
 BUILTINS = ft_cd.c ft_echo.c ft_export.c ft_env.c ft_pwd.c ft_unset.c 
-UTILS = ls_env.c lst_utils.c symbols.c ft_cpyenv.c testing.c exec_utils.c free_exec.c
+UTILS = ls_env.c lst_utils.c symbols.c ft_cpyenv.c testing.c exec_utils.c free_exec.c clr_gb.c
 TREE = tree.c tree_utils.c
 EXEC= exec_utils.c exec.c heredoc.c redirections.c single_exec.c exec_operators.c wait.c expand.c wildcard.c
 ERROR= error.c
@@ -39,7 +39,7 @@ $(NAME): $(MAIN:.c=.o) $(EXEC_OBJS)  $(TREE_OBJS) $(UTILS_OBJS) $(BUILTINS_OBJS)
 
 # Clean object files and libraries
 clean:
-	rm -f $(EXEC_OBJS) $(TREE_OBJS) $(UTILS_OBJS) $(BUILTINS_OBJS) $(MAIN:.c=.o) $(BUILTINS_OBJS) $(ERROR_OBJ) $(OBJ_INIT) $(OBJ_PARSING)
+	rm -f $(EXEC_OBJS) $(TREE_OBJS) $(UTILS_OBJS) $(BUILTINS_OBJS) $(MAIN:.c=.o) $(BUILTINS_OBJS) $(ERROR_OBJ) $(OBJ_INIT) $(OBJ_PARSING) $(SIGNAL_OBJ)
 	make clean -C libft
 
 # Clean everything including the final executable

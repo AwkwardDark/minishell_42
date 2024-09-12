@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/09 11:49:18 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:22:48 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ t_btree	*init_btree(t_token *token, t_btree *left, t_btree *right)
 */
 void	clr_btree(t_btree *tree)
 {
+	t_token *temp;
+
+	(void)temp;
 	if (!tree)
 		return ;
 	clr_btree(tree->left_child);
 	clr_btree(tree->right_child);
+	//fprintf(stderr, "here\n");
 	ft_free_lst(&tree->token);
 	free(tree);
 }
