@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/11 16:58:00 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:04:13 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_free_exit(t_data *data);
 t_token	*ft_lstnew(char *content);
 t_token	*ft_lstlast(t_token *lst);
 void	ft_lstadd_back(t_token **lst, t_token *new);
+void	ft_insert_after(t_token *current, t_token *new);
 void	ft_print_lst(t_token *lst);
 void	ft_free_lst(t_token **lst);
 void	ft_free_onetoken(t_token *token);
@@ -130,7 +131,7 @@ void	ft_expand(t_token *lst, t_env *env);
 char	*ft_find_exp_value(char *key, t_env *env);
 
 // wildcard.c
-void	ft_wildcard(t_token *lst);
+void	ft_wildcard(t_token **lst);
 
 // exec_utils.c
 int		is_heredoc(t_token *token);

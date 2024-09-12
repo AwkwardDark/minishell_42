@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 16:53:50 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:56:06 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	new->prev = last;
 }
 
+void	ft_insert_after(t_token *current, t_token *new)
+{
+	new->next = current->next;
+	new->prev = current;
+	
+	if (current->next)
+		current->next->prev = new;
+	current->next = new;
+}
+
 void	ft_free_onetoken(t_token *token)
 {
 	if (!token)
@@ -97,7 +107,7 @@ void	ft_print_lst(t_token *lst)
 			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
 		//ft_print_expand_table(current->pre_expand, ft_count_exp(current->content));
 		printf("Wildcard flag -> %d\n", current->wildcard);
-		printf("\n");
+		printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 		current = current->next;
 		i++;
 	}
