@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/11 15:57:02 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:57:01 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	executer(t_data *data, t_token *token)
 		path = test_path(get_paths(data->env), token->content);
 		if (!path || !ft_strcmp(*argv, ""))
 		{
+			clr_gb(data->bin);
 			clear_wordar(argv);
 			ft_free_exit(data);
 			error_disp_exit("minishell: command not found: ", NULL, 127);

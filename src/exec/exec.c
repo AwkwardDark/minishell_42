@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/11 17:50:15 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:56:57 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,9 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 	}
 }
 
-/* 
-	General function of execution TODO: ADJUSTEMENT ON THE FILE 
-	DESCRIPTOR FOR THE HEREDOC SAME PROBLEM AS FOR THE PIPES.
-
-	norm it also
-*/
+/* 	General function of execution TODO: ADJUSTEMENT ON THE FI LE*/ 
+/* 	DESCRIPTOR FOR THE HEREDOC SAME PROBLEM AS FOR THE PIPES. */
+// ror_disp_exit("minishell: exec: ", strerror(errno), 126);
 static void	exec_btree_aux(t_btree *tree, t_data *data)
 {
 	if (is_leaf(tree))
@@ -92,8 +89,9 @@ void	exec_btree(t_btree *tree, t_data *data)
 {
 	int	infd;
 
-	signal(SIGINT, parenthandler);
 	infd = dup(0);
+	data->bin->fds[0]= infd;
+	signal(SIGINT, parenthandler);
 	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);
 	close(infd);

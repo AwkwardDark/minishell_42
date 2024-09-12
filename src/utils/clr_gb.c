@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handlers.c                                         :+:      :+:    :+:   */
+/*   clr_gb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 15:52:39 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/09/12 14:42:53 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/09/12 15:04:31 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handler_main(int code)
+void	clr_gb(t_gbcolector *bin)
 {
-	(void)code;
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	if (g_signal == 0)
-		rl_redisplay();
-}
+	int i;
 
-void	child_sigint(int code)
-{
-	exit(128 + code);
-}
-
-void	parenthandler(int code)
-{
-	(void)code;
-	write(1, "\n", 1);
+	i = 0;
+	while (i < 1000 && bin->fds[i] != -1)
+	{
+		close(bin->fds[i]);
+		i++;
+	}
+	fprintf(stderr, "beginning to free\n");
+	clr_btree(bin->tree);
 }
