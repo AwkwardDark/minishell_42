@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 14:57:42 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:26:33 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,21 @@ void	ft_token_symbol(char *content, t_token *token);
 
 // Pierre
 
-// src/utils/clr_gb.c
+// src/gb_collector
+
+// clr_gb.c
 void	clr_gb(t_gbcolector *bin);
 
+// gb_utils.c
+void	add_fdtogb(t_gbcolector *gb, int fd);
+
 // src/signals/handler.c
-void	handler_slash(int code);
-void	handler_c(int code);
-void	handler_main(int code);
-void	parenthandler(int code);
-// void	child_sigs();red
 void	handler_main(int code);
 void	child_sigint(int code);
+void	here_docsignals(t_data *data);
+void	parenthandler(int code);
+void	heredoc_handler(int code);
+void	sigint_exit(t_data *data);
 
 /* /src/utils/free_exec.c */
 void	free_exec(char *path, char **argv, char **env_arr);

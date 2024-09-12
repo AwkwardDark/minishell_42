@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/12 14:56:57 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:44:33 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	exec_btree(t_btree *tree, t_data *data)
 	int	infd;
 
 	infd = dup(0);
-	data->bin->fds[0]= infd;
+	add_fdtogb(data->bin, infd);
 	signal(SIGINT, parenthandler);
 	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);

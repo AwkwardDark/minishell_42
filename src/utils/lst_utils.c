@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 15:08:00 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:41:29 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	ft_free_lst(t_token **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		free((*lst)->content);
+		if ((*lst)->content)
+			free((*lst)->content);
+		if ((*lst)->redir)
+			free((*lst)->redir);
 		free(*lst);
 		*lst = temp;
 	}

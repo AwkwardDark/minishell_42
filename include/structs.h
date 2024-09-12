@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 14:52:09 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:46:40 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ typedef struct s_data {
 }		t_data;
 
 /* Pierre */
-
-
 
 typedef struct s_pipe
 {

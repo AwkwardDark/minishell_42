@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 14:56:39 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:42:57 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGINT, handler_main);
 		g_signal = 0;
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
-		if (!data->input || !ft_strcmp(data->input, "exit"))
+		if (!data->input || !ft_strcmp(data->input, "exit") || data->input == NULL)
+		{
+			printf("end");
 			break ;
+		}
 		add_history(data->input);
 		ft_parser(data->input, data);
 		tree = create_tokentree(&data->token_lst);

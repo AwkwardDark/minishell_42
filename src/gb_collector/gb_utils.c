@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clr_gb.c                                           :+:      :+:    :+:   */
+/*   gb_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 14:42:53 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 15:04:31 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/09/12 16:01:54 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/09/12 16:11:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clr_gb(t_gbcolector *bin)
+void	add_fdtogb(t_gbcolector *gb, int fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (i < 1000 && bin->fds[i] != -1)
-	{
-		close(bin->fds[i]);
+	while (gb->fds[i] != -1 && i < 1000)
 		i++;
-	}
-	fprintf(stderr, "beginning to free\n");
-	clr_btree(bin->tree);
+	if (i == 999 && gb->fds[i] != -1)
+		ft_putstr_fd("Too many fds\n", 2);
+	else
+		gb->fds[i] = fd;
 }
