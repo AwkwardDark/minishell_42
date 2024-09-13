@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 22:10:45 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/13 14:37:18 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,5 +172,7 @@ void	exec_btree(t_btree *tree, t_data *data);
 // src/errors/error.c
 void	error_disp(char *cmd, char *error_message);
 void	error_disp_exit(char *cmd, char *error_message, int eno);
+void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno);
+void	permissiond_exit(char *path, t_data *data);
 
 #endif

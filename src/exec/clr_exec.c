@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_operators.c                                   :+:      :+:    :+:   */
+/*   clr_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/09 13:51:31 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 11:42:35 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/09/13 11:43:30 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/09/13 12:08:05 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
-void	exec_or(t_btree *tree, t_data *data)
+/* char	*clr_execnopath(char **argv, t_data *data, t_token *token)
 {
-	exec_btree(tree->left_child, data);
-	if (data->exit_status == 0)
-		return ;
-	exec_btree(tree->right_child, data);
-}
+	char	*word;
+	char	*temp;
 
-void	exec_and(t_btree *tree, t_data *data)
-{
-	exec_btree(tree->left_child, data);
-	if (data->exit_status != 0)
-		return ;
-	exec_btree(tree->right_child, data);
-}
+	word = NULL;
+	while (token->token_type == WORD && token != NULL)
+	{
+		temp = ft_strdup(token->content);
+		word = ft_strjoin(word, token->content);
+		token = token->next;
+		free(temp);
+	}
+	clr_gb(data->bin);
+	clear_wordar(argv);
+	ft_free_exit(data);
+	return (word)
+} */
