@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 14:31:33 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:11:33 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,23 @@ void	ft_print_expand_table(int *tab, int len);
 
 // Pierre
 
-// src/utils/clr_gb.c
+// src/gb_collector
+
+// clr_gb.c
 void	clr_gb(t_gbcolector *bin);
+void	free_process(t_data *data);
+
+// gb_utils.c
+void	add_fdtogb(t_gbcolector *gb, int fd);
 
 // src/signals/handler.c
-void	handler_slash(int code);
-void	handler_c(int code);
-void	handler_main(int code);
-void	parenthandler(int code);
-// void	child_sigs();red
 void	handler_main(int code);
 void	child_sigint(int code);
-// void	child_heredoc(int code, siginfo_t *info, void *content);
+void	here_docsignals(t_data *data);
+void	parenthandler(int code);
+void	heredoc_handler(int code);
+void	sigint_exit(t_data *data);
+void	handler_slash(int code);
 
 /* /src/utils/free_exec.c */
 void	free_exec(char *path, char **argv, char **env_arr);
@@ -181,5 +186,7 @@ void	exec_btree(t_btree *tree, t_data *data);
 // src/errors/error.c
 void	error_disp(char *cmd, char *error_message);
 void	error_disp_exit(char *cmd, char *error_message, int eno);
+void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno);
+void	permissiond_exit(char *path, t_data *data);
 
 #endif

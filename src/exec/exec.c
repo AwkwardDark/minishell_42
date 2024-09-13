@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 14:44:40 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:51:57 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static	int	exec(t_token *token, t_data *data, int flag)
 {
 	int	child;
-	int fd[2];
+	int	fd[2];
 
 	if (flag == PIPE)
 	{
@@ -46,6 +46,8 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 	child = 0;
 	ft_expand(token, data);
 	ft_wildcard(&token, data);
+	//printf("\nBEFORE COMMAND NOT FOUND\n");
+	//ft_print_lst(token);
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token), data);
 	if (g_signal == 0)
@@ -63,7 +65,7 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 	else if (last_command)
 	{
 		exec_pipes(tree->left_child, data, 0);
-		wait_children(parse_exec(tree->right_child->token, 
+		wait_children(parse_exec(tree->right_child->token,
 				data, SIMPLE_COMMAND), data);
 	}
 	else
@@ -73,7 +75,7 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 	}
 }
 
-/* 	General function of execution TODO: ADJUSTEMENT ON THE FI LE*/ 
+/* 	General function of execution TODO: ADJUSTEMENT ON THE FI LE*/
 /* 	DESCRIPTOR FOR THE HEREDOC SAME PROBLEM AS FOR THE PIPES. */
 // ror_disp_exit("minishell: exec: ", strerror(errno), 126);
 static void	exec_btree_aux(t_btree *tree, t_data *data)
@@ -81,11 +83,11 @@ static void	exec_btree_aux(t_btree *tree, t_data *data)
 	if (is_leaf(tree))
 		simplecmd_wait(parse_exec(tree->token, data, SIMPLE_COMMAND), data);
 	else if (tree->token->token_type == PIPE)
-		 exec_pipes(tree, data, 1);
+		exec_pipes(tree, data, 1);
 	else if (tree->token->token_type == OR)
-		 exec_or(tree, data);
+		exec_or(tree, data);
 	else if (tree->token->token_type == AND)
- 			exec_and(tree, data);
+		exec_and(tree, data);
 }
 
 void	exec_btree(t_btree *tree, t_data *data)
@@ -93,7 +95,7 @@ void	exec_btree(t_btree *tree, t_data *data)
 	int	infd;
 
 	infd = dup(0);
-	data->bin->fds[0]= infd;
+	add_fdtogb(data->bin, infd);
 	signal(SIGINT, parenthandler);
 	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);

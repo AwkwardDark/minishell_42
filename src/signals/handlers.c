@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 16:18:59 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:12:57 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,33 @@ void	handler_main(int code)
 		rl_redisplay();
 }
 
+void	heredoc_handler(int code)
+{
+	g_signal = code;
+	rl_done = 1;
+	close(0);
+}
+
 void	child_sigint(int code)
 {
 	exit(128 + code);
+}
+
+void	here_docsignals(t_data *data)
+{
+	(void)data;
+	if (signal(SIGINT, heredoc_handler) == SIG_ERR)
+		ft_putstr_fd("error in signal function on SIGQUIT handler", 2);
+}
+
+void	sigint_exit(t_data *data)
+{
+	if (g_signal != 0)
+	{
+		rl_done = 0;
+		free_process(data);
+		exit(128 + g_signal);
+	}
 }
 
 void	parenthandler(int code)

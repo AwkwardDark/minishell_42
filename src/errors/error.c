@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 14:39:58 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:39:37 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	error_disp(char *cmd, char *error_message)
 
 /* concatenate cmd and error_messsage and adds a \n 
 (Without any Malloc) and exits */
-void	error_disp_exit(char *cmd, char *error_message, int eno)
+void	error_disp_exit(char *error_message, char *cmd, int eno)
 {
 	char	buffer[500];
 	int		cmd_len;
@@ -38,12 +38,47 @@ void	error_disp_exit(char *cmd, char *error_message, int eno)
 
 	cmd_len = ft_strlen(cmd);
 	error_len = ft_strlen(error_message);
-	ft_memcpy(buffer, cmd, cmd_len);
-	ft_memcpy(buffer + cmd_len, error_message, error_len);
-	ft_memcpy(buffer + cmd_len + error_len, "\n", 1);
-	buffer[cmd_len + error_len + 2] = 0;
-	write(STDERR_FILENO, buffer, error_len + cmd_len + 1);
-	exit(eno);
+	ft_memcpy(buffer, "minishell: ", 11);
+	ft_memcpy(buffer + 11, cmd, cmd_len);
+	ft_memcpy(buffer + cmd_len + 11, ": ", 2);
+	ft_memcpy(buffer + cmd_len + 11 + 2, error_message, error_len);
+	ft_memcpy(buffer + cmd_len + 11 + 2 + error_len, "\n", 1);
+	// ft_memcpy(buffer, error_message, error_len);
+	buffer[cmd_len + 11 + 2 + error_len + 1] = 0;
+	write(2, buffer, cmd_len + 11 + 2 + error_len + 1);
+	if (eno >= 0)
+		exit(eno);
+}
+
+void    cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno)
+{
+    char    buffer[500];
+    int        len;
+    int        i;
+
+    i = 0;
+    len = ft_strlen(token->content);
+    ft_memcpy(buffer, token->content, len);
+    buffer[len] = 0;
+    clr_gb(data->bin); 
+    clear_wordar(argv);
+    ft_free_exit(data);
+    error_disp_exit("command not found", buffer, eno);
+}
+
+void	permissiond_exit(char *path, t_data *data)
+{
+	char	buffer[500];
+	int		len;
+	int		i;
+
+	(void)len;
+	(void)i;
+	ft_memcpy(buffer, path, ft_strlen(path));
+	buffer[ft_strlen(path)] = 0;
+	clr_gb(data->bin);
+	ft_free_exit(data);
+	error_disp_exit("permission denied", buffer, 126);
 }
 
 /*Before exiting the program, it free the environment list, the prompt input,
@@ -54,8 +89,8 @@ void	ft_free_exit(t_data *data)
 		ft_clrenv(&data->env);
 	if (data->input)
 		free(data->input);
-	if (data->token_lst)
-		ft_free_lst(&data->token_lst);
+	//if (data->token_lst)
+	//	ft_free_lst(&data->token_lst);
 	if (data)
 	{
 		if (data->bin)
@@ -65,7 +100,7 @@ void	ft_free_exit(t_data *data)
 	rl_clear_history();
 }
 
-/*It writes on the STDERR an error message depending on the int code*/
+/*It writes on the STDERR an error message*/
 void	ft_error(int code)
 {
 	if (code == 0)

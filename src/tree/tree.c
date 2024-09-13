@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 16:22:48 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:52:03 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ t_btree	*init_btree(t_token *token, t_btree *left, t_btree *right)
 void	clr_btree(t_btree *tree)
 {
 	t_token *temp;
-
+	
 	(void)temp;
 	if (!tree)
 		return ;
 	clr_btree(tree->left_child);
 	clr_btree(tree->right_child);
-	//fprintf(stderr, "here\n");
+	//printf("\nAFTER COMMAND NOT FOUND\n");
+	//ft_print_lst(tree->token);
 	ft_free_lst(&tree->token);
 	free(tree);
 }

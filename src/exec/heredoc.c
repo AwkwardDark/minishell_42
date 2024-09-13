@@ -3,46 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/12 12:58:41 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:36:22 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* 
-	child read on STDIN until reading limiter its writes every time 
-	on pipe[1] TODO a parsing in input to know if wwe need to expand 
-	we should add a flag EXPAND to know it should be evaluatd in the do_mydoc
-	Also check for Signals
-*/
+	// && line[limiter_len] == '\n'))
+	// write(STDOUT_FILENO, "> ", 2);
+	// line = get_next_line(STDIN_FILENO);
+	// line = get_next_line(STDIN_FILENO);
 static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data)
 {
 	int		limiter_len;
 	char	*line;
-	(void)data;
+	char	*linenl;
 
-	signal(SIGINT, child_sigint);
+	add_fdtogb(data->bin, pipe_fd[0]);
+	here_docsignals(data);
 	limiter_len = ft_strlen(limiter);
 	close(pipe_fd[0]);
-	write(STDOUT_FILENO, "> ", 2);
-	line = get_next_line(STDIN_FILENO);
-	while (line && !(ft_strncmp(limiter, line, limiter_len) == 0
-			&& line[limiter_len] == '\n'))
+	line = readline("> ");
+	while (line && !(ft_strncmp(limiter, line, limiter_len) == 0))
 	{
-		//ft_expand_heredoc(line, data);
-		write(pipe_fd[1], line, ft_strlen(line));
+		linenl = ft_strjoin(line, "\n");
+		write(pipe_fd[1], linenl, ft_strlen(line) + 1);
 		free(line);
-		write(STDOUT_FILENO, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
+		free(linenl);
+		line = readline("> ");
 	}
+	sigint_exit(data);
 	if (!line)
-		error_disp_exit("heredoc: ", "CTRL + d", 127);
+		ft_putstr_fd("ctrl + d\n", 2);
 	else
 		free(line);
 	close(pipe_fd[1]);
+	free_process(data);
 	exit(EXIT_SUCCESS);
 }
 
