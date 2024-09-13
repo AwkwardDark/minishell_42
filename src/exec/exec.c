@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/12 18:55:55 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:44:40 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 
 	(void)fd;
 	child = 0;
-	//printf("BEFORE\n");
-	//ft_print_lst(token);
 	ft_expand(token, data);
 	ft_wildcard(&token, data);
-	//printf("\n\n\n\n\nAFTER\n");
-	//ft_print_lst(token);
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token), data);
 	if (g_signal == 0)

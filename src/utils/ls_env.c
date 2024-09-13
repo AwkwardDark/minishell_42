@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/09 18:15:44 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:50:25 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,18 @@ void	ft_clrenv(t_env **head)
 }
 
 // Finds for the expansion value of an enviroment variable
-char	*ft_find_exp_value(char *key, t_env *env)
+char	*ft_find_exp_value(char *key, t_data *data)
 {
 	t_env	*current;
 
-	current = env;
+	current = data->env;
 	while (current)
 	{
+		if (!ft_strcmp(key, "?"))
+		{
+			data->free_flag = 1;
+			return (ft_itoa(data->exit_status));
+		}
 		if (!ft_strcmp(key, current->key))
 			return (current->value);
 		current = current->next;

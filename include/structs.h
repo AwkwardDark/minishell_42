@@ -6,14 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 16:41:37 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:28:04 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
- 
-// # define NULL 0
+
 # include "../libft/includes/libft.h"
 # include <dirent.h>
 # include <unistd.h>
@@ -22,8 +21,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-# define SIMPLE_COMMAND 2 
 # include <errno.h>
+# define SIMPLE_COMMAND 2 
 
 /*Used for tokenize each node in the parsing*/
 typedef enum e_type {
@@ -50,12 +49,12 @@ separated by spaces or special characters*/
 typedef struct s_token {
 	char			*content;
 	t_type			token_type;
-	int				*pre_expand;
-	int				exp_tab_len;
-	int				exp_idx;
-	int				wildcard;
+	int				*pre_expand; //expand
+	int				exp_tab_len; //expand
+	int				wildcard; //wildcard
+	int				delete_flag; //wildcard
 	int				quote_flag; //for heredoc but useless on this structure
-	char			*redir;
+	char			*redir; //redirections
 	struct s_token	*next;
 	struct s_token	*prev;
 }		t_token;
@@ -74,11 +73,11 @@ typedef struct s_btree {
 	struct s_btree	*right_child;
 }	t_btree;
 
-typedef struct s_garbagecolector 
+typedef struct s_garbagecolector
 {
 	int		fds[1000];
-	t_btree *tree;
-} t_gbcolector;
+	t_btree	*tree;
+}	t_gbcolector;
 
 /*Main structure used for sharing information between the
 parsing and the execution, also used for some small features
@@ -91,13 +90,13 @@ typedef struct s_data {
 	char			quote_type;
 	char			symbol;
 	int				exit_status;
+	int				free_flag;
 	char			*syntax_error;
 	int				*child_ps;
 	t_gbcolector	*bin;
 }		t_data;
 
 /* Pierre */
-
 
 typedef struct s_pipe
 {

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 16:58:05 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:12:27 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_token	*ft_lstnew(char *content)
 	ft_memset(lstnew, 0, sizeof(t_token));//inutile?
 	lstnew->redir = NULL;
 	lstnew->content = content;
+	lstnew->delete_flag = 0;
 	lstnew->next = NULL;
 	lstnew->prev = NULL;
 	return (lstnew);

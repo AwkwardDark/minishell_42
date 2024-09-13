@@ -6,14 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 16:32:52 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:31:33 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// Pablo 
 # include <unistd.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -81,6 +80,7 @@ int		ft_is_symbol(char c);
 int		ft_is_special(char c);
 void	ft_token_symbol(char *content, t_token *token);
 int		ft_count_exp(char *str);
+int		ft_simple_wildcard(char *wildcard);
 
 /*Testing utils*/
 void	ft_print_expand_table(int *tab, int len);
@@ -155,14 +155,14 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut);
 
 // expand.c
 void	ft_expand(t_token *lst, t_data *data);
-char	*ft_find_exp_value(char *key, t_env *env);
+char	*ft_find_exp_value(char *key, t_data *data);
 
 // wildcard.c
 void	ft_wildcard(t_token **lst, t_data *data);
 
 // exec_utils.c
 int		is_heredoc(t_token *token);
-char 	*get_limiter(t_token *token);
+char	*get_limiter(t_token *token);
 
 //heredoc.c
 void	do_mydoc(char *limiter, t_data *data);
@@ -174,7 +174,7 @@ void	out_redirection(t_token *token);
 void	redirect_files(t_token *token, int *pipe, int flag, t_data *data);
 
 // exec.c
-void		exec_btree(t_btree *tree, t_data *data);
+void	exec_btree(t_btree *tree, t_data *data);
 // static int		exec_pipes(t_btree *tree, t_env *env, int last_command)
 // static int		parse_exec(t_token *token, t_env *env, int flag);
 

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/12 16:15:15 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:39:58 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	ft_free_exit(t_data *data)
 		ft_clrenv(&data->env);
 	if (data->input)
 		free(data->input);
-	// if (data->token_lst)
-	// 	ft_free_lst(&data->token_lst);
+	if (data->token_lst)
+		ft_free_lst(&data->token_lst);
 	if (data)
 	{
 		if (data->bin)
@@ -65,7 +65,7 @@ void	ft_free_exit(t_data *data)
 	rl_clear_history();
 }
 
-/*It writes on the STDERR an error message*/
+/*It writes on the STDERR an error message depending on the int code*/
 void	ft_error(int code)
 {
 	if (code == 0)

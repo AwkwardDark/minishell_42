@@ -6,25 +6,11 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:57:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 18:54:47 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:31:37 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_simple_wildcard(char *wildcard)
-{
-	int	i;
-
-	i = 0;
-	while (wildcard[i])
-	{
-		if (wildcard[i] != '*')
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 static int	ft_char_in_str(char c, char *entry, int *j)
 {
@@ -39,6 +25,17 @@ static int	ft_char_in_str(char c, char *entry, int *j)
 	return (0);
 }
 
+static int	ft_valid_start(char *wildcard, int *i, char *entry)
+{
+	while (wildcard[*i] && wildcard[*i] != '*')
+		(*i)++;
+	if (ft_strncmp(wildcard, entry, *i))
+		return (0);
+	while (wildcard[*i] && wildcard[*i] == '*')
+		(*i)++;
+	return (1);
+}
+
 static int	ft_wild_match(char *entry, char *wildcard)
 {
 	int	i;
@@ -46,18 +43,15 @@ static int	ft_wild_match(char *entry, char *wildcard)
 
 	if (ft_simple_wildcard(wildcard))
 		return (1);
-	if ((wildcard[ft_strlen(wildcard) - 1] != '*') && (wildcard[ft_strlen(wildcard) - 1] != entry[ft_strlen(entry) - 1]))
+	if ((wildcard[ft_strlen(wildcard) - 1] != '*') && \
+		(wildcard[ft_strlen(wildcard) - 1] != entry[ft_strlen(entry) - 1]))
 		return (0);
 	i = 0;
 	j = 0;
 	while (wildcard[i])
 	{
-		while (wildcard[i] && wildcard[i] != '*')
-			i++;
-		if (ft_strncmp(wildcard, entry, i))
+		if (!ft_valid_start(wildcard, &i, entry))
 			return (0);
-		while (wildcard[i] && wildcard[i] == '*')
-			i++;
 		while (wildcard[i] && wildcard[i] != '*')
 		{
 			if (!ft_char_in_str(wildcard[i], entry, &j))
@@ -70,7 +64,7 @@ static int	ft_wild_match(char *entry, char *wildcard)
 	return (1);
 }
 
-static void	ft_expand_wildcard(t_token *current, int *delete_flag)
+static void	ft_expand_wildcard(t_token *current)
 {
 	struct dirent	*entry;
 	DIR				*dirp;
@@ -85,7 +79,7 @@ static void	ft_expand_wildcard(t_token *current, int *delete_flag)
 		{
 			if (ft_wild_match(entry->d_name, current->content))
 			{
-				*delete_flag = 1;
+				current->delete_flag = 1;
 				ft_insert_after(current, ft_lstnew(ft_strdup(entry->d_name)));
 			}
 		}
@@ -98,16 +92,14 @@ void	ft_wildcard(t_token **lst, t_data *data)
 {
 	t_token	*current;
 	t_token	*next;
-	int		delete_flag;
 
 	current = *lst;
 	while (current)
 	{
-		delete_flag = 0;
 		next = current->next;
 		if (current->wildcard)
-			ft_expand_wildcard(current, &delete_flag);
-		if (delete_flag)
+			ft_expand_wildcard(current);
+		if (current->delete_flag)
 		{
 			if (*lst == current)
 			{

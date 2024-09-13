@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:22:21 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 12:29:07 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:31:12 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,18 @@ int	ft_is_special(char c)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_simple_wildcard(char *wildcard)
+{
+	int	i;
+
+	i = 0;
+	while (wildcard[i])
+	{
+		if (wildcard[i] != '*')
+			return (0);
+		i++;
+	}
+	return (1);
 }
