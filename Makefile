@@ -4,7 +4,7 @@ BUILTINS = ft_cd.c ft_echo.c ft_export.c ft_env.c ft_pwd.c ft_unset.c
 UTILS = ls_env.c ft_cpyenv.c lst_utils.c symbols.c exec_utils.c free_exec.c
 TREE = tree.c tree_utils.c
 EXEC= exec_utils.c exec.c heredoc.c redirections.c single_exec.c exec_operators.c wait.c
-ERROR= error.c
+ERROR= error.c builtins_errors.c
 SIGNAL= handlers.c
 GB= clr_gb.c gb_utils.c
 

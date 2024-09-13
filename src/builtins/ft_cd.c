@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:32:47 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/29 15:18:49 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:44:06 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,24 @@
    will not work properly if is given `cd..` cd 
    most be followed by a space */
 
-void	ft_cd(char *path)
+int	ft_cd(char *path, t_data *data)
 {
-	char	*trimed_path;
 	char	*home;
 
-	trimed_path = ft_strtrim(path, " ");
 	home = getenv("HOME");
-	if (!ft_strcmp(trimed_path, ""))
+	if (!ft_strcmp(path, ""))
 	{
 		if (home)
 			chdir(home);
 		else
-			perror("minishell: cd");
+		{
+			errorcmd_failed("cd", "HOME not set");
+			return (1);
+		}
 	}
-	else if (!opendir(trimed_path))
+	else if (!opendir(path))
 		perror("minishell: cd");
 	else
-		chdir(trimed_path);
-	free(trimed_path);
+		chdir(path);
+	return (0);
 }

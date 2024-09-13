@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 14:37:18 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:44:51 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	here_docsignals(t_data *data);
 void	parenthandler(int code);
 void	heredoc_handler(int code);
 void	sigint_exit(t_data *data);
-void	handler_slash(int code);
+void	parent_sigquit(int code);
+void	env(int code);
 
 /* /src/utils/free_exec.c */
 void	free_exec(char *path, char **argv, char **env_arr);
@@ -124,9 +125,9 @@ int	is_leaf(t_btree *tree);
 void	display_type(t_type type);
 
 /* src/builtins */
-void	ft_cd(char *path);
-void	ft_pwd(void);
-void	ft_env(t_env *env);
+int	ft_cd(char *path, t_data *data);
+// void	ft_pwd(void);
+void	ft_env(t_env *env, t_data *data);
 void	ft_unset(char *var, t_data *data);
 void	ft_export(t_env **env, char *key, char *value);
 void	ft_echo(char **str, int NFLAG);
@@ -174,5 +175,8 @@ void	error_disp(char *cmd, char *error_message);
 void	error_disp_exit(char *cmd, char *error_message, int eno);
 void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno);
 void	permissiond_exit(char *path, t_data *data);
+
+// src/errors/builtins_errors.c
+void	errorcmd_failed(char *cmd, char *error);
 
 #endif

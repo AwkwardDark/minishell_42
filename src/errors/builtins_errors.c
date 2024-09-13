@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   builtins_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/28 14:06:08 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 17:36:36 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/09/13 17:42:44 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/09/13 17:57:07 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "" */
-
 #include "minishell.h"
 
-// displays envirement variables if they exist
-
-void	ft_env(t_env *env, t_data *data)
+void	errorcmd_failed(char *cmd, char *error)
 {
-	if (!env)
-		return ;
-	while (env != NULL)
-	{
-		printf("%s=%s\n", env->key, env->value);
-		env = env->next;
-	}
-	data->exit_status = 0;
+	char	buffer[500];
+	int		error_len;
+	int		cmd_len;
+
+	cmd_len = ft_strlen(cmd);
+	error_len = ft_strlen(error);
+	ft_memcpy(buffer, "minishell: ", 11);
+	ft_memcpy(buffer + 11, cmd, cmd_len);
+	ft_memcpy(buffer + 11 + cmd_len, ": ", 2);
+	ft_memcpy(buffer + 11 + cmd_len + 2, error, error_len);
+	buffer[11 + cmd_len + 2 + error_len] = 0;
+	ft_putstr_fd(buffer, 2);
 }

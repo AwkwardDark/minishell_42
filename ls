@@ -1,0 +1,10 @@
+include
+libft
+ls
+main.c
+main.o
+Makefile
+minishell
+src
+valgrind.supp
+valgrind.txt

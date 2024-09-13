@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/11 17:32:23 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:18:00 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	redirect_files(t_token *token, int *pipe, int flag, t_data *data)
 	{
 		if (dup2(pipe[1], STDOUT_FILENO) < 0)
 			error_disp_exit("minishell: dup2: ", strerror(errno), 1);
-		close(pipe[1]);
 	}
+	close(pipe[1]);
 	out_redirection(token);
 	executer(data, ft_getnextword(token));
 }

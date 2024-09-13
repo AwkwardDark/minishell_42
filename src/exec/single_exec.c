@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 14:52:25 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:32:59 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	executer(t_data *data, t_token *token)
 	}
 	else
 	{
-		if (!ft_strncmp(token->content, "./", 2) && access(path, X_OK))
+		if (!ft_strncmp(token->content, "./", 2) && access(token->content, X_OK))
 			permissiond_exit(token->content, data);
 		path = test_path(get_paths(data->env), token->content);
 		argv = cmdlst_tocmdarr(token, 0);
@@ -42,10 +42,7 @@ void	executer(t_data *data, t_token *token)
 	}
 	env_arr = lstenv_towordarr(data->env);
 	if (execve(path, argv, env_arr) < 0)
-	{
-		data = NULL;
-		exit(126);
-	}
+		free_exec(path, argv, env_arr);
 }
 
 /* returns a Pointer to whats after "PATH=" in the env */

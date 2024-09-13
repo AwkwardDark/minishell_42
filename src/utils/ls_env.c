@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/05 16:02:47 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:54:23 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_addlstenv(t_env **env, char *key, char *value)
 	while (cur->next != NULL)
 		cur = cur->next;
 	cur->next = new_env;
+	cur = *env;
 }
 
 /*free all the chained list*/

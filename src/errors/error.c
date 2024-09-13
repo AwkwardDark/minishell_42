@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 14:38:31 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:33:15 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	error_disp_exit(char *error_message, char *cmd, int eno)
 	ft_memcpy(buffer + cmd_len + 11, ": ", 2);
 	ft_memcpy(buffer + cmd_len + 11 + 2, error_message, error_len);
 	ft_memcpy(buffer + cmd_len + 11 + 2 + error_len, "\n", 1);
-	// ft_memcpy(buffer, error_message, error_len);
 	buffer[cmd_len + 11 + 2 + error_len + 1] = 0;
 	write(2, buffer, cmd_len + 11 + 2 + error_len + 1);
 	if (eno >= 0)
@@ -57,18 +56,8 @@ void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno)
 	int		i;
 
 	i = 0;
-	len = 0;
-	while (argv[i])
-	{
-		ft_memcpy(buffer + len, argv[i], ft_strlen(argv[i]));
-		len += ft_strlen(argv[i]);
-		if (argv[i + 1] != NULL)
-		{
-			ft_memcpy(buffer + len, " ", 1);
-			len++;
-		}
-		i++;
-	}
+	len = ft_strlen(token->content);
+	ft_memcpy(buffer, token->content, len);
 	buffer[len] = 0;
 	clr_gb(data->bin); 
 	clear_wordar(argv);

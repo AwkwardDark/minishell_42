@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 00:21:21 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/13 19:22:54 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	heredoc_handler(int code)
 void	child_sigint(int code)
 {
 	exit(128 + code);
+}
+
+void	parent_sigquit(int code)
+{
+	(void)code;
+	write(1, "\n", 1);
 }
 
 void	here_docsignals(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 11:39:34 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:37:19 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	char **arg;
 	if (ft_init_data(envp, data))
 		return (1);
+	// ft_env(data->env);
 	while (1)
 	{
 		signal(SIGINT, handler_main);
