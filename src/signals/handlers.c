@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 18:27:04 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/13 00:21:21 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	handler_main(int code)
 void	heredoc_handler(int code)
 {
 	g_signal = code;
+	rl_done = 1;
 	close(0);
 }
 
@@ -36,15 +37,15 @@ void	child_sigint(int code)
 void	here_docsignals(t_data *data)
 {
 	if (signal(SIGINT, heredoc_handler) == SIG_ERR)
-		ft_putstr_fd("error in signal function on SIGINT handler", 2);
+		ft_putstr_fd("error in signal function on SIGQUIT handler", 2);
 }
 
 void	sigint_exit(t_data *data)
 {
 	if (g_signal != 0)
 	{
-		clr_gb(data->bin);
-		ft_free_exit(data);
+		rl_done = 0;
+		free_process(data);
 		exit(128 + g_signal);
 	}
 }

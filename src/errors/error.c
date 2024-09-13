@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/12 15:08:36 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:53:54 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	error_disp_exit(char *cmd, char *error_message, int eno)
 	ft_memcpy(buffer + cmd_len + error_len, "\n", 1);
 	buffer[cmd_len + error_len + 2] = 0;
 	write(STDERR_FILENO, buffer, error_len + cmd_len + 1);
-	exit(eno);
+	if (eno >= 0)
+		exit(eno);
 }
 
 /*Before exiting the program, it free the environment list, the prompt input,

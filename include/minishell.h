@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 18:26:33 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:10:45 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_token_symbol(char *content, t_token *token);
 
 // clr_gb.c
 void	clr_gb(t_gbcolector *bin);
+void	free_process(t_data *data);
 
 // gb_utils.c
 void	add_fdtogb(t_gbcolector *gb, int fd);
@@ -94,6 +95,7 @@ void	here_docsignals(t_data *data);
 void	parenthandler(int code);
 void	heredoc_handler(int code);
 void	sigint_exit(t_data *data);
+void	handler_slash(int code);
 
 /* /src/utils/free_exec.c */
 void	free_exec(char *path, char **argv, char **env_arr);

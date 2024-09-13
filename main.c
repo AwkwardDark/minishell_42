@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 18:42:57 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:08:41 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		if (!data->input || !ft_strcmp(data->input, "exit") || data->input == NULL)
 		{
-			printf("end");
+			printf("exit\n");
 			break ;
 		}
 		add_history(data->input);
