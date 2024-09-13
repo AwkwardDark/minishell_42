@@ -6,13 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:57:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 16:01:12 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:25:40 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_char_in_str(char c, char *entry, int *j)
+static int ft_char_in_str(char c, char *entry, int *j)
 {
 	if (c == '\0')
 		return (1);
@@ -25,7 +25,7 @@ static int	ft_char_in_str(char c, char *entry, int *j)
 	return (0);
 }
 
-static int	ft_valid_start(char *wildcard, int *i, char *entry)
+static int ft_valid_start(char *wildcard, int *i, char *entry)
 {
 	while (wildcard[*i] && wildcard[*i] != '*')
 		(*i)++;
@@ -36,14 +36,14 @@ static int	ft_valid_start(char *wildcard, int *i, char *entry)
 	return (1);
 }
 
-static int	ft_wild_match(char *entry, char *wildcard)
+static int ft_wild_match(char *entry, char *wildcard)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	if (ft_simple_wildcard(wildcard))
 		return (1);
-	if ((wildcard[ft_strlen(wildcard) - 1] != '*') && \
+	if ((wildcard[ft_strlen(wildcard) - 1] != '*') &&
 		(wildcard[ft_strlen(wildcard) - 1] != entry[ft_strlen(entry) - 1]))
 		return (0);
 	i = 0;
@@ -64,11 +64,11 @@ static int	ft_wild_match(char *entry, char *wildcard)
 	return (1);
 }
 
-static void	ft_expand_wildcard(t_token *current)
+static void ft_expand_wildcard(t_token *current)
 {
-	struct dirent	*entry;
-	DIR				*dirp;
-	t_token			*wild_node;
+	struct dirent *entry;
+	DIR *dirp;
+	t_token *wild_node;
 
 	dirp = opendir(".");
 	entry = readdir(dirp);
@@ -88,10 +88,10 @@ static void	ft_expand_wildcard(t_token *current)
 	closedir(dirp);
 }
 
-void	ft_wildcard(t_token **lst, t_data *data)
+void ft_wildcard(t_token **lst, t_data *data)
 {
-	t_token	*current;
-	t_token	*next;
+	t_token *current;
+	t_token *next;
 
 	current = *lst;
 	while (current)

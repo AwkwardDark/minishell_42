@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 16:39:37 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:49:32 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void    cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno)
     len = ft_strlen(token->content);
     ft_memcpy(buffer, token->content, len);
     buffer[len] = 0;
-    clr_gb(data->bin); 
+    clr_gb(data->bin);
     clear_wordar(argv);
     ft_free_exit(data);
     error_disp_exit("command not found", buffer, eno);

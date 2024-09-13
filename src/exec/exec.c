@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 16:51:57 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:28:00 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 	child = 0;
 	ft_expand(token, data);
 	ft_wildcard(&token, data);
-	//printf("\nBEFORE COMMAND NOT FOUND\n");
-	//ft_print_lst(token);
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token), data);
 	if (g_signal == 0)
@@ -55,7 +53,7 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 	return (-1);
 }
 
-/* 
+/*
 	general function of exewcution of the pipes
 */
 static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
