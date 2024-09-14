@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 19:18:00 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:05:16 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ static t_token	*ft_getnextword(t_token *token)
 void	redirect_files(t_token *token, int *pipe, int flag, t_data *data)
 {
 	signal(SIGINT, child_sigint);
-	if (flag == PIPE)
-		close(pipe[0]);
+	close(pipe[0]);
 	in_redirection(token);
 	if (flag == PIPE)
 	{
@@ -81,6 +80,6 @@ void	redirect_files(t_token *token, int *pipe, int flag, t_data *data)
 			error_disp_exit("minishell: dup2: ", strerror(errno), 1);
 	}
 	close(pipe[1]);
-	out_redirection(token);
+	signal(SIGQUIT, SIG_DFL);
 	executer(data, ft_getnextword(token));
 }

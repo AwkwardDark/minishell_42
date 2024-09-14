@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 17:37:19 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:17:18 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	signal(SIGQUIT, SIG_IGN);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_error(7), 1);
@@ -29,10 +28,10 @@ int	main(int argc, char **argv, char **envp)
 	char **arg;
 	if (ft_init_data(envp, data))
 		return (1);
-	// ft_env(data->env);
 	while (1)
 	{
-		signal(SIGINT, handler_main);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, main_sigint);
 		g_signal = 0;
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		if (!data->input || !ft_strcmp(data->input, "exit") || data->input == NULL)

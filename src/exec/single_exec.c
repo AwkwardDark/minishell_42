@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 15:32:59 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:42:05 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	executer(t_data *data, t_token *token)
 		if (!path || !ft_strcmp(*argv, ""))
 			cmdnotfound_exit(argv, data, token, 127);
 	}
+	close_fds(data->bin);
 	env_arr = lstenv_towordarr(data->env);
 	if (execve(path, argv, env_arr) < 0)
 		free_exec(path, argv, env_arr);

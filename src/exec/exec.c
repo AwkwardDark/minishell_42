@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 19:11:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:21:42 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,24 @@ static	int	exec(t_token *token, t_data *data, int flag)
 	int	child;
 	int	fd[2];
 
-	if (flag == PIPE)
-	{
-		if (pipe(fd) < 0)
-			error_disp_exit("minishell: pipe: ", strerror(errno), 1);
-	}
+	if (pipe(fd) < 0)
+		error_disp_exit("minishell: pipe: ", strerror(errno), 1);
 	child = fork();
 	if (child < 0)
 		error_disp_exit("minishell: fork: ", strerror(errno), 1);
 	if (child == 0)
 		redirect_files(token, fd, flag, data);
-	if (flag == PIPE)
-	{
-		close(fd[1]);
-		if (dup2(fd[0], STDIN_FILENO) < 0)
-			error_disp_exit("minishell: dup2: ", strerror(errno), 1);
-		close(fd[0]);
-	}
+	close(fd[1]);
+	if (dup2(fd[0], STDIN_FILENO) < 0)
+		error_disp_exit("minishell: dup2: ", strerror(errno), 1);
+	close(fd[0]);
 	return (child);
 }
 
 static int	parse_exec(t_token *token, t_data *data, int flag)
 {
 	int	fd[2];
-	int	child;
 
-	child = 0;
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token), data);
 	if (g_signal == 0)
@@ -92,8 +84,8 @@ void	exec_btree(t_btree *tree, t_data *data)
 	infd = dup(0);
 	add_fdtogb(data->bin, infd);
 	signal(SIGINT, parenthandler);
-	signal(SIGQUIT, parent_sigquit);
+	signal(SIGQUIT, main_sigquit);
 	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);
-	close(infd);
+	close_fds(data->bin);
 }

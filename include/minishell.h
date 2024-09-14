@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 18:44:51 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:17:47 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_token_symbol(char *content, t_token *token);
 // src/gb_collector
 
 // clr_gb.c
+void	close_fds(t_gbcolector *bin);
 void	clr_gb(t_gbcolector *bin);
 void	free_process(t_data *data);
 
@@ -89,13 +90,15 @@ void	free_process(t_data *data);
 void	add_fdtogb(t_gbcolector *gb, int fd);
 
 // src/signals/handler.c
-void	handler_main(int code);
+void	main_sigint(int code);
 void	child_sigint(int code);
 void	here_docsignals(t_data *data);
 void	parenthandler(int code);
 void	heredoc_handler(int code);
 void	sigint_exit(t_data *data);
 void	parent_sigquit(int code);
+void	child_sigquit(int code);
+void	main_sigquit(int code);
 void	env(int code);
 
 /* /src/utils/free_exec.c */
