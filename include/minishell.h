@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/14 20:17:47 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 01:10:05 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,19 @@ void	free_process(t_data *data);
 // gb_utils.c
 void	add_fdtogb(t_gbcolector *gb, int fd);
 
-// src/signals/handler.c
-void	main_sigint(int code);
+// src/signals
+// handler.c
 void	child_sigint(int code);
 void	here_docsignals(t_data *data);
-void	parenthandler(int code);
 void	heredoc_handler(int code);
 void	sigint_exit(t_data *data);
-void	parent_sigquit(int code);
+// void	parent_sigquit(int code);
 void	child_sigquit(int code);
+
+// mainp_handler.c
+void	parenthandler(int code);
+void	main_sigint(int code);
 void	main_sigquit(int code);
-void	env(int code);
 
 /* /src/utils/free_exec.c */
 void	free_exec(char *path, char **argv, char **env_arr);
@@ -109,6 +111,7 @@ t_env	*ft_initenv(char *key, char *value);
 void	ft_addlstenv(t_env **env, char *key, char *value);
 void	ft_clrenv(t_env **head);
 void	ft_clrenvnode(t_env *env);
+char	*get_env(t_env *env, char *key);
 
 /* src/utils/ft_cpyenv.c */
 t_env	*ft_cpyenv(char **env);
@@ -128,12 +131,16 @@ int	is_leaf(t_btree *tree);
 void	display_type(t_type type);
 
 /* src/builtins */
-int	ft_cd(char *path, t_data *data);
-// void	ft_pwd(void);
-void	ft_env(t_env *env, t_data *data);
+void	ft_cd(t_token *token, t_data *data);
+void	ft_pwd(void);
+char	*get_cwd(void);
+void	ft_env(t_data *data, int fd);
 void	ft_unset(char *var, t_data *data);
 void	ft_export(t_env **env, char *key, char *value);
-void	ft_echo(char **str, int NFLAG);
+void	ft_echo(t_token *token, int fd, t_data *data);
+int		ft_is_builtins(char *cmd);
+void	exec_builtin(t_token *token, t_data *data, int flag);
+
 
 // src/exec/wait.c
 void	wait_children(pid_t last_childm, t_data *data);

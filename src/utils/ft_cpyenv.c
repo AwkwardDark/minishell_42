@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cpyenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:32:00 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 17:35:41 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/15 22:35:38 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_env	*add_defaultenv(void)
 		return (NULL);
 	}
 	ft_addlstenv(&env, ft_strdup("SHLVL"), ft_strdup("1"));
-	ft_addlstenv(&env, ft_strdup("PWD"), ft_strdup("hello"));
+	ft_addlstenv(&env, ft_strdup("PWD"), ft_strdup(cwd));
 	return (env);
 }
 

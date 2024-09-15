@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/14 13:42:05 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 00:57:50 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ void	executer(t_data *data, t_token *token)
 	char	**argv;
 	char	**env_arr;
 
-	if (!ft_strncmp(token->content, "./", 2) && !access(token->content, F_OK | X_OK))
+	if (!ft_strncmp(token->content, "./", 2)
+		&& !access(token->content, F_OK | X_OK))
 	{
 		path = token->content;
 		argv = cmdlst_tocmdarr(token, 1);
 	}
 	else
 	{
-		if (!ft_strncmp(token->content, "./", 2) && access(token->content, X_OK))
+		if (!ft_strncmp(token->content, "./", 2)
+			&& access(token->content, X_OK))
 			permissiond_exit(token->content, data);
 		path = test_path(get_paths(data->env), token->content);
 		argv = cmdlst_tocmdarr(token, 0);
@@ -71,11 +73,11 @@ char	*test_path(char *envpath, char *cmd)
 	int		cmd_len;
 	int		i;
 
+	if (!envpath)
+		return (NULL);
 	i = 0;
 	cmd_len = ft_strlen(cmd);
 	paths = ft_split(envpath, ':');
-	if (!envpath)
-		return (NULL);
 	while (paths[i])
 	{
 		path = add_cmdtopath(paths, cmd, cmd_len, i);

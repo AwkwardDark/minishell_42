@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 16:54:23 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/16 00:53:22 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,24 @@ void	ft_clrenvnode(t_env *env)
 	free(env->key);
 	free(env->value);
 	free(env);
+}
+
+// searches for the value of a key in env returns NULL if key doesnt exist
+char	*get_env(t_env *env, char *key)
+{
+	char	*val;
+
+	val = NULL;
+	if (!env)
+		return (val);
+	while (env != NULL)
+	{
+		if (!ft_strcmp(env->key, key))
+		{
+			val = env->value;
+			break ;
+		}
+		env = env->next;
+	}
+	return (val);
 }

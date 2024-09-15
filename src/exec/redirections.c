@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/14 20:05:16 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 00:57:12 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	in_redirection(t_token *token)
 	int	fd;
 
 	while (token != NULL)
-	{			
+	{
 		if (token->token_type == R_IN)
 		{
 			fd = open(token->redir, O_RDONLY);

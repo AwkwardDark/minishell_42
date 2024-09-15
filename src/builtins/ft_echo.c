@@ -3,31 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:47:04 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/02 18:27:22 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/16 00:58:32 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **str, int NFLAG)
+void	ft_echo(t_token *token, int fd, t_data *data)
 {
-	if (!str && !NFLAG)
-		printf("\n");
-	else if (!str && NFLAG)
-		return ;
-	else
+	int	newline;
+
+	newline = 1;
+	if (token != NULL && token->token_type == WORD
+		&& !ft_strcmp(token->content, "-n"))
 	{
-		while (*str)
-		{
-			printf("%s", *str);
-			if (*(str + 1) != NULL)
-				printf(" ");
-			str++;
-		}
+		newline = 0;
+		token = token->next;
 	}
-	if (!NFLAG)
-		printf("\n");
+	while (token != NULL && token->token_type == WORD)
+	{
+		ft_putstr_fd(token->content, fd);
+		ft_putstr_fd(" ", fd);
+		token = token->next;
+	}
+	if (newline)
+		ft_putstr_fd("\n", fd);
+	data->exit_status = 0;
 }

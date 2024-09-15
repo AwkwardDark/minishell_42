@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gb_utils.c                                         :+:      :+:    :+:   */
+/*   mainp_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 16:01:54 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 01:01:13 by pierre           ###   ########.fr       */
+/*   Created: 2024/09/16 01:06:28 by pierre            #+#    #+#             */
+/*   Updated: 2024/09/16 01:07:25 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_fdtogb(t_gbcolector *gb, int fd)
+void	parenthandler(int code)
 {
-	int	i;
+	(void)code;
+	write(1, "\n", 1);
+}
 
-	i = 0;
-	while (gb->fds[i] != -1 && i < 1000)
-		i++;
-	if (i == 999 && gb->fds[i] != -1)
-		ft_putstr_fd("Too many fds\n", 2);
-	else
-		gb->fds[i] = fd;
+void	main_sigint(int code)
+{
+	(void)code;
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	if (g_signal == 0)
+		rl_redisplay();
+}
+
+void	main_sigquit(int code)
+{
+	write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
 }

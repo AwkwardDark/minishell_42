@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gb_utils.c                                         :+:      :+:    :+:   */
+/*   ft_is_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 16:01:54 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 01:01:13 by pierre           ###   ########.fr       */
+/*   Created: 2024/09/14 22:57:03 by pierre            #+#    #+#             */
+/*   Updated: 2024/09/16 01:00:27 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_fdtogb(t_gbcolector *gb, int fd)
+int	ft_is_builtins(char *cmd)
 {
-	int	i;
-
-	i = 0;
-	while (gb->fds[i] != -1 && i < 1000)
-		i++;
-	if (i == 999 && gb->fds[i] != -1)
-		ft_putstr_fd("Too many fds\n", 2);
-	else
-		gb->fds[i] = fd;
+	if (!ft_strcmp("echo", cmd) || !ft_strcmp("expand", cmd)
+		|| !ft_strcmp("exit", cmd) || !ft_strcmp("pwd", cmd)
+		|| !ft_strcmp("env", cmd) || !ft_strcmp("unset", cmd)
+		|| !ft_strcmp("cd", cmd))
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/14 20:21:42 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 00:56:46 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 {
 	int	fd[2];
 
+	if (flag != PIPE && ft_is_builtins(token->content))
+	{
+		exec_builtin(token, data, flag);
+		return (-1);
+	}
 	if (is_heredoc(token))
 		do_mydoc(get_limiter(token), data);
 	if (g_signal == 0)

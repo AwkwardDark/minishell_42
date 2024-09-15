@@ -3,38 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:32:47 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 18:44:06 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/16 00:55:30 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	setcd_env(t_data *data, char *cwd, char *oldwd)
+{
+	ft_export(&data->env, ft_strdup("OLDPWD"), oldwd);
+	ft_export(&data->env, ft_strdup("PWD"), cwd);
+}
+
+static void	ft_cdhome(t_token *token, t_data *data)
+{
+	char	*path;
+	char	*wd;
+
+	wd = get_env(data->env, "PWD");
+	path = get_env(data->env, "HOME");
+	if (!path)
+	{
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		data->exit_status = 1;
+		return ;
+	}
+	else if (chdir(path) < 0)
+	{
+		error_disp("cd", strerror(errno));
+		data->exit_status = 1;
+	}
+	else
+	{
+		data->exit_status = 0;
+		setcd_env(data, get_cwd(), ft_strdup(wd));
+	}
+}
 
 /* TODO
    needs the function ft_strtrim
    will not work properly if is given `cd..` cd 
    most be followed by a space */
 
-int	ft_cd(char *path, t_data *data)
+void	ft_cd(t_token *token, t_data *data)
 {
-	char	*home;
+	char	*path;
+	char	*wd;
 
-	home = getenv("HOME");
-	if (!ft_strcmp(path, ""))
+	wd = get_env(data->env, "PWD");
+	if (token == NULL || token->token_type != WORD)
 	{
-		if (home)
-			chdir(home);
-		else
-		{
-			errorcmd_failed("cd", "HOME not set");
-			return (1);
-		}
+		ft_cdhome(token, data);
+		return ;
 	}
-	else if (!opendir(path))
-		perror("minishell: cd");
+	path = token->content;
+	if (token->next != NULL && token->next->token_type == WORD)
+	{
+		error_disp("cd", "too many arguments");
+		data->exit_status = 1;
+	}
+	else if (chdir(path) < 0)
+	{
+		error_disp("cd", strerror(errno));
+		data->exit_status = 1;
+	}
 	else
-		chdir(path);
-	return (0);
+	{
+		data->exit_status = 0;
+		setcd_env(data, get_cwd(), ft_strdup(wd));
+	}
 }

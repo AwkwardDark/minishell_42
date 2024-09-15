@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:42:53 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/14 19:40:16 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 01:01:33 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_fds(t_gbcolector *bin)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 1000 && bin->fds[i] != -1)
@@ -27,7 +27,6 @@ void	close_fds(t_gbcolector *bin)
 
 void	clr_gb(t_gbcolector *bin)
 {
-
 	close_fds(bin);
 	clr_btree(bin->tree);
 }
