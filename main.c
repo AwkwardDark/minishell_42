@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/16 15:47:31 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/17 00:12:42 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGINT, main_sigint);
 		g_signal = 0;
 		data->input = readline("minishell ~ ");
-		if (!data->input || !ft_strcmp(data->input, "exit") || data->input == NULL)
+		if (!data->input)
 		{
 			printf("exit\n");
 			break ;
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 		tree = create_tokentree(&data->token_lst);
 		data->bin->tree = tree;
 		exec_btree(tree, data);
+		fprintf(stderr, "exit status: %d\n", data->exit_status);
 		clr_btree(tree);
 		data->token_lst = NULL;
 		free(data->input);

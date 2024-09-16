@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 18:36:43 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/16 23:54:55 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,24 @@ static int	get_redir(t_token *token)
 	return (fd);
 }
 
-// exit missing !
-void	exec_builtin(t_token *token, t_data *data, int flag)
+void	exec_subbuiltin(t_token *token, t_data *data, int *pipe)
+{
+	int	status;
+
+	if (!ft_strcmp(token->content, "exit"))
+		ft_exit(token->next, data);
+	else
+		exec_builtin(token, data);
+	status = data->exit_status;
+	clr_gb(data->bin);
+	ft_free_exit(data);
+	exit(status);
+}
+
+void	exec_builtin(t_token *token, t_data *data)
 {
 	int	redir;
 
-	if (flag == PIPE)
-		return ;
 	redir = get_redir(token);
 	if (redir < 0)
 	{
@@ -67,6 +78,8 @@ void	exec_builtin(t_token *token, t_data *data, int flag)
 		ft_unset(token->next, data);
 	else if (!ft_strcmp(token->content, "export"))
 		ft_export(data, token->next);
+	else
+		ft_exit(token->next, data);
 	if (redir != 1)
 		close(redir);
 }

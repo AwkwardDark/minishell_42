@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:32:00 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/15 22:35:38 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 01:48:01 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_env	*add_defaultenv(void)
 	env = NULL;
 	if (!cwd)
 	{
-		ft_putstr_fd("Error: too many charachters in current working directory\n", 2);
+		ft_putstr_fd(CHDIR_PWD, 2);
 		return (NULL);
 	}
 	ft_addlstenv(&env, ft_strdup("SHLVL"), ft_strdup("1"));
@@ -49,7 +49,8 @@ t_env	*ft_cpyenv(char **env)
 			j++;
 		ft_strncpy(key, env[i], j);
 		if (!ft_strncmp(key, "SHLVL", j))
-			ft_addlstenv(&env_lst, ft_strdup(key), ft_itoa((ft_atoi(&env[i][j + 1]) + 1)));
+			ft_addlstenv(&env_lst, ft_strdup(key),
+				ft_itoa((ft_atoi(&env[i][j + 1]) + 1)));
 		else
 			ft_addlstenv(&env_lst, ft_strdup(key), ft_strdup(&env[i][j + 1]));
 		j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:32:47 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 17:44:51 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:48:47 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_cdhome(t_token *token, t_data *data)
 	else
 	{
 		data->exit_status = 0;
-		setcd_env(data, get_cwd(), ft_strdup(wd));
+		setcd_env(data, get_cwd(), wd);
 	}
 }
 
@@ -73,6 +73,6 @@ void	ft_cd(t_token *token, t_data *data)
 	else
 	{
 		data->exit_status = 0;
-		setcd_env(data, get_cwd(), ft_strdup(wd));
+		setcd_env(data, get_cwd(), wd);
 	}
 }

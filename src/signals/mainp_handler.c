@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:06:28 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 01:07:25 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 00:14:49 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	parenthandler(int code)
 
 void	main_sigint(int code)
 {
-	(void)code;
+	g_signal = code;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

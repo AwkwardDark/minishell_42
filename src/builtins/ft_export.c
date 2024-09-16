@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 12:43:01 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 18:37:25 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/17 01:17:12 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_export(t_data *data, t_token *token)
 
 	i = 0;
 	if (!token || token->token_type != WORD)
-		return ;
+		display_order(data);
 	else if (!keyparse(token->content))
 	{
 		ft_putstr_fd("error\n", 2);
@@ -82,4 +82,33 @@ void	ft_export(t_data *data, t_token *token)
 		value = ft_strdup(&token->content[i + 1]);
 		add_or_replace(&data->env, key, value);
 	}
+}
+
+void	display_order(t_data *data)
+{
+	t_env	*env1;
+	t_env	*env2;
+	char	*tempk;
+	char	*tempv;
+
+	env1 = data->env;
+	env2 = data->env;
+	while (env2 != NULL)
+	{
+		while (env1 != NULL)
+		{
+			if (ft_strcmp(env2->key, env1->key) > 0)
+			{
+				tempk = env1->key;
+				tempv = env1->value;
+				env1->key = env2->key;
+				env1->value = env2->value;
+				env2->key = tempk;
+				env2->value = tempv;
+			}
+			env1 = env1->next;
+		}
+		env2 = env2->next;
+	}
+	ft_env(data, 1);
 }

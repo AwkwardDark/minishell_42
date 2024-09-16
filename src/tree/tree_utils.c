@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/08 14:43:33 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 01:43:29 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_token	*ignore_parenthesis(t_token *token)
 {
 	int		i;
 	t_token	*temp;
+
 	i = 1;
 	temp = token->prev;
 	while (i != 0)

@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:37:28 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/14 19:34:37 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 01:50:10 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	alloc_keyvalue(t_env *env, char **word_arr, int len)
 
 char	**lstenv_towordarr(t_env *env)
 {
-	int	len;
+	int		len;
 	t_env	*temp;
 	char	**arr_env;
 
@@ -86,11 +86,13 @@ static void	alloc_cmds(t_token *token, char **cmd_arr, int len, int absolut)
 	while (i < len)
 	{
 		if (absolut && i == 0)
-			cmd_arr[i] = (char *)malloc(sizeof(char) * (ft_strlen(&temp->content[2]) + 1));
+			cmd_arr[i] = (char *)malloc(sizeof(char)
+					* (ft_strlen(&temp->content[2]) + 1));
 		else
-			cmd_arr[i] = (char *)malloc(sizeof(char) * (ft_strlen(temp->content) + 1));
+			cmd_arr[i] = (char *)malloc(sizeof(char)
+					* (ft_strlen(temp->content) + 1));
 		if (!cmd_arr[i])
-			// TODO
+			return ;
 		cmd_arr[i][0] = 0;
 		if (absolut && i == 0)
 			ft_strcpy(cmd_arr[i], &temp->content[2]);

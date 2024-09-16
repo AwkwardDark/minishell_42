@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 16:41:12 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/17 01:42:08 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 
 	if (flag != PIPE && ft_is_builtins(token->content))
 	{
-		exec_builtin(token, data, flag);
+		exec_builtin(token, data);
 		return (-1);
 	}
 	if (is_heredoc(token))
@@ -57,8 +57,12 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 	else if (last_command)
 	{
 		exec_pipes(tree->left_child, data, 0);
-		wait_children(parse_exec(tree->right_child->token,
-				data, SIMPLE_COMMAND), data);
+		if (ft_is_builtins(tree->right_child->token->content))
+			wait_children(parse_exec(tree->right_child->token,
+					data, PIPE), data);
+		else
+			wait_children(parse_exec(tree->right_child->token,
+					data, SIMPLE_COMMAND), data);
 	}
 	else
 	{
