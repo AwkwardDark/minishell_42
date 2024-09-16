@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 19:06:03 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:49:59 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ void clr_btree(t_btree *tree)
 	(void)temp;
 	if (!tree)
 		return;
-	//printf("CONTENT DANS FREE %s\n", tree->token->content);
+	
 	clr_btree(tree->left_child);
 	clr_btree(tree->right_child);
-	// printf("\nAFTER COMMAND NOT FOUND\n");
-	// ft_print_lst(tree->token);
 	ft_free_lst(&tree->token);
 	free(tree);
 	tree = NULL;

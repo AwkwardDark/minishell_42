@@ -6,13 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 19:02:25 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:51:13 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*It frees the content of each node and the node itself*/
+/*It frees the content of each node, redirections and the node itself*/
 void ft_free_lst(t_token **lst)
 {
 	t_token *temp;

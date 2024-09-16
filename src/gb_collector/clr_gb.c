@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clr_gb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:42:53 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 21:58:37 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 17:55:51 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	clr_gb(t_gbcolector *bin)
 		i++;
 	}
 	// fprintf(stderr, "beginning to free\n");
+	//printf("here\n");
+	//printf("\n\nAfter left -> %s\n\n", bin->tree->left_child->token->content);
+	//printf("\n\nAfter right -> %s\n\n", bin->tree->right_child->token->content);
 	clr_btree(bin->tree);
 }
 

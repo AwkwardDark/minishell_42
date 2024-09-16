@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/13 19:28:00 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:56:43 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,16 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 {
 	if (is_leaf(tree))
+	{
+		data->bin->tree = tree;
+		data->b_tree = tree;
 		parse_exec(tree->token, data, PIPE);
+	}
 	else if (last_command)
 	{
 		exec_pipes(tree->left_child, data, 0);
+		data->bin->tree = tree->right_child;
+		data->b_tree = tree->right_child;
 		wait_children(parse_exec(tree->right_child->token,
 				data, SIMPLE_COMMAND), data);
 	}
@@ -95,6 +101,8 @@ void	exec_btree(t_btree *tree, t_data *data)
 	infd = dup(0);
 	add_fdtogb(data->bin, infd);
 	signal(SIGINT, parenthandler);
+	data->bin->tree = tree;
+	data->b_tree = tree;
 	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);
 	close(infd);

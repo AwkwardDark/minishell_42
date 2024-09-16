@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:57:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 19:25:40 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:15:45 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ static void ft_expand_wildcard(t_token *current)
 			if (ft_wild_match(entry->d_name, current->content))
 			{
 				current->delete_flag = 1;
-				ft_insert_after(current, ft_lstnew(ft_strdup(entry->d_name)));
+				ft_insert_after(wild_node, ft_lstnew(ft_strdup(entry->d_name)));
+				wild_node = wild_node->next;
 			}
 		}
 		entry = readdir(dirp);
@@ -116,4 +117,5 @@ void ft_wildcard(t_token **lst, t_data *data)
 		}
 		current = next;
 	}
+	//ft_print_lst(*lst);
 }

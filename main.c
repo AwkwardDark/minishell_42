@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 19:20:54 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:56:47 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ int main(int argc, char **argv, char **envp)
 		if (data->input[0] != '\0' && ft_parser(data->input, data))
 		{
 			tree = create_tokentree(&data->token_lst);
-			data->bin->tree = tree;
-			data->b_tree = tree;
+			//data->bin->tree = tree;
+			//data->b_tree = tree;
 			exec_btree(tree, data);
+			// printf("\n\nAfter left -> %s\n\n", tree->left_child->token->content);
+			// printf("\n\nAfter right -> %s\n\n", tree->right_child->token->content);
 			clr_btree(tree);
 			data->token_lst = NULL;
 		}
