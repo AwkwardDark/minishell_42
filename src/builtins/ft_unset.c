@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:46:55 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/30 14:39:06 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:35:42 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,26 @@ static void	remove_node(char *key, t_env **env)
 		ft_clrenvnode(cur);
 		return ;
 	}
-	while (cur != NULL && ft_strcmp(cur->key, key) != 0)
+	while (cur != NULL)
 	{
+		if (!ft_strcmp(cur->key, key))
+		{
+			prev->next = cur->next;
+			ft_clrenvnode(cur);
+			return ;
+		}
 		prev = cur;
 		cur = cur->next;
 	}
-	if (cur != NULL)
-	{
-		prev->next = cur->next;
-		ft_clrenvnode(cur);
-	}
 }
 
-void	ft_unset(char *key, t_data *data)
+void	ft_unset(t_token *token, t_data *data)
 {
-	if (!key)
+	if (token == NULL || token->token_type != WORD)
 		return ;
-	if (!*key)
-		return ;
-	remove_node(key, &data->env);
+	while (token != NULL && token->token_type == WORD)
+	{
+		remove_node(token->content, &data->env);
+		token = token->next;
+	}
 }

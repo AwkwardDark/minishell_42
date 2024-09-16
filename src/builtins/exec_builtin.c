@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/15 23:02:38 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:36:43 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	get_redir(t_token *token)
 	return (fd);
 }
 
+// exit missing !
 void	exec_builtin(t_token *token, t_data *data, int flag)
 {
 	int	redir;
@@ -56,18 +57,16 @@ void	exec_builtin(t_token *token, t_data *data, int flag)
 	}
 	if (!ft_strcmp(token->content, "echo"))
 		ft_echo(token->next, redir, data);
- 	else if (!ft_strcmp(token->content, "cd"))
+	else if (!ft_strcmp(token->content, "cd"))
 		ft_cd(token->next, data);
 	else if (!ft_strcmp(token->content, "env"))
 		ft_env(data, redir);
-/*	else if (!ft_strcmp(token->content, "pwd"))
-		//
+	else if (!ft_strcmp(token->content, "pwd"))
+		ft_pwd(token->next, data, redir);
+	else if (!ft_strcmp(token->content, "unset"))
+		ft_unset(token->next, data);
 	else if (!ft_strcmp(token->content, "export"))
-		//
-	else if (ft_strcmp(token->content, "unset"))
-		//
-	else if (ft_strcmp(token->content, "exit")) */
-		//
+		ft_export(data, token->next);
 	if (redir != 1)
 		close(redir);
 }

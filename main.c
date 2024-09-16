@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/14 20:17:18 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 15:47:31 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 	t_btree *tree;
+	char	*pwd;
 	(void)argc;
 	(void)argv;
 
@@ -33,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, main_sigint);
 		g_signal = 0;
-		data->input = readline(GREEN GRAS "minishell ~" RESET);
+		data->input = readline("minishell ~ ");
 		if (!data->input || !ft_strcmp(data->input, "exit") || data->input == NULL)
 		{
 			printf("exit\n");

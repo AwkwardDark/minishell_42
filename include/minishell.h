@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 01:10:05 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 17:06:57 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define RED "\033[0;91m"
 # define GRAS "\033[1m"
 # define RESET "\033[0m"
-
+# define PWD_ERROR "pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
 /*Message error macros, it's useful or it makes the code cleaner?*/
 
 /*Character macros*/
@@ -132,11 +132,12 @@ void	display_type(t_type type);
 
 /* src/builtins */
 void	ft_cd(t_token *token, t_data *data);
-void	ft_pwd(void);
+void	ft_pwd(t_token *token, t_data *data, int fd);
 char	*get_cwd(void);
 void	ft_env(t_data *data, int fd);
-void	ft_unset(char *var, t_data *data);
-void	ft_export(t_env **env, char *key, char *value);
+void	ft_unset(t_token *token, t_data *data);
+void	ft_export(t_data *data, t_token *token);
+void	add_or_replace(t_env **env, char *key, char *value);
 void	ft_echo(t_token *token, int fd, t_data *data);
 int		ft_is_builtins(char *cmd);
 void	exec_builtin(t_token *token, t_data *data, int flag);

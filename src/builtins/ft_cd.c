@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:32:47 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 00:55:30 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 17:44:51 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	setcd_env(t_data *data, char *cwd, char *oldwd)
 {
-	ft_export(&data->env, ft_strdup("OLDPWD"), oldwd);
-	ft_export(&data->env, ft_strdup("PWD"), cwd);
+	add_or_replace(&data->env, ft_strdup("OLDPWD"), oldwd);
+	add_or_replace(&data->env, ft_strdup("PWD"), cwd);
 }
 
 static void	ft_cdhome(t_token *token, t_data *data)
@@ -23,7 +23,7 @@ static void	ft_cdhome(t_token *token, t_data *data)
 	char	*path;
 	char	*wd;
 
-	wd = get_env(data->env, "PWD");
+	wd = get_cwd();
 	path = get_env(data->env, "HOME");
 	if (!path)
 	{
@@ -53,7 +53,7 @@ void	ft_cd(t_token *token, t_data *data)
 	char	*path;
 	char	*wd;
 
-	wd = get_env(data->env, "PWD");
+	wd = get_cwd();
 	if (token == NULL || token->token_type != WORD)
 	{
 		ft_cdhome(token, data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:16:35 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 00:36:18 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:37:35 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,28 @@ char	*get_cwd(void)
 
 	if (!getcwd(buffer, 1000))
 	{
-		perror("minishell");
+		ft_putstr_fd(PWD_ERROR, 2);
 		return (NULL);
 	}
 	return (ft_strdup(buffer));
 }
 
-void	ft_pwd(void)
+void	ft_pwd(t_token *token, t_data *data, int fd)
 {
 	char	*path;
 
-	path = get_cwd();
-	if (!path)
+	if (token != NULL && token->token_type == WORD)
 	{
-		printf("%s\n", path);
+		error_disp("pwd", "too many arguments");
+		data->exit_status = 1;
+		return ;
+	}
+	path = get_cwd();
+	if (path)
+	{
+		ft_putstr_fd(path, fd);
+		ft_putstr_fd("\n", fd);
 		free(path);
+		data->exit_status = 0;
 	}
 }

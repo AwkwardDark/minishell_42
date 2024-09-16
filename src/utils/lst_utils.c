@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 16:41:29 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:38:23 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_token	*ft_lstnew(char *content)
 	lstnew = malloc(sizeof(t_token));
 	if (!lstnew)
 		return (NULL);
-	ft_memset(lstnew, 0, sizeof(t_token));//inutile?
+	ft_memset(lstnew, 0, sizeof(t_token));
 	lstnew->content = content;
 	lstnew->next = NULL;
 	lstnew->prev = NULL;
@@ -79,7 +79,7 @@ void	ft_free_onetoken(t_token *token)
 	free(token);
 }
 
-void	ft_print_lst(t_token *lst)
+/* void	ft_print_lst(t_token *lst)
 {
 	int		i;
 	t_token	*current;
@@ -100,4 +100,4 @@ void	ft_print_lst(t_token *lst)
 		current = current->next;
 		i++;
 	}
-}
+} */
