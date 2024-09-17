@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 12:24:16 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:35:16 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_parser(char *input, t_data *data)
 	if (ft_parenthesis_syntax(input, data) == 1)
 		return (ft_error(5), data->exit_status = 2, 0);
 	ft_lexer(input, data);
+	if (!data->token_lst)
+		return (0);
 	ft_tokenize(data->token_lst);
 	if (ft_grammar_syntax(data->token_lst, data))
 	{
