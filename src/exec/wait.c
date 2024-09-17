@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:50:24 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 13:12:21 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:34:55 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	simplecmd_wait(int pid, t_data *data)
 		return ;
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
+	{
 		data->exit_status = WEXITSTATUS(status);
+		g_signal = 0;
+	}
 	else if (WIFSIGNALED(status))
 	{
 		g_signal = WTERMSIG(status);

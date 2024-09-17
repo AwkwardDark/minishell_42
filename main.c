@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 14:33:19 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:51:06 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int main(int argc, char **argv, char **envp)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, main_sigint);
-		g_signal = 0;
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		if (!data->input)
 		{
@@ -42,6 +41,8 @@ int main(int argc, char **argv, char **envp)
 		if (data->input[0] != '\0' && ft_parser(data->input, data))
 		{
 			tree = create_tokentree(&data->token_lst);
+			data->bin->tree = tree;
+			data->b_tree = tree;
 			exec_btree(tree, data);
 			clr_btree(tree);
 			data->token_lst = NULL;

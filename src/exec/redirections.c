@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 12:44:32 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:10:37 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,21 @@ void	out_redirection(t_token *token, t_data *data)
 }
 
 // function that returns the next word useful in case fo redir or hereodocs
-static t_token	*ft_getnextword(t_token *token)
+static t_token	*ft_getnextword(t_token *token, t_data *data)
 {
 	if (!token)
 	{
 		ft_putstr_fd("big problem man\n", 2);
 		exit(1);
 	}
-	while (token->token_type != WORD)
+	while (token != NULL && token->token_type != WORD)
 		token = token->next;
+	if (!token)
+	{
+		clr_gb(data->bin);
+		ft_free_exit(data);
+		exit(0);
+	}
 	return (token);
 }
 
@@ -88,5 +94,5 @@ void	redirect_files(t_token *token, int *pipe, int flag, t_data *data)
 	if (ft_is_builtins(token->content))
 		exec_subbuiltin(token, data);
 	out_redirection(token, data);
-	executer(data, ft_getnextword(token));
+	executer(data, ft_getnextword(token, data));
 }

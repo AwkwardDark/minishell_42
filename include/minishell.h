@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 14:29:18 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:14:58 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void	ft_expand(t_token *lst, t_data *data);
 char	*ft_find_exp_value(char *key, t_data *data);
 
 // wildcard.c
-void	ft_wildcard(t_token **lst, t_data *data);
+void	ft_wildcard(t_token **lst, t_btree *tree);
 
 // exec_utils.c
 int		is_heredoc(t_token *token);

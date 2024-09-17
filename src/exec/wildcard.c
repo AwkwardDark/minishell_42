@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:57:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/16 16:15:45 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:14:52 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void ft_expand_wildcard(t_token *current)
 	closedir(dirp);
 }
 
-void ft_wildcard(t_token **lst, t_data *data)
+void ft_wildcard(t_token **lst, t_btree *tree)
 {
 	t_token *current;
 	t_token *next;
@@ -105,8 +105,7 @@ void ft_wildcard(t_token **lst, t_data *data)
 			if (*lst == current)
 			{
 				*lst = current->next;
-				data->b_tree->token = current->next;
-				data->bin->tree->token = current->next;
+				tree->token = current->next;
 			}
 			if (current->next)
 				current->next->prev = current->prev;
@@ -117,5 +116,4 @@ void ft_wildcard(t_token **lst, t_data *data)
 		}
 		current = next;
 	}
-	//ft_print_lst(*lst);
 }
