@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 15:06:48 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:59:13 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ the grammar between each node is correct*/
 int	ft_parser(char *input, t_data *data)
 {	
 	if (ft_quote_syntax(input) == 1)
-		return (ft_error(0), 0);
+		return (ft_error(0), data->exit_status = 2, 0);
 	if (ft_operator_syntax(input, data) == 1)
 		return (0);
 	if (ft_parenthesis_syntax(input, data) == 1)
-		return (ft_error(5), 0);
+		return (ft_error(5), data->exit_status = 2, 0);
 	ft_lexer(input, data);
 	ft_tokenize(data->token_lst);
 	if (ft_grammar_syntax(data->token_lst, data))
@@ -31,6 +31,7 @@ int	ft_parser(char *input, t_data *data)
 		ft_putstr_fd(RED"minishell: syntax error near unexpected token `", 2);
 		ft_putstr_fd(data->syntax_error, 2);
 		ft_putstr_fd("'\n"RESET, 2);
+		data->exit_status = 2;
 		return (0);
 	}
 	ft_pre_expand(data->token_lst);

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 17:05:15 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:55:44 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	ft_error(int code)
 	if (code == 5)
 		ft_putstr_fd("minishell: parenthesis syntax error\n", 2);
 	if (code == 6)
-		ft_putstr_fd("minishell: env list creation eroor\n", 2);
+		ft_putstr_fd("minishell: env list creation error\n", 2);
 	if (code == 7)
 		ft_putstr_fd("minishell: malloc error\n", 2);
 }

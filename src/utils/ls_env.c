@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 12:50:25 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:08:07 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ char	*ft_find_exp_value(char *key, t_data *data)
 			return (ft_itoa(data->exit_status));
 		}
 		if (!ft_strcmp(key, current->key))
+		{
+			data->free_flag = 0;
 			return (current->value);
+		}
 		current = current->next;
 	}
 	return (NULL);
