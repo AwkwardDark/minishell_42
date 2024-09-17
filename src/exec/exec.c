@@ -6,16 +6,16 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 12:18:03 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:33:16 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	int	exec(t_token *token, t_data *data, int flag)
+static int exec(t_token *token, t_data *data, int flag)
 {
-	int	child;
-	int	fd[2];
+	int child;
+	int fd[2];
 
 	if (pipe(fd) < 0)
 		error_disp_exit("minishell: pipe: ", strerror(errno), 1);
@@ -31,7 +31,7 @@ static	int	exec(t_token *token, t_data *data, int flag)
 	return (child);
 }
 
-static int	parse_exec(t_token *token, t_data *data, int flag)
+static int parse_exec(t_token *token, t_data *data, int flag)
 {
 	ft_expand(token, data);
 	ft_wildcard(&token, data);
@@ -47,10 +47,10 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 	return (-1);
 }
 
-/* 
+/*
 	general function of exewcution of the pipes
 */
-static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
+static void exec_pipes(t_btree *tree, t_data *data, int last_command)
 {
 	if (is_leaf(tree))
 	{
@@ -65,10 +65,12 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 		data->b_tree = tree->right_child;
 		if (ft_is_builtins(tree->right_child->token->content))
 			wait_children(parse_exec(tree->right_child->token,
-					data, PIPE), data);
+									 data, PIPE),
+						  data);
 		else
 			wait_children(parse_exec(tree->right_child->token,
-					data, SIMPLE_COMMAND), data);
+									 data, SIMPLE_COMMAND),
+						  data);
 	}
 	else
 	{
@@ -80,7 +82,7 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 /* 	General function of execution TODO: ADJUSTEMENT ON THE FI LE*/
 /* 	DESCRIPTOR FOR THE HEREDOC SAME PROBLEM AS FOR THE PIPES. */
 // ror_disp_exit("minishell: exec: ", strerror(errno), 126);
-static void	exec_btree_aux(t_btree *tree, t_data *data)
+void exec_btree_aux(t_btree *tree, t_data *data)
 {
 	if (is_leaf(tree))
 		simplecmd_wait(parse_exec(tree->token, data, SIMPLE_COMMAND), data);
@@ -92,9 +94,9 @@ static void	exec_btree_aux(t_btree *tree, t_data *data)
 		exec_and(tree, data);
 }
 
-void	exec_btree(t_btree *tree, t_data *data)
+void exec_btree(t_btree *tree, t_data *data)
 {
-	int	infd;
+	int infd;
 
 	infd = dup(0);
 	add_fdtogb(data->bin, infd);

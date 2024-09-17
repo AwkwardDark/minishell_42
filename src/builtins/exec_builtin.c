@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 23:54:55 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:44:01 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	get_redir(t_token *token)
 	return (fd);
 }
 
-void	exec_subbuiltin(t_token *token, t_data *data, int *pipe)
+void	exec_subbuiltin(t_token *token, t_data *data)
 {
 	int	status;
 

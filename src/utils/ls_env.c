@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:27:25 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:05:38 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ char	*ft_find_exp_value(char *key, t_data *data)
 		if (!ft_strcmp(key, "?"))
 		{
 			data->free_flag = 1;
-			return (ft_itoa(data->exit_status));
+			if (g_signal == 0)
+				return (ft_itoa(data->exit_status));
+			else
+				return (ft_itoa(g_signal + 128));
 		}
 		if (!ft_strcmp(key, current->key))
 		{

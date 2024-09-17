@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 12:19:53 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:50:49 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data)
 	char	*linenl;
 
 	add_fdtogb(data->bin, pipe_fd[1]);
-	here_docsignals(data);
+	here_docsignals();
 	limiter_len = ft_strlen(limiter);
 	close(pipe_fd[0]);
 	line = readline("> ");

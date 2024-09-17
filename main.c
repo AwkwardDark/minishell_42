@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 12:35:57 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:33:19 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int main(int argc, char **argv, char **envp)
 	if (!data)
 		return (ft_error(7), 1);
 	ft_memset(data, 0, sizeof(t_data));
-	char **arg;
 	if (ft_init_data(envp, data))
 		return (1);
 	while (1)

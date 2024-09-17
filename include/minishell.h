@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:05:14 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:29:18 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	add_fdtogb(t_gbcolector *gb, int fd);
 // src/signals
 // handler.c
 void	child_sigint(int code);
-void	here_docsignals(t_data *data);
+void	here_docsignals(void);
 void	heredoc_handler(int code);
 void	sigint_exit(t_data *data);
 // void	parent_sigquit(int code);
@@ -152,8 +152,9 @@ void	ft_echo(t_token *token, int fd, t_data *data);
 int		ft_is_builtins(char *cmd);
 void	ft_exit(t_token *token, t_data *data);
 void	exec_builtin(t_token *token, t_data *data);
-void	exec_subbuiltin(t_token *token, t_data *data, int *pipe);
+void	exec_subbuiltin(t_token *token, t_data *data);
 void	display_order(t_data *data);
+void	exec_btree_aux(t_btree *tree, t_data *data);
 
 // src/exec/wait.c
 void	wait_children(pid_t last_childm, t_data *data);

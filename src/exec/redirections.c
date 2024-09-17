@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 12:20:26 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:44:32 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	redirect_files(t_token *token, int *pipe, int flag, t_data *data)
 	close(pipe[1]);
 	signal(SIGQUIT, SIG_DFL);
 	if (ft_is_builtins(token->content))
-		exec_subbuiltin(token, data, pipe);
+		exec_subbuiltin(token, data);
 	out_redirection(token, data);
 	executer(data, ft_getnextword(token));
 }

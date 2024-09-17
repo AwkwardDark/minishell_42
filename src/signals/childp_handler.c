@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   childp_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 01:11:37 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:46:03 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	child_sigint(int code)
 	exit(128 + code);
 }
 
-void	here_docsignals(t_data *data)
+void	here_docsignals(void)
 {
 	if (signal(SIGINT, heredoc_handler) == SIG_ERR)
 		ft_putstr_fd("error in signal function on SIGINT handler", 2);
