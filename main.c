@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/16 17:56:47 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:51:06 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int main(int argc, char **argv, char **envp)
 	
 	(void)argc;
 	(void)argv;
-	signal(SIGQUIT, SIG_IGN);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_error(7), 1);
@@ -30,20 +29,21 @@ int main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		signal(SIGINT, handler_main);
-		g_signal = 0;
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, main_sigint);
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
-		if (!data->input || !ft_strcmp(data->input, "exit"))
-			break;
+		if (!data->input)
+		{
+			printf("exit\n");
+			break ;
+		}
 		add_history(data->input);
 		if (data->input[0] != '\0' && ft_parser(data->input, data))
 		{
 			tree = create_tokentree(&data->token_lst);
-			//data->bin->tree = tree;
-			//data->b_tree = tree;
+			data->bin->tree = tree;
+			data->b_tree = tree;
 			exec_btree(tree, data);
-			// printf("\n\nAfter left -> %s\n\n", tree->left_child->token->content);
-			// printf("\n\nAfter right -> %s\n\n", tree->right_child->token->content);
 			clr_btree(tree);
 			data->token_lst = NULL;
 		}
@@ -55,3 +55,5 @@ int main(int argc, char **argv, char **envp)
 	ft_free_exit(data);
 	return (0);
 }
+
+

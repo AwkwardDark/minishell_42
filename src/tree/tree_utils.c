@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/12 16:35:52 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:24:44 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_token	*ignore_parenthesis(t_token *token)
 {
 	int		i;
 	t_token	*temp;
+
 	i = 1;
 	temp = token->prev;
 	while (i != 0)
@@ -65,46 +66,46 @@ t_token	*contains_priority(t_token *token, int priority)
 	return (NULL);
 }
 
-// void	display_type(t_type type)
-// {
-// 	switch (type)
-// 	{
-// 		case PIPE:
-// 			printf("PIPE");
-// 			break;
-// 		case AND:
-// 			printf("AND");
-// 		case OR: 
-// 			printf("OR");
-// 		default:
-// 			printf("WORD");
-// 			break;
-// 	}
-// } 
+/* void	display_type(t_type type)
+{
+	switch (type)
+	{
+		case PIPE:
+			printf("PIPE");
+			break;
+		case AND:
+			printf("AND");
+		case OR: 
+			printf("OR");
+		default:
+			printf("WORD");
+			break;
+	}
+} */
 
-// // displays the tree in the following format (node, left child, right child)
-// void	display_btree(t_btree *tree)
-// {
-// 	if (tree == NULL)
-// 	{
-// 		printf("\n");
-// 		return ;
-// 	}
-// 	else if (tree->left_child == NULL && tree->right_child == NULL)
-// 	{
-// 		display_type(tree->token->token_type);
-// 	}
-// 	else
-// 	{
-// 		printf("( ");
-// 		display_type(tree->token->token_type);
-// 		printf(", ");
-// 		display_btree(tree->left_child);
-// 		printf(", ");
-// 		display_btree(tree->right_child);
-// 		printf(" )");
-// 	}
-// } 
+// displays the tree in the following format (node, left child, right child)
+/* void	display_btree(t_btree *tree)
+{
+	if (tree == NULL)
+	{
+		printf("\n");
+		return ;
+	}
+	else if (tree->left_child == NULL && tree->right_child == NULL)
+	{
+		display_type(tree->token->token_type);
+	}
+	else
+	{
+		printf("( ");
+		display_type(tree->token->token_type);
+		printf(", ");
+		display_btree(tree->left_child);
+		printf(", ");
+		display_btree(tree->right_child);
+		printf(" )");
+	}
+} */
 
 int	is_leaf(t_btree *tree)
 {

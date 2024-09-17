@@ -6,26 +6,28 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:42:53 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 17:55:51 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:21:14 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clr_gb(t_gbcolector *bin)
+void	close_fds(t_gbcolector *bin)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 1000 && bin->fds[i] != -1)
 	{
 		close(bin->fds[i]);
+		bin->fds[i] = -1;
 		i++;
 	}
-	// fprintf(stderr, "beginning to free\n");
-	//printf("here\n");
-	//printf("\n\nAfter left -> %s\n\n", bin->tree->left_child->token->content);
-	//printf("\n\nAfter right -> %s\n\n", bin->tree->right_child->token->content);
+}
+
+void	clr_gb(t_gbcolector *bin)
+{
+	close_fds(bin);
 	clr_btree(bin->tree);
 }
 

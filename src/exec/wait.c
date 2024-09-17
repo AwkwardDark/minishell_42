@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:50:24 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/12 16:54:13 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:34:55 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	wait_children(pid_t last_child, t_data *data)
 			if (WIFEXITED(status))
 				data->exit_status = WEXITSTATUS(status);
 			if (data->exit_status > 128)
-				g_signal = 2;
+				g_signal = data->exit_status - 128;
 			else
 				g_signal = 0;
 		}
@@ -42,11 +42,20 @@ void	simplecmd_wait(int pid, t_data *data)
 		return ;
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
+	{
 		data->exit_status = WEXITSTATUS(status);
+		g_signal = 0;
+	}
+	else if (WIFSIGNALED(status))
+	{
+		g_signal = WTERMSIG(status);
+		data->exit_status = g_signal + 128;
+		return ;
+	}
 	if (data->exit_status > 128)
 	{
 		if (data->exit_status > 128)
-			g_signal = 2;
+			g_signal = data->exit_status - 128;
 		else
 			g_signal = 0;
 	}

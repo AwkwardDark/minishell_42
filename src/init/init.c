@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:35:25 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 14:41:00 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:22:26 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,9 @@ manipulation with expand, export and unset. It also initialise the elements of
 the data struct and garbage collector struct*/
 int	ft_init_data(char **envp, t_data *data)
 {
-	if (!envp || !envp[0])
-		data->env = NULL;
-	else
-	{
-		data->env = ft_cpyenv(envp);
-		if (!data->env)
-			return (ft_error(6), 1);
-	}
+	data->env = ft_cpyenv(envp);
+	if (!data->env)
+		return (ft_error(6), 1);
 	data->free_flag = 0;
 	data->exit_status = 0;
 	data->quote_type = '0';

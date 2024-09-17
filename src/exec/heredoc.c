@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/12 22:36:22 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:50:49 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-	// && line[limiter_len] == '\n'))
-	// write(STDOUT_FILENO, "> ", 2);
-	// line = get_next_line(STDIN_FILENO);
-	// line = get_next_line(STDIN_FILENO);
+// && line[limiter_len] == '\n'))
+// write(STDOUT_FILENO, "> ", 2);
+// line = get_next_line(STDIN_FILENO);
+// line = get_next_line(STDIN_FILENO);
 static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data)
 {
 	int		limiter_len;
 	char	*line;
 	char	*linenl;
 
-	add_fdtogb(data->bin, pipe_fd[0]);
-	here_docsignals(data);
+	add_fdtogb(data->bin, pipe_fd[1]);
+	here_docsignals();
 	limiter_len = ft_strlen(limiter);
 	close(pipe_fd[0]);
 	line = readline("> ");
@@ -52,12 +52,14 @@ void	do_mydoc(char *limiter, t_data *data)
 
 	if (pipe(fd) < 0)
 		error_disp_exit("pipex: pipe: ", strerror(errno), 1);
+	signal(SIGQUIT, SIG_IGN);
 	ret = fork();
 	if (ret < 0)
 		error_disp_exit("fork", strerror(errno), 1);
 	if (ret == 0)
 		heredoc_work(limiter, fd, data);
 	simplecmd_wait(ret, data);
+	signal(SIGQUIT, main_sigquit);
 	if (g_signal == 0)
 	{
 		close(fd[1]);

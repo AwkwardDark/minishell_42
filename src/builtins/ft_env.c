@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:06:08 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/08/29 15:09:10 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:08:06 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,20 @@
 
 // displays envirement variables if they exist
 
-void	ft_env(t_env *env)
+void	ft_env(t_data *data, int fd)
 {
+	t_env	*env;
+
+	env = data->env;
 	if (!env)
 		return ;
 	while (env != NULL)
 	{
-		printf("%s=%s\n", env->key, env->value);
+		ft_putstr_fd(env->key, fd);
+		ft_putstr_fd("=", fd);
+		ft_putstr_fd(env->value, fd);
+		ft_putstr_fd("\n", fd);
 		env = env->next;
 	}
+	data->exit_status = 0;
 }

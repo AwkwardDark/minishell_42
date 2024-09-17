@@ -6,16 +6,16 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/16 17:49:59 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:26:40 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // creates a leaf
-t_btree *init_btree(t_token *token, t_btree *left, t_btree *right)
+t_btree	*init_btree(t_token *token, t_btree *left, t_btree *right)
 {
-	t_btree *tree;
+	t_btree	*tree;
 
 	tree = (struct s_btree *)malloc(sizeof(struct s_btree));
 	if (!tree)
@@ -26,22 +26,17 @@ t_btree *init_btree(t_token *token, t_btree *left, t_btree *right)
 	return (tree);
 }
 
-/*
+/* 
 	free's all the binary tree (not the tokens list *)
 */
-void clr_btree(t_btree *tree)
+void	clr_btree(t_btree *tree)
 {
-	t_token *temp;
-
-	(void)temp;
 	if (!tree)
-		return;
-	
+		return ;
 	clr_btree(tree->left_child);
 	clr_btree(tree->right_child);
 	ft_free_lst(&tree->token);
 	free(tree);
-	tree = NULL;
 }
 
 /*
@@ -70,19 +65,19 @@ t_token *remove_parenthesis(t_token *token)
 }
 
 // goes to the start of the token list
-t_token *get_startlst(t_token *token)
+t_token	*get_startlst(t_token *token)
 {
 	while (token->prev != NULL)
 		token = token->prev;
 	return (token);
 }
 
-t_btree *create_tokentree(t_token **token)
+t_btree	*create_tokentree(t_token **token)
 {
-	t_token *temp;
-	t_token *temp2;
-	t_token *right;
-	t_token *left;
+	t_token	*temp;
+	t_token	*temp2;
+	t_token	*right;
+	t_token	*left;
 
 	temp = ft_lstlast(*token);
 	temp = remove_parenthesis(temp);
@@ -98,7 +93,7 @@ t_btree *create_tokentree(t_token **token)
 		temp2->next = NULL;
 		temp2->prev = NULL;
 		return (init_btree(temp2, create_tokentree(&left),
-						   create_tokentree(&right)));
+				create_tokentree(&right)));
 	}
 	return (init_btree(get_startlst(temp), NULL, NULL));
 }

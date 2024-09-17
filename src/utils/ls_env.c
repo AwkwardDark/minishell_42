@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 11:08:07 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:05:38 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_addlstenv(t_env **env, char *key, char *value)
 	while (cur->next != NULL)
 		cur = cur->next;
 	cur->next = new_env;
+	cur = *env;
 }
 
 /*free all the chained list*/
@@ -71,7 +72,10 @@ char	*ft_find_exp_value(char *key, t_data *data)
 		if (!ft_strcmp(key, "?"))
 		{
 			data->free_flag = 1;
-			return (ft_itoa(data->exit_status));
+			if (g_signal == 0)
+				return (ft_itoa(data->exit_status));
+			else
+				return (ft_itoa(g_signal + 128));
 		}
 		if (!ft_strcmp(key, current->key))
 		{
@@ -89,4 +93,24 @@ void	ft_clrenvnode(t_env *env)
 	free(env->key);
 	free(env->value);
 	free(env);
+}
+
+// searches for the value of a key in env returns NULL if key doesnt exist
+char	*get_env(t_env *env, char *key)
+{
+	char	*val;
+
+	val = NULL;
+	if (!env)
+		return (val);
+	while (env != NULL)
+	{
+		if (!ft_strcmp(env->key, key))
+		{
+			val = env->value;
+			break ;
+		}
+		env = env->next;
+	}
+	return (val);
 }

@@ -6,27 +6,39 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 15:32:26 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:02:13 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* 
-	function that will execute a single command it's basicaly 
-	the exec part of pipex but with different arguments, 
+static int is_slashdots(char *cmd)
+{
+	while (*cmd)
+	{
+		if (*cmd == '.' || *cmd == '/')
+			cmd++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
+/*
+	function that will execute a single command it's basicaly
+	the exec part of pipex but with different arguments,
 	TODO exit status with the signal (128 + signal)
-	this function most be called by a chld process the 
+	this function most be called by a chld process the
 	redirectiosn most be made before !!
 	the t_pipe data TODO
  */
-void	executer(t_data *data, t_token *token)
+void executer(t_data *data, t_token *token)
 {
-	char	*path;
-	char	**argv;
-	char	**env_arr;
+	char *path;
+	char **argv;
+	char **env_arr;
 
-	if (!ft_strncmp(token->content, "./", 2) && !access(token->content, F_OK | X_OK))
+	if (!ft_strncmp(token->content, "./", 2) && ft_strlen(token->content) > 2 && !is_slashdots(&token->content[2]) && !access(token->content, F_OK | X_OK))
 	{
 		path = token->content;
 		argv = cmdlst_tocmdarr(token, 1);
@@ -40,16 +52,14 @@ void	executer(t_data *data, t_token *token)
 		if (!path || !ft_strcmp(*argv, ""))
 			cmdnotfound_exit(argv, data, token, 127);
 	}
+	close_fds(data->bin);
 	env_arr = lstenv_towordarr(data->env);
 	if (execve(path, argv, env_arr) < 0)
-	{
-		data = NULL;
-		exit(126);
-	}
+		free_exec(path, argv, env_arr);
 }
 
 /* returns a Pointer to whats after "PATH=" in the env */
-char	*get_paths(t_env *env)
+char *get_paths(t_env *env)
 {
 	if (!env)
 		return (NULL);
@@ -65,19 +75,20 @@ char	*get_paths(t_env *env)
 	return (NULL);
 }
 
-/* searches for a Path to the executable using access */
-char	*test_path(char *envpath, char *cmd)
-{
-	char	*path;
-	char	**paths;
-	int		cmd_len;
-	int		i;
 
+/* searches for a Path to the executable using access */
+char *test_path(char *envpath, char *cmd)
+{
+	char *path;
+	char **paths;
+	int cmd_len;
+	int i;
+
+	if (!envpath || is_slashdots(cmd))
+		return (NULL);
 	i = 0;
 	cmd_len = ft_strlen(cmd);
 	paths = ft_split(envpath, ':');
-	if (!envpath)
-		return (NULL);
 	while (paths[i])
 	{
 		path = add_cmdtopath(paths, cmd, cmd_len, i);

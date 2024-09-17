@@ -6,11 +6,12 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 00:22:57 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/06 11:42:25 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:38:09 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
+#include "stdio.h"
 
 static int	ft_count_words(char const *s, char c)
 {
@@ -91,6 +92,8 @@ char	**ft_split(char const *s, char c)
 	if (!strs)
 		return (0);
 	strs[words] = 0;
+	if (words == 0)
+		return (strs);
 	ret = ft_alloc_words(s, c, strs);
 	if (ret >= 0)
 	{
@@ -106,6 +109,28 @@ char	**ft_split(char const *s, char c)
 	return (strs);
 }
 
+/* int main()
+{
+	char *cmd = "";
+	char **s = ft_split(cmd, ' ');
+
+	clear_wordar(s);
+	return (0);
+}
+void	clear_wordar(char **str)
+{
+	int	i;
+
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+} */
 // #include "stdio.h"
 // int main(int ac, char **av)
 // {

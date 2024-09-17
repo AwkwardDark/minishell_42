@@ -6,12 +6,24 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 14:28:04 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:06:19 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+ 
+// # define NULL 0
+# include "../libft/includes/libft.h"
+# include <dirent.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/wait.h>
+# define SIMPLE_COMMAND 2 
+# include <errno.h>
 
 # include "../libft/includes/libft.h"
 # include <dirent.h>
@@ -73,11 +85,11 @@ typedef struct s_btree {
 	struct s_btree	*right_child;
 }	t_btree;
 
-typedef struct s_garbagecolector
+typedef struct s_garbagecolector 
 {
 	int		fds[1000];
-	t_btree	*tree;
-}	t_gbcolector;
+	t_btree *tree;
+} t_gbcolector;
 
 /*Main structure used for sharing information between the
 parsing and the execution, also used for some small features

@@ -6,71 +6,65 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 17:56:43 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:15:24 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	int	exec(t_token *token, t_data *data, int flag)
+static int exec(t_token *token, t_data *data, int flag)
 {
-	int	child;
-	int	fd[2];
+	int child;
+	int fd[2];
 
-	if (flag == PIPE)
-	{
-		if (pipe(fd) < 0)
-			error_disp_exit("minishell: pipe: ", strerror(errno), 1);
-	}
+	if (pipe(fd) < 0)
+		error_disp_exit("minishell: pipe: ", strerror(errno), 1);
 	child = fork();
 	if (child < 0)
 		error_disp_exit("minishell: fork: ", strerror(errno), 1);
 	if (child == 0)
 		redirect_files(token, fd, flag, data);
-	if (flag == PIPE)
-	{
-		close(fd[1]);
-		if (dup2(fd[0], STDIN_FILENO) < 0)
-			error_disp_exit("minishell: dup2: ", strerror(errno), 1);
-		close(fd[0]);
-	}
+	close(fd[1]);
+	if (dup2(fd[0], STDIN_FILENO) < 0)
+		error_disp_exit("minishell: dup2: ", strerror(errno), 1);
+	close(fd[0]);
 	return (child);
 }
 
-static int	parse_exec(t_token *token, t_data *data, int flag)
+static int parse_exec(t_btree *tree, t_data *data, int flag)
 {
-	int	fd[2];
-	int	child;
-
-	(void)fd;
-	child = 0;
-	ft_expand(token, data);
-	ft_wildcard(&token, data);
-	if (is_heredoc(token))
-		do_mydoc(get_limiter(token), data);
-	if (g_signal == 0)
-		return (exec(token, data, flag));
+	ft_expand(tree->token, data);
+	ft_wildcard(&tree->token, tree);
+	if (flag != PIPE && ft_is_builtins(tree->token->content))
+	{
+		exec_builtin(tree->token, data);
+		return (-1);
+	}
+	if (is_heredoc(tree->token))
+		do_mydoc(get_limiter(tree->token), data);
+	if (data->exit_status == 0 || g_signal == 0)
+		return (exec(tree->token, data, flag));
 	return (-1);
 }
 
 /*
 	general function of exewcution of the pipes
 */
-static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
+static void exec_pipes(t_btree *tree, t_data *data, int last_command)
 {
 	if (is_leaf(tree))
-	{
-		data->bin->tree = tree;
-		data->b_tree = tree;
-		parse_exec(tree->token, data, PIPE);
-	}
+		parse_exec(tree, data, PIPE);
 	else if (last_command)
 	{
 		exec_pipes(tree->left_child, data, 0);
-		data->bin->tree = tree->right_child;
-		data->b_tree = tree->right_child;
-		wait_children(parse_exec(tree->right_child->token,
-				data, SIMPLE_COMMAND), data);
+		if (ft_is_builtins(tree->right_child->token->content))
+			wait_children(parse_exec(tree->right_child,
+									 data, PIPE),
+						  data);
+		else
+			wait_children(parse_exec(tree->right_child,
+									 data, SIMPLE_COMMAND),
+						  data);
 	}
 	else
 	{
@@ -82,10 +76,10 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 /* 	General function of execution TODO: ADJUSTEMENT ON THE FI LE*/
 /* 	DESCRIPTOR FOR THE HEREDOC SAME PROBLEM AS FOR THE PIPES. */
 // ror_disp_exit("minishell: exec: ", strerror(errno), 126);
-static void	exec_btree_aux(t_btree *tree, t_data *data)
-{
+void exec_btree_aux(t_btree *tree, t_data *data)
+{	
 	if (is_leaf(tree))
-		simplecmd_wait(parse_exec(tree->token, data, SIMPLE_COMMAND), data);
+		simplecmd_wait(parse_exec(tree, data, SIMPLE_COMMAND), data);
 	else if (tree->token->token_type == PIPE)
 		exec_pipes(tree, data, 1);
 	else if (tree->token->token_type == OR)
@@ -94,16 +88,16 @@ static void	exec_btree_aux(t_btree *tree, t_data *data)
 		exec_and(tree, data);
 }
 
-void	exec_btree(t_btree *tree, t_data *data)
+void exec_btree(t_btree *tree, t_data *data)
 {
-	int	infd;
+	int infd;
 
 	infd = dup(0);
 	add_fdtogb(data->bin, infd);
 	signal(SIGINT, parenthandler);
-	data->bin->tree = tree;
-	data->b_tree = tree;
+	signal(SIGQUIT, main_sigquit);
 	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);
-	close(infd);
+	close_fds(data->bin);
+	g_signal = 0;
 }

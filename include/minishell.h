@@ -6,13 +6,14 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/13 15:11:33 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:14:58 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// Pablo 
 # include <unistd.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -26,7 +27,8 @@
 # define RED "\033[0;91m"
 # define GRAS "\033[1m"
 # define RESET "\033[0m"
-
+# define PWD_ERROR "pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
+# define CHDIR_PWD "Error: too many charachters in current working directory\n"
 /*Message error macros, it's useful or it makes the code cleaner?*/
 
 /*Character macros*/
@@ -90,20 +92,26 @@ void	ft_print_expand_table(int *tab, int len);
 // src/gb_collector
 
 // clr_gb.c
+void	close_fds(t_gbcolector *bin);
 void	clr_gb(t_gbcolector *bin);
 void	free_process(t_data *data);
 
 // gb_utils.c
 void	add_fdtogb(t_gbcolector *gb, int fd);
 
-// src/signals/handler.c
-void	handler_main(int code);
+// src/signals
+// handler.c
 void	child_sigint(int code);
-void	here_docsignals(t_data *data);
-void	parenthandler(int code);
+void	here_docsignals(void);
 void	heredoc_handler(int code);
 void	sigint_exit(t_data *data);
-void	handler_slash(int code);
+// void	parent_sigquit(int code);
+void	child_sigquit(int code);
+
+// mainp_handler.c
+void	parenthandler(int code);
+void	main_sigint(int code);
+void	main_sigquit(int code);
 
 /* /src/utils/free_exec.c */
 void	free_exec(char *path, char **argv, char **env_arr);
@@ -113,6 +121,7 @@ t_env	*ft_initenv(char *key, char *value);
 void	ft_addlstenv(t_env **env, char *key, char *value);
 void	ft_clrenv(t_env **head);
 void	ft_clrenvnode(t_env *env);
+char	*get_env(t_env *env, char *key);
 
 /* src/utils/ft_cpyenv.c */
 t_env	*ft_cpyenv(char **env);
@@ -128,16 +137,24 @@ t_btree	*create_tokentree(t_token **token);
 t_token	*ignore_parenthesis(t_token *token);
 t_token	*contains_priority(t_token *token, int priority);
 void	display_btree(t_btree *tree);
-int		is_leaf(t_btree *tree);
+int	is_leaf(t_btree *tree);
 void	display_type(t_type type);
 
 /* src/builtins */
-void	ft_cd(char *path);
-void	ft_pwd(void);
-void	ft_env(t_env *env);
-void	ft_unset(char *var, t_data *data);
-void	ft_export(t_env **env, char *key, char *value);
-void	ft_echo(char **str, int NFLAG);
+void	ft_cd(t_token *token, t_data *data);
+void	ft_pwd(t_token *token, t_data *data, int fd);
+char	*get_cwd(void);
+void	ft_env(t_data *data, int fd);
+void	ft_unset(t_token *token, t_data *data);
+void	ft_export(t_data *data, t_token *token);
+void	add_or_replace(t_env **env, char *key, char *value);
+void	ft_echo(t_token *token, int fd, t_data *data);
+int		ft_is_builtins(char *cmd);
+void	ft_exit(t_token *token, t_data *data);
+void	exec_builtin(t_token *token, t_data *data);
+void	exec_subbuiltin(t_token *token, t_data *data);
+void	display_order(t_data *data);
+void	exec_btree_aux(t_btree *tree, t_data *data);
 
 // src/exec/wait.c
 void	wait_children(pid_t last_childm, t_data *data);
@@ -147,7 +164,8 @@ void	simplecmd_wait(int pid, t_data *data);
 void	exec_or(t_btree *tree, t_data *data);
 void	exec_and(t_btree *tree, t_data *data);
 
-// single_exec
+
+// exec/single_exec
 void	executer(t_data *data, t_token *token);
 char	**lstenv_towordarr(t_env *env);
 char	*get_paths(t_env *env);
@@ -158,12 +176,23 @@ char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
 char	**lstenv_towordarr(t_env *env);
 char	**cmdlst_tocmdarr(t_token *token, int absolut);
 
+// exec/exec_utils.c
+int		is_heredoc(t_token *token);
+char 	*get_limiter(t_token *token);
+
+// exec/heredoc.c
+void	do_mydoc(char *limiter, t_data *data);
+// static void	heredoc_work(char *limiter, int *pipe_fd)
+
+//src/exec/redirections.c
+void	in_redirection(t_token *token, t_data *data);
+void	out_redirection(t_token *token, t_data *data);
 // expand.c
 void	ft_expand(t_token *lst, t_data *data);
 char	*ft_find_exp_value(char *key, t_data *data);
 
 // wildcard.c
-void	ft_wildcard(t_token **lst, t_data *data);
+void	ft_wildcard(t_token **lst, t_btree *tree);
 
 // exec_utils.c
 int		is_heredoc(t_token *token);
@@ -174,8 +203,6 @@ void	do_mydoc(char *limiter, t_data *data);
 //static void	heredoc_work(char *limiter, int *pipe_fd);
 
 //src/exec/redirections.c
-void	in_redirection(t_token *token);
-void	out_redirection(t_token *token);
 void	redirect_files(t_token *token, int *pipe, int flag, t_data *data);
 
 // exec.c
@@ -188,5 +215,8 @@ void	error_disp(char *cmd, char *error_message);
 void	error_disp_exit(char *cmd, char *error_message, int eno);
 void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno);
 void	permissiond_exit(char *path, t_data *data);
+
+// src/errors/builtins_errors.c
+void	errorcmd_failed(char *cmd, char *error);
 
 #endif
