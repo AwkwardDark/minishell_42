@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 22:34:32 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 22:51:31 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 18:51:51 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	free_end(int exno, t_data *data)
+{
+	clr_gb(data->bin);
+	ft_free_exit(data);
+	exit(exno);
+}
+
+static int	parse_exnum(char *cmd)
+{
+	if (!cmd)
+		return (0);
+	while (*cmd == ' ')
+		cmd++;
+	if (*cmd == '-')
+		cmd++;
+	while (ft_isdigit(*cmd))
+		cmd++;
+	while (*cmd == ' ')
+		cmd++;
+	if (*cmd != '\0')
+		retrun (0);
+	return (1);
+}
 
 static int	is_number(char *str)
 {
@@ -27,26 +51,24 @@ static int	is_number(char *str)
 
 void	ft_exit(t_token *token, t_data *data)
 {
-	int	status;
-
 	if (token == NULL || token->token_type != WORD)
+		free_end(data, 0);
+	else if (token->next != NULL)
 	{
-		clr_gb(data->bin);
-		ft_free_exit(data);
-		exit(0);
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		free_end(2, data);
 	}
-	else if (is_number(token->content))
-	{
-		status = ft_atoi(token->content);
-		clr_gb(data->bin);
-		ft_free_exit(data);
-		exit(status);
-	}
+}
+
+void	ft_exit_aux(t_token *token, t_data *data)
+{
+	if (!parse_exnum(token->content))
+		
 	else
 	{
 		clr_gb(data->bin);
 		ft_free_exit(data);
-		ft_putstr_fd("minishell: 1 numeric argument expected\n", 2);
+		ft_putstr_fd("minishell: 1 numeric argument required\n", 2);
 		exit(2);
 	}
 }
