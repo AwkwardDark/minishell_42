@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:26:40 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:33:38 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ t_btree	*create_tokentree(t_token **token)
 	t_token	*right;
 	t_token	*left;
 
+	if (!token)
+		return (NULL);
 	temp = ft_lstlast(*token);
 	temp = remove_parenthesis(temp);
 	if (contains_priority(temp, 3) || contains_priority(temp, 2))
