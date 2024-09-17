@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/14 20:48:52 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:19:53 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-	// && line[limiter_len] == '\n'))
-	// write(STDOUT_FILENO, "> ", 2);
-	// line = get_next_line(STDIN_FILENO);
-	// line = get_next_line(STDIN_FILENO);
+// && line[limiter_len] == '\n'))
+// write(STDOUT_FILENO, "> ", 2);
+// line = get_next_line(STDIN_FILENO);
+// line = get_next_line(STDIN_FILENO);
 static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data)
 {
 	int		limiter_len;

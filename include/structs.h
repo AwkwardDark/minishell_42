@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/12 16:46:40 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:06:19 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@
 # define SIMPLE_COMMAND 2 
 # include <errno.h>
 
+# include "../libft/includes/libft.h"
+# include <dirent.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/wait.h>
+# include <errno.h>
+# define SIMPLE_COMMAND 2 
+
 /*Used for tokenize each node in the parsing*/
 typedef enum e_type {
 	WORD=0,
@@ -39,15 +50,23 @@ typedef enum e_type {
 	PIPE=9,	
 }	t_type;
 
+/*Useless structure just to bypass the norminette on the ft_expand function :(*/
+typedef struct s_index {
+	int	i;
+	int	j;
+}		t_index;
+
 /*Double linked list that stores all the information
 separated by spaces or special characters*/
-//TODO: Add redir, expand or wildcar metadata?
 typedef struct s_token {
 	char			*content;
 	t_type			token_type;
-	//int				expand[2];
-	//int				wildcard;
-	char			*redir;
+	int				*pre_expand; //expand
+	int				exp_tab_len; //expand
+	int				wildcard; //wildcard
+	int				delete_flag; //wildcard
+	int				quote_flag; //for heredoc but useless on this structure
+	char			*redir; //redirections
 	struct s_token	*next;
 	struct s_token	*prev;
 }		t_token;
@@ -78,10 +97,12 @@ parsing and the execution, also used for some small features
 typedef struct s_data {
 	struct s_env	*env;
 	struct s_token	*token_lst;
+	struct s_btree	*b_tree;
 	char			*input;
 	char			quote_type;
 	char			symbol;
 	int				exit_status;
+	int				free_flag;
 	char			*syntax_error;
 	int				*child_ps;
 	t_gbcolector	*bin;

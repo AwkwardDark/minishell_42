@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 00:12:42 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:35:57 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 int g_signal;
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	t_data	*data;
+	t_data *data;
 	t_btree *tree;
-	char	*pwd;
+	
 	(void)argc;
 	(void)argv;
-
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_error(7), 1);
@@ -34,20 +33,22 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, main_sigint);
 		g_signal = 0;
-		data->input = readline("minishell ~ ");
+		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		if (!data->input)
 		{
 			printf("exit\n");
 			break ;
 		}
 		add_history(data->input);
-		ft_parser(data->input, data);
-		tree = create_tokentree(&data->token_lst);
-		data->bin->tree = tree;
-		exec_btree(tree, data);
-		fprintf(stderr, "exit status: %d\n", data->exit_status);
-		clr_btree(tree);
-		data->token_lst = NULL;
+		if (data->input[0] != '\0' && ft_parser(data->input, data))
+		{
+			tree = create_tokentree(&data->token_lst);
+			exec_btree(tree, data);
+			clr_btree(tree);
+			data->token_lst = NULL;
+		}
+		else
+			ft_free_lst(&data->token_lst);
 		free(data->input);
 		data->input = NULL;
 	}

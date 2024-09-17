@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 01:41:08 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:09:47 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno)
 void	permissiond_exit(char *path, t_data *data)
 {
 	char	buffer[500];
-	int		len;
-	int		i;
 
 	ft_memcpy(buffer, path, ft_strlen(path));
 	buffer[ft_strlen(path)] = 0;
@@ -113,7 +111,7 @@ void	ft_error(int code)
 	if (code == 5)
 		ft_putstr_fd("minishell: parenthesis syntax error\n", 2);
 	if (code == 6)
-		ft_putstr_fd("minishell: env list creation eroor\n", 2);
+		ft_putstr_fd("minishell: env list creation error\n", 2);
 	if (code == 7)
 		ft_putstr_fd("minishell: malloc error\n", 2);
 }

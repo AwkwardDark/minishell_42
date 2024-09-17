@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 01:47:58 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:05:14 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 
 // Pablo 
 # include <unistd.h>
@@ -22,7 +21,8 @@
 # include "structs.h"
 # include "../libft/includes/libft.h"
 # include <signal.h>
-/*color for the minishell prompt*/
+
+/*Color for the minishell prompt*/
 # define GREEN "\033[0;92m"
 # define RED "\033[0;91m"
 # define GRAS "\033[1m"
@@ -52,6 +52,7 @@ void	ft_free_exit(t_data *data);
 t_token	*ft_lstnew(char *content);
 t_token	*ft_lstlast(t_token *lst);
 void	ft_lstadd_back(t_token **lst, t_token *new);
+void	ft_insert_after(t_token *current, t_token *new);
 void	ft_print_lst(t_token *lst);
 void	ft_free_lst(t_token **lst);
 void	ft_free_onetoken(t_token *token);
@@ -62,21 +63,29 @@ void	ft_redir_check(t_token **lst);
 /*Parser, Lexer and Simple Syntax management*/
 int		ft_init_data(char **envp, t_data *data);
 void	ft_error(int code);
-void	ft_parser(char *input, t_data *data);
+int		ft_parser(char *input, t_data *data);
 void	ft_lexer(char *input, t_data *data);
 void	ft_tokenize(t_token *lst);
 int		ft_quote_syntax(char *input);
 int		ft_operator_syntax(char *input, t_data *data);
 int		ft_parenthesis_syntax(char *input, t_data *data);
 int		ft_grammar_syntax(t_token *lst, t_data *data);
+void	ft_remove_quotes(t_token *lst, t_data *data);
+void	ft_pre_expand(t_token *lst);
+void	ft_pre_wildcard(t_token *lst);
 
 /*Parsing Utils*/
+int		ft_str_is_quote(char *str);
 int		ft_is_quote(char c, t_data *data);
-int		ft_is_special(char *input, int *i, t_data *data);
+int		ft_is_operator(char *input, int *i, t_data *data);
 int		ft_is_symbol(char c);
+int		ft_is_special(char c);
 void	ft_token_symbol(char *content, t_token *token);
+int		ft_count_exp(char *str);
+int		ft_simple_wildcard(char *wildcard);
 
 /*Testing utils*/
+void	ft_print_expand_table(int *tab, int len);
 
 // Pierre
 
@@ -177,6 +186,22 @@ void	do_mydoc(char *limiter, t_data *data);
 //src/exec/redirections.c
 void	in_redirection(t_token *token, t_data *data);
 void	out_redirection(t_token *token, t_data *data);
+// expand.c
+void	ft_expand(t_token *lst, t_data *data);
+char	*ft_find_exp_value(char *key, t_data *data);
+
+// wildcard.c
+void	ft_wildcard(t_token **lst, t_data *data);
+
+// exec_utils.c
+int		is_heredoc(t_token *token);
+char	*get_limiter(t_token *token);
+
+//heredoc.c
+void	do_mydoc(char *limiter, t_data *data);
+//static void	heredoc_work(char *limiter, int *pipe_fd);
+
+//src/exec/redirections.c
 void	redirect_files(t_token *token, int *pipe, int flag, t_data *data);
 
 // exec.c

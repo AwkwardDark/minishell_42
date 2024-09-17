@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 01:42:08 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:18:03 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static	int	exec(t_token *token, t_data *data, int flag)
 
 static int	parse_exec(t_token *token, t_data *data, int flag)
 {
-	int	fd[2];
-
+	ft_expand(token, data);
+	ft_wildcard(&token, data);
 	if (flag != PIPE && ft_is_builtins(token->content))
 	{
 		exec_builtin(token, data);
@@ -53,10 +53,16 @@ static int	parse_exec(t_token *token, t_data *data, int flag)
 static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 {
 	if (is_leaf(tree))
+	{
+		data->bin->tree = tree;
+		data->b_tree = tree;
 		parse_exec(tree->token, data, PIPE);
+	}
 	else if (last_command)
 	{
 		exec_pipes(tree->left_child, data, 0);
+		data->bin->tree = tree->right_child;
+		data->b_tree = tree->right_child;
 		if (ft_is_builtins(tree->right_child->token->content))
 			wait_children(parse_exec(tree->right_child->token,
 					data, PIPE), data);
@@ -94,6 +100,8 @@ void	exec_btree(t_btree *tree, t_data *data)
 	add_fdtogb(data->bin, infd);
 	signal(SIGINT, parenthandler);
 	signal(SIGQUIT, main_sigquit);
+	data->bin->tree = tree;
+	data->b_tree = tree;
 	exec_btree_aux(tree, data);
 	dup2(infd, STDIN_FILENO);
 	close_fds(data->bin);

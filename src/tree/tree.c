@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 01:43:13 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:26:40 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_btree	*init_btree(t_token *token, t_btree *left, t_btree *right)
 */
 void	clr_btree(t_btree *tree)
 {
-	t_token	*temp;
-
 	if (!tree)
 		return ;
 	clr_btree(tree->left_child);
@@ -41,14 +39,14 @@ void	clr_btree(t_btree *tree)
 	free(tree);
 }
 
-/* 
+/*
 	TODO
-	check for other free to do for char * content 
+	check for other free to do for char * content
 */
-t_token	*remove_parenthesis(t_token *token)
+t_token *remove_parenthesis(t_token *token)
 {
-	t_token	*temp;
-	t_token	*end;
+	t_token *temp;
+	t_token *end;
 
 	temp = token;
 	if (token->token_type != C_PAR || get_startlst(token)->token_type != O_PAR)

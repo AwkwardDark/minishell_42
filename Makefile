@@ -1,16 +1,16 @@
 NAME = minishell
 MAIN = main.c
 BUILTINS = ft_cd.c ft_echo.c ft_export.c ft_env.c ft_pwd.c ft_unset.c exec_builtin.c ft_is_builtins.c ft_exit.c
-UTILS = ls_env.c ft_cpyenv.c lst_utils.c symbols.c exec_utils.c free_exec.c
+UTILS = ls_env.c lst_utils.c symbols.c ft_cpyenv.c testing.c exec_utils.c free_exec.c
 TREE = tree.c tree_utils.c
-EXEC= exec_utils.c exec.c heredoc.c redirections.c single_exec.c exec_operators.c wait.c
+EXEC= exec_utils.c exec.c heredoc.c redirections.c single_exec.c exec_operators.c wait.c expand.c wildcard.c
 ERROR= error.c builtins_errors.c
 SIGNAL= mainp_handler.c childp_handler.c
 GB= clr_gb.c gb_utils.c
 
 # Pablo
 SRC_INIT    =  init.c
-SRC_PARSING =  check_syntax.c tokenizer.c lexer_utils.c token_utils.c check_grammar.c redir.c
+SRC_PARSING =  check_syntax.c tokenizer.c lexer_utils.c token_utils.c check_grammar.c redir.c quotes.c pre_expand.c pre_wildcard.c
 
 # Object files Pablo
 OBJ_INIT = $(addprefix src/init/, $(SRC_INIT:.c=.o))
@@ -26,14 +26,14 @@ SIGNAL_OBJ = $(addprefix src/signals/, $(SIGNAL:.c=.o))
 OBJ_GB = $(addprefix src/gb_collector/, $(GB:.c=.o))
 
 CC = cc 
-# CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -g3 #-fno-omit-frame-pointer -fsanitize=address -fsanitize=undefined -fsanitize=null -fsanitize=return
 
 all: $(NAME)
 
 # Linking the final executable
 $(NAME): $(MAIN:.c=.o) $(EXEC_OBJS)  $(TREE_OBJS) $(UTILS_OBJS) $(BUILTINS_OBJS) $(ERROR_OBJ) $(OBJ_INIT) $(OBJ_PARSING) $(SIGNAL_OBJ) $(OBJ_GB)
 	make -C libft
-	$(CC) $(CFLAGS) $(MAIN:.c=.o) $(OBJ_GB) $(SIGNAL_OBJ) $(OBJ_INIT) $(OBJ_PARSING) $(ERROR_OBJ) $(EXEC_OBJS) $(UTILS_OBJS) $(BUILTINS_OBJS) $(TREE_OBJS) -I./include -lft -L./libft -lreadline -o $@
+	$(CC) $(CFLAGS) $(MAIN:.c=.o) $(OBJ_GB) $(OBJ_INIT) $(OBJ_PARSING) $(ERROR_OBJ) $(EXEC_OBJS) $(UTILS_OBJS) $(BUILTINS_OBJS) $(TREE_OBJS) $(SIGNAL_OBJ) -I./include -lft -L./libft -lreadline -o $@
 
 # Rule to compile .c files into .o files
 %.o: %.c

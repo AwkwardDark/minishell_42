@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_grammar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:01:05 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/06 16:43:43 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:23:54 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,31 +70,30 @@ static int	ft_word_grammar(t_token *current)
 	return (0);
 }
 
-static int	ft_parenthesis_grammar(t_token *current)
+static int	ft_parenthesis_grammar(t_token *curr)
 {
-	if ((current->next) && (current->token_type == O_PAR))
+	if ((curr->next) && (curr->token_type == O_PAR))
 	{
-		if ((current->next->token_type == AND) || \
-			(current->next->token_type == OR) || \
-				(current->next->token_type == PIPE) || \
-					(current->next->token_type == C_PAR))
+		if ((curr->next->token_type == AND) || (curr->next->token_type == OR) \
+			|| (curr->next->token_type == PIPE) || \
+				(curr->next->token_type == C_PAR))
 			return (1);
 	}
-	if ((current->prev) && (current->token_type == O_PAR))
+	if ((curr->prev) && (curr->token_type == O_PAR))
 	{
-		if ((!current->next) || ((current->prev->token_type != AND) && \
-			(current->prev->token_type != OR) && \
-				(current->prev->token_type != O_PAR)))
+		if ((!curr->next) || ((curr->prev->token_type != AND) && \
+			(curr->prev->token_type != OR) && \
+				(curr->prev->token_type != O_PAR)))
 			return (1);
 	}
-	if ((current->next) && (current->token_type == C_PAR))
+	if ((curr->next) && (curr->token_type == C_PAR))
 	{
-		if ((current->next->token_type != AND) && \
-			(current->next->token_type != OR) && (current->next->token_type != C_PAR))
+		if ((curr->next->token_type != AND) && (curr->next->token_type != OR) \
+			&& (curr->next->token_type != C_PAR))
 			return (1);
 	}
-	if (((!current->prev) || ((current->prev->token_type != WORD) && (current->prev->token_type != C_PAR))) && \
-		(current->token_type == C_PAR))
+	if (((!curr->prev) || ((curr->prev->token_type != WORD) && \
+		(curr->prev->token_type != C_PAR))) && (curr->token_type == C_PAR))
 		return (1);
 	return (0);
 }

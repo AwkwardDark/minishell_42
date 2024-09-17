@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 00:22:57 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/05 16:01:33 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:38:09 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,3 +131,29 @@ void	clear_wordar(char **str)
 	}
 	free(str);
 } */
+// #include "stdio.h"
+// int main(int ac, char **av)
+// {
+// 	//char *cmd = "";
+// 	//char **s = ft_split(cmd, ' ');
+// 	// if (!s)
+// 	// {
+// 	// 	printf("error");
+// 	// 	return (0);
+// 	// }
+// 	(void)ac;
+// 	char	**split;
+// 	int i;
+
+// 	if (ac == 2)
+// 	{
+// 		split = ft_split(av[1], ' ', 0);
+// 		i = 0;
+// 		while (i < ft_count_words(av[1], ' ', 0))
+// 		{
+// 			printf("cmd_%i -> %s\n",i , split[i]);
+// 			i++;
+// 		}
+// 	}
+// 	return (0);
+// }
