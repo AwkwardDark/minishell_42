@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 00:20:33 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 22:01:05 by pierre           ###   ########.fr       */
+/*   Created: 2024/09/17 21:39:58 by pierre            #+#    #+#             */
+/*   Updated: 2024/09/17 22:04:54 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-double	ft_atoi(const char *nptr)
+long long	ft_atoll(const char *nptr)
 {
-	double	val;
-	int		isneg;
+	long long	val;
+	int			isneg;
 
 	isneg = 1;
 	val = 0;

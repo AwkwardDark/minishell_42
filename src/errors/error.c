@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 12:09:47 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:04:02 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno)
 {
 	char	buffer[500];
 	int		len;
-	int		i;
 
-	i = 0;
 	len = ft_strlen(token->content);
 	ft_memcpy(buffer, token->content, len);
 	buffer[len] = 0;
