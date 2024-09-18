@@ -6,12 +6,14 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:50:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 12:24:05 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:18:34 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*It deletes the tken type word after a redirection and saves it inside the
+token structure, this technique will optimise execution*/
 void	ft_redir_check(t_token **lst)
 {
 	t_token	*current;

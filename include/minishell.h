@@ -6,22 +6,25 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 19:15:33 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:30:13 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// Pablo 
+# include "../libft/includes/libft.h"
+# include "structs.h"
 # include <unistd.h>
 # include <stdio.h>
+# include <stdlib.h> //necessary?
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "structs.h"
-# include "../libft/includes/libft.h"
 # include <signal.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <dirent.h>
 # include <limits.h>
 
 /*Color for the minishell prompt*/
@@ -29,9 +32,12 @@
 # define RED "\033[0;91m"
 # define GRAS "\033[1m"
 # define RESET "\033[0m"
-# define PWD_ERROR "pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
+# define PWD_ERROR "pwd: error retrieving current directory: getcwd: cannot \
+access parent directories: No such file or directory\n"
 # define CHDIR_PWD "Error: too many charachters in current working directory\n"
+
 /*Message error macros, it's useful or it makes the code cleaner?*/
+# define SIMPLE_COMMAND 2 
 
 /*Character macros*/
 # define S_QUOTE '\''
@@ -89,10 +95,6 @@ int		ft_simple_wildcard(char *wildcard);
 /*Testing utils*/
 void	ft_print_expand_table(int *tab, int len);
 
-// Pierre
-
-// src/gb_collector
-
 // clr_gb.c
 void	close_fds(t_gbcolector *bin);
 void	clr_gb(t_gbcolector *bin);
@@ -139,7 +141,7 @@ t_btree	*create_tokentree(t_token **token);
 t_token	*ignore_parenthesis(t_token *token);
 t_token	*contains_priority(t_token *token, int priority);
 void	display_btree(t_btree *tree);
-int	is_leaf(t_btree *tree);
+int		is_leaf(t_btree *tree);
 void	display_type(t_type type);
 
 /* src/builtins */
@@ -165,7 +167,6 @@ void	simplecmd_wait(int pid, t_data *data);
 void	exec_or(t_btree *tree, t_data *data);
 void	exec_and(t_btree *tree, t_data *data);
 
-
 // exec/single_exec
 void	executer(t_data *data, t_token *token);
 char	**lstenv_towordarr(t_env *env);
@@ -179,7 +180,7 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut);
 
 // exec/exec_utils.c
 int		is_heredoc(t_token *token);
-char 	*get_limiter(t_token *token);
+char	*get_limiter(t_token *token);
 
 //src/exec/redirections.c
 void	in_redirection(t_token *token, t_data *data);
@@ -216,6 +217,6 @@ void	permissiond_exit(char *path, t_data *data);
 
 // src/errors/builtins_errors.c
 void	errorcmd_failed(char *cmd, char *error);
-void	errorcmd_failed2(char *cmd, char *arg,  char *error);
+void	errorcmd_failed2(char *cmd, char *arg, char *error);
 
 #endif

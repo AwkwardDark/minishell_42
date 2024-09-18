@@ -6,24 +6,12 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 19:09:24 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:30:40 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-
-# include "../libft/includes/libft.h"
-# include <dirent.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/wait.h>
-# include <errno.h>
-# define SIMPLE_COMMAND 2 
-
 
 /*Used for tokenize each node in the parsing*/
 typedef enum e_type {
@@ -39,7 +27,7 @@ typedef enum e_type {
 	PIPE=9,	
 }	t_type;
 
-/*Useless structure just to bypass the norminette on the ft_expand function :(*/
+/*Useless structure just to bypass the norminette on the ft_expand function*/
 typedef struct s_index {
 	int	i;
 	int	j;
@@ -54,7 +42,7 @@ typedef struct s_token {
 	int				exp_tab_len; //expand
 	int				wildcard; //wildcard
 	int				delete_flag; //wildcard
-	int				quote_flag; //for heredoc but useless on this structure
+	int				quote_flag;//for heredoc expansion but useless at the moment
 	char			*redir; //redirections
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -74,11 +62,11 @@ typedef struct s_btree {
 	struct s_btree	*right_child;
 }	t_btree;
 
-typedef struct s_garbagecolector 
+typedef struct s_garbagecolector
 {
 	int		fds[1000];
-	t_btree *tree;
-} t_gbcolector;
+	t_btree	*tree;
+}	t_gbcolector;
 
 /*Main structure used for sharing information between the
 parsing and the execution, also used for some small features
@@ -97,8 +85,6 @@ typedef struct s_data {
 	int				*child_ps;
 	t_gbcolector	*bin;
 }		t_data;
-
-/* Pierre */
 
 typedef struct s_pipe
 {

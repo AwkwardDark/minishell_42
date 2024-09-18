@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:24:45 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/10 17:36:56 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:17:40 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	ft_c_q(char *input)
 	}
 	return (count_q);
 }
-
+/*It copys the content without the quotes*/
 void	ft_create_unquoted(char *old, char *new, int *flag, t_data *data)
 {
 	while (*old)
@@ -79,6 +79,7 @@ void	ft_create_unquoted(char *old, char *new, int *flag, t_data *data)
 	}
 }
 
+/*It frees the old content and build the new content without the valid quotes*/
 void	ft_remove_quotes(t_token *lst, t_data *data)
 {
 	t_token	*current;

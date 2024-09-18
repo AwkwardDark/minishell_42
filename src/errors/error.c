@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 22:04:02 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/18 19:48:18 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	permissiond_exit(char *path, t_data *data)
 	error_disp_exit("permission denied", buffer, 126);
 }
 
-/*Before exiting the program, it free the environment list, the prompt input,
-the token parsing list and the rest of malloc'd structs*/
+/*Before exiting the program, it frees the environment list, the prompt input,
+and data and bin structures. Also it clears the prompt history*/
 void	ft_free_exit(t_data *data)
 {
 	if (data->env)

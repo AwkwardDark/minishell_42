@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:14:35 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 18:38:53 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:19:31 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*ft_join_str(char *join, char *s1, char *s2)
 	return (join);
 }
 
+/*Adapted version of ft_strjoin for expand edge cases*/
 char	*ft_strjoin_expand(char *s1, char *s2)
 {
 	char	*join;

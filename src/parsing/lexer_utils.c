@@ -6,13 +6,14 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 14:38:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 11:42:04 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:53:29 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*checks if the char c is a single or double quote*/
+/*checks if the char c is a single or double quote and stores this information
+on the data to match the end of the quoted content*/
 int	ft_is_quote(char c, t_data *data)
 {
 	if (c == S_QUOTE)
@@ -53,6 +54,8 @@ static int	ft_is_symbol_lexer(char c, t_data *data)
 	return (0);
 }
 
+/*Checks if the content of the node matchs with and operator: &&, |, ||, >, <,
+<<, >>, (, )*/
 int	ft_is_operator(char *input, int *i, t_data *data)
 {	
 	if ((input[*i] == O_PAREN) || (input[*i] == C_PAREN))

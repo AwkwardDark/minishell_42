@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 17:35:16 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:50:55 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 /*It verifies basic syntax on quotes, operators and parenthesis,
 then it creates a double linked list where each node is separated by an space
-or and special symbol. Then it tokenize each node, and lastly it checks if
-the grammar between each node is correct*/
+or and special symbol (lexer). Then it tokenize each node (tokenizer), and 
+lastly it checks if the grammar between each node is correct (parser).
+Once lexer, tokenizer and parser its done, it checks for expand, wildcard and
+redirections, it also remove the quotes*/
 int	ft_parser(char *input, t_data *data)
 {	
 	if (ft_quote_syntax(input) == 1)
@@ -42,7 +44,6 @@ int	ft_parser(char *input, t_data *data)
 	ft_redir_check(&data->token_lst);
 	return (1);
 }
-//ft_print_lst(data->token_lst);
 
 /*If there are quotes it will be in the same node, a special symbol (operator)
 is stocked in a new node*/
@@ -87,7 +88,7 @@ void	ft_lexer(char *input, t_data *data)
 		ft_lstadd_back(&data->token_lst, ft_lstnew(content));
 	}
 }
-
+/*It tokenizes each node dependint on its content*/
 void	ft_tokenize(t_token *lst)
 {
 	t_token	*current;

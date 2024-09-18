@@ -6,12 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:22:21 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 12:28:44 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:14:30 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*Checks if the character is a symbol to check later if it will be an operator*/
 int	ft_is_symbol(char c)
 {
 	char	*set;
@@ -42,6 +43,7 @@ int	ft_str_is_quote(char *str)
 	return (0);
 }
 
+/*Special characters that will end the expansion*/
 int	ft_is_special(char c)
 {
 	char	*special;
@@ -49,7 +51,6 @@ int	ft_is_special(char c)
 
 	i = 0;
 	special = "!@#$%^&*()-+=[]{}|\\;:'\"<>,.?/~` ";
-
 	while (special[i])
 	{
 		if (c == special[i])
@@ -59,6 +60,7 @@ int	ft_is_special(char c)
 	return (0);
 }
 
+/*Multiple * acts like a * alone, it checks this particular case*/
 int	ft_simple_wildcard(char *wildcard)
 {
 	int	i;

@@ -6,19 +6,19 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 18:58:45 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:31:32 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_signal;
+int	g_signal;
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_data *data;
-	t_btree *tree;
-	
+	t_data	*data;
+	t_btree	*tree;
+
 	(void)argc;
 	(void)argv;
 	data = malloc(sizeof(t_data));
@@ -56,5 +56,3 @@ int main(int argc, char **argv, char **envp)
 	ft_free_exit(data);
 	return (0);
 }
-
-
