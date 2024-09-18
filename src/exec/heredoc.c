@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 15:41:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:42:44 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 		ft_putstr_fd("ctrl + d\n", 2);
 	else
 		free(line);
-	// exit(EXIT_SUCCESS);
 }
 
 static void	do_mydocs_aux(t_token *token, t_data *data, int *pipe)

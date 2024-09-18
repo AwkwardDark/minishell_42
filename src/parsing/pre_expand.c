@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:56:01 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 20:15:17 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:46:44 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	ft_count_exp(char *str)
 	}
 	return (count);
 }
+
 /*It creates the array with the length of each expansion char that is inside
 a token->content*/
 static void	ft_create_exp_tab(t_token *cur, char *str, int *s_flag, int *d_flag)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:24:45 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 20:17:40 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:45:40 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int	ft_c_q(char *input)
 	}
 	return (count_q);
 }
+
 /*It copys the content without the quotes*/
 void	ft_create_unquoted(char *old, char *new, int *flag, t_data *data)
 {

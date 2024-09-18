@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 19:30:13 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:36:44 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,14 @@ void	free_process(t_data *data);
 
 // gb_utils.c
 void	add_fdtogb(t_gbcolector *gb, int fd);
+
+// export_parse.c
+int		keyparse(char *str);
+
+// exit_utils.c
+int		get_errortype(t_token *token);
+int		parse_exnum(char *cmd);
+void	ft_check_overflow(char *trim, int *len, int *ovrflw);
 
 // src/signals
 // handler.c

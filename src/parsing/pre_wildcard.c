@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_wildcard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:07:09 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 20:16:15 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:45:23 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_pre_wildcard(t_token *lst)
 	{
 		current->wildcard = 0;
 		if (current->token_type == WORD && ft_check_wild(current->content))
-				current->wildcard = 1;
+			current->wildcard = 1;
 		current = current->next;
 	}
 }

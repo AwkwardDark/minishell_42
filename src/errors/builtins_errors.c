@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:42:44 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 17:52:17 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:44:40 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	errorcmd_failed(char *cmd, char *error)
 	ft_putstr_fd(buffer, 2);
 }
 
-// 
-void	errorcmd_failed2(char *cmd, char *arg,  char *error)
+void	errorcmd_failed2(char *cmd, char *arg, char *error)
 {
 	char	buffer[500];
 	int		arg_len;
@@ -48,4 +47,21 @@ void	errorcmd_failed2(char *cmd, char *arg,  char *error)
 	ft_memcpy(buffer + 11 + cmd_len + 4 + arg_len + error_len, "\n", 1);
 	buffer[11 + cmd_len + 4 + error_len + arg_len + 1] = 0;
 	ft_putstr_fd(buffer, 2);
+}
+
+/*Before exiting the program, it frees the environment list, the prompt input,
+and data and bin structures. Also it clears the prompt history*/
+void	ft_free_exit(t_data *data)
+{
+	if (data->env)
+		ft_clrenv(&data->env);
+	if (data->input)
+		free(data->input);
+	if (data)
+	{
+		if (data->bin)
+			free(data->bin);
+		free(data);
+	}
+	rl_clear_history();
 }

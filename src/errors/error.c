@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 19:48:18 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:44:01 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,6 @@ void	permissiond_exit(char *path, t_data *data)
 	clr_gb(data->bin);
 	ft_free_exit(data);
 	error_disp_exit("permission denied", buffer, 126);
-}
-
-/*Before exiting the program, it frees the environment list, the prompt input,
-and data and bin structures. Also it clears the prompt history*/
-void	ft_free_exit(t_data *data)
-{
-	if (data->env)
-		ft_clrenv(&data->env);
-	if (data->input)
-		free(data->input);
-	if (data)
-	{
-		if (data->bin)
-			free(data->bin);
-		free(data);
-	}
-	rl_clear_history();
 }
 
 /*It writes on the STDERR an error message*/

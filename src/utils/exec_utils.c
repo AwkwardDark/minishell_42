@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:37:28 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:27:06 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 22:53:55 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ static void	alloc_keyvalue(t_env *env, char **word_arr, int len)
 		if (!word_arr[i])
 			fprintf(stderr, "error");
 		word_arr[i][0] = 0;
-		ft_strcpy(word_arr[i], temp->key);
-		ft_strcpy(&word_arr[i][ft_strlen(temp->key)], "=");
-		ft_strcpy(&word_arr[i][ft_strlen(temp->key) + 1], temp->value);
+		ft_strcat(word_arr[i], temp->key);
+		ft_strcat(&word_arr[i][ft_strlen(temp->key)], "=");
+		if (temp->value)
+			ft_strcat(&word_arr[i][ft_strlen(temp->key) + 1], temp->value);	
 		temp = temp->next;
 		i++;
 	}
