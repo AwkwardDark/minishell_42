@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 12:44:01 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:12:44 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	exec_builtin(t_token *token, t_data *data)
 	else if (!ft_strcmp(token->content, "unset"))
 		ft_unset(token->next, data);
 	else if (!ft_strcmp(token->content, "export"))
-		ft_export(data, token->next);
+		ft_export(data, token->next, redir);
 	else
 		ft_exit(token->next, data);
 	if (redir != 1)

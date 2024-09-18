@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 15:10:37 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:09:29 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	redirect_files(t_token *token, int *pipe, int flag, t_data *data)
 {
 	signal(SIGINT, child_sigint);
 	close(pipe[0]);
+	add_fdtogb(data->bin, pipe[1]);
 	in_redirection(token, data);
 	if (flag == PIPE)
 	{

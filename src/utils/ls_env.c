@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 13:05:38 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:07:11 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_find_exp_value(char *key, t_data *data)
 		{
 			data->free_flag = 1;
 			if (g_signal == 0)
-				return (ft_itoa(data->exit_status));
+				return (ft_itoa(data->lst_exit_status));
 			else
 				return (ft_itoa(g_signal + 128));
 		}
@@ -90,8 +90,10 @@ char	*ft_find_exp_value(char *key, t_data *data)
 // free one node
 void	ft_clrenvnode(t_env *env)
 {
-	free(env->key);
-	free(env->value);
+	if (env->key)
+		free(env->key);
+	if (env->value)
+		free(env->value);
 	free(env);
 }
 

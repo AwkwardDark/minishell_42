@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:35:25 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 12:22:26 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:33:13 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_init_data(char **envp, t_data *data)
 	data->exit_status = 0;
 	data->quote_type = '0';
 	data->symbol = '\0';
+	data->lst_exit_status = 0;
 	data->token_lst = NULL; //we can ignore this initialisation?
 	data->bin = (struct s_garbagecolector*)malloc(sizeof(t_gbcolector));
 	if (!data->bin)
