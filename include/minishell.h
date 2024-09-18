@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 16:14:58 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:39:22 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "structs.h"
 # include "../libft/includes/libft.h"
 # include <signal.h>
+# include <limits.h>
 
 /*Color for the minishell prompt*/
 # define GREEN "\033[0;92m"
@@ -190,6 +191,7 @@ void	out_redirection(t_token *token, t_data *data);
 // expand.c
 void	ft_expand(t_token *lst, t_data *data);
 char	*ft_find_exp_value(char *key, t_data *data);
+char	*ft_strjoin_expand(char *s1, char *s2);
 
 // wildcard.c
 void	ft_wildcard(t_token **lst, t_btree *tree);
