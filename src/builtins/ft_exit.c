@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 22:34:32 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 18:09:34 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:03:15 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	exit_routine(long long val, t_data *data)
 {
-	(void)val;
 	clr_gb(data->bin);
 	ft_free_exit(data);
 	printf("exit\n");
@@ -141,14 +140,14 @@ static void	is_longlong(t_token *token, t_data *data)
 void	ft_exit(t_token *token, t_data *data)
 {
 	if (token == NULL || token->token_type != WORD)
-		free_end(0, data, NULL);
+		free_end(data->lst_exit_status, data, NULL);
 	if (token->next != NULL )
 	{
 		if (get_errortype(token))
 		{
 			printf("exit\n");
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-			data->exit_status = 127;
+			data->exit_status = 1;
 			return ;
 		}
 		else

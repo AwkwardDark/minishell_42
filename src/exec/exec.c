@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 17:33:51 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:40:24 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int parse_exec(t_btree *tree, t_data *data, int flag)
 		return (-1);
 	}
 	if (is_heredoc(tree->token))
-		do_mydoc(get_limiter(tree->token), data);
-	if (data->exit_status == 0 || g_signal == 0)
+		do_mydoc(tree->token, data);
+	if (data->exit_status == 0)
 		return (exec(tree->token, data, flag));
 	return (-1);
 }

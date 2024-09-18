@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 12:43:01 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:08:06 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:46:26 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@
 
 static int	keyparse(char *str)
 {
-	if (!ft_strchr(str, '='))
-		return (0);
 	if (!ft_isalpha(*str) && *str != '_')
 		return (0);
 	str++;
-	while (*str != '=')
+	while (*str != '=' && *str)
 	{
 		if (!ft_isdigit(*str) && !ft_isalpha(*str) && *str != '_')
 			return (0);
@@ -51,7 +49,8 @@ void	add_or_replace(t_env **env, char *key, char *value)
 		if (!ft_strcmp(cur->key, key))
 		{
 			free(key);
-			free(cur->value);
+			if (cur->value)
+				free(cur->value);
 			cur->value = value;
 			return ;
 		}
@@ -60,55 +59,67 @@ void	add_or_replace(t_env **env, char *key, char *value)
 	ft_addlstenv(env, key, value);
 }
 
-void	ft_export(t_data *data, t_token *token)
+static int	check_params(t_token *token, t_data *data)
 {
-	char	*key;
-	char	*value;
+	while (token != NULL)
+	{
+		if (!keyparse(token->content))
+		{
+			errorcmd_failed2("export", token->content, "not a valid identifier");
+			data->exit_status = 1;
+			return (0);
+		}
+		token = token->next;
+	}
+	return (1);
+}
+
+static void	display_order(t_data *data, int fd)
+{
+	t_env	*env;
+
+	env = data->env;
+	if (!env)
+		return ;
+	while (env != NULL)
+	{
+		ft_putstr_fd("export ", fd);
+		ft_putstr_fd(env->key, fd);
+		ft_putstr_fd("=", fd);
+		if (env->value)
+		{
+			if (!*env->value)
+				ft_putstr_fd("\"\"", fd);
+			else
+				ft_putstr_fd(env->value, fd);
+		}
+		ft_putstr_fd("\n", fd);
+		env = env->next;
+	}
+	data->exit_status = 0;
+}
+
+void	ft_export(t_data *data, t_token *token, int fd)
+{
 	int		i;
 
 	i = 0;
 	if (!token || token->token_type != WORD)
-		display_order(data);
-	else if (!keyparse(token->content))
+		display_order(data, fd);
+	if (!check_params(token, data))
+		return ;
+	while (token != NULL)
 	{
-		ft_putstr_fd("error\n", 2);
-		data->exit_status = 1;
-	}
-	else
-	{
-		while (token->content[i] != '=')
-			i++;
-		key = ft_strndup(token->content, i);
-		value = ft_strdup(&token->content[i + 1]);
-		add_or_replace(&data->env, key, value);
-	}
-}
-
-void	display_order(t_data *data)
-{
-	t_env	*env1;
-	t_env	*env2;
-	char	*tempk;
-	char	*tempv;
-
-	env1 = data->env;
-	env2 = data->env;
-	while (env2 != NULL)
-	{
-		while (env1 != NULL)
+		if (!strchr(token->content, '='))
+			add_or_replace(&data->env, ft_strdup(token->content), ft_strdup(""));
+		else
 		{
-			if (ft_strcmp(env2->key, env1->key) > 0)
-			{
-				tempk = env1->key;
-				tempv = env1->value;
-				env1->key = env2->key;
-				env1->value = env2->value;
-				env2->key = tempk;
-				env2->value = tempv;
-			}
-			env1 = env1->next;
+			while (token->content[i] != '=')
+				i++;
+			add_or_replace(&data->env, ft_strndup(token->content, i), ft_strdup(&token->content[i + 1]));
 		}
-		env2 = env2->next;
+		i = 0; 
+		token = token->next;
 	}
-	ft_env(data, 1);
 }
+

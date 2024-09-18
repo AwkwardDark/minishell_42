@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clr_gb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:42:53 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:21:14 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:18:13 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 void	close_fds(t_gbcolector *bin)
 {
 	int	i;
+	struct stat	buf;
 
 	i = 0;
 	while (i < 1000 && bin->fds[i] != -1)
 	{
-		close(bin->fds[i]);
+		if (!fstat(bin->fds[i], &buf))
+			close(bin->fds[i]);
 		bin->fds[i] = -1;
 		i++;
 	}

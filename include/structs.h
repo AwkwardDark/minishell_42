@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 15:31:37 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:09:24 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # define SIMPLE_COMMAND 2 
+
 
 /*Used for tokenize each node in the parsing*/
 typedef enum e_type {
@@ -90,6 +91,7 @@ typedef struct s_data {
 	char			quote_type;
 	char			symbol;
 	int				exit_status;
+	int				lst_exit_status;
 	int				free_flag;
 	char			*syntax_error;
 	int				*child_ps;

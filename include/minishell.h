@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 18:39:22 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:15:33 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "structs.h"
 # include "../libft/includes/libft.h"
 # include <signal.h>
+# include <sys/stat.h>
 # include <limits.h>
 
 /*Color for the minishell prompt*/
@@ -147,14 +148,13 @@ void	ft_pwd(t_token *token, t_data *data, int fd);
 char	*get_cwd(void);
 void	ft_env(t_data *data, int fd);
 void	ft_unset(t_token *token, t_data *data);
-void	ft_export(t_data *data, t_token *token);
+void	ft_export(t_data *data, t_token *token, int fd);
 void	add_or_replace(t_env **env, char *key, char *value);
 void	ft_echo(t_token *token, int fd, t_data *data);
 int		ft_is_builtins(char *cmd);
 void	ft_exit(t_token *token, t_data *data);
 void	exec_builtin(t_token *token, t_data *data);
 void	exec_subbuiltin(t_token *token, t_data *data);
-void	display_order(t_data *data);
 void	exec_btree_aux(t_btree *tree, t_data *data);
 
 // src/exec/wait.c
@@ -181,10 +181,6 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut);
 int		is_heredoc(t_token *token);
 char 	*get_limiter(t_token *token);
 
-// exec/heredoc.c
-void	do_mydoc(char *limiter, t_data *data);
-// static void	heredoc_work(char *limiter, int *pipe_fd)
-
 //src/exec/redirections.c
 void	in_redirection(t_token *token, t_data *data);
 void	out_redirection(t_token *token, t_data *data);
@@ -201,7 +197,7 @@ int		is_heredoc(t_token *token);
 char	*get_limiter(t_token *token);
 
 //heredoc.c
-void	do_mydoc(char *limiter, t_data *data);
+void	do_mydoc(t_token *token, t_data *data);
 //static void	heredoc_work(char *limiter, int *pipe_fd);
 
 //src/exec/redirections.c
@@ -220,5 +216,6 @@ void	permissiond_exit(char *path, t_data *data);
 
 // src/errors/builtins_errors.c
 void	errorcmd_failed(char *cmd, char *error);
+void	errorcmd_failed2(char *cmd, char *arg,  char *error);
 
 #endif

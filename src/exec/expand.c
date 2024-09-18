@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:37:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 12:51:16 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:16:32 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*ft_create_new_expansion(char *str, int i, char *expanded, int n_l)
 	if (!temp)
 		return (NULL);
 	temp = ft_strncpy(temp, str, i);
-	new = ft_strjoin(temp, expanded);
+	new = ft_strjoin_expand(temp, expanded);
 	free(temp);
 	return (new);
 }
@@ -52,7 +52,7 @@ static char	*ft_calc_expand(char *str, t_data *data, t_index *x, t_token *curr)
 	if (new_len == 0)
 		new_len = 1;
 	new_temp = ft_create_new_expansion(str, x->i, expanded, new_len);
-	new = ft_strjoin(new_temp, str + x->i + curr->pre_expand[x->j] + 1);
+	new = ft_strjoin_expand(new_temp, str + x->i + curr->pre_expand[x->j] + 1);
 	free(new_temp);
 	if (ft_strlen(expanded) > 1)
 		x->i += ft_strlen(expanded) - 1;

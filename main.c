@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 17:35:26 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:58:45 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, main_sigint);
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
+		data->exit_status = 0;
 		if (!data->input)
 		{
 			printf("exit\n");
