@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:14:35 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 11:17:29 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:57:14 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ char	*ft_strjoin_expand(char *s1, char *s2)
 		join = ft_calloc(sizeof(char), 1);
 		return (join);
 	}
-	if (!s1)
+	if (!s1 || !s1[0])
 		return (ft_strdup(s2));
-	if (!s2)
+	if (!s2 || !s2[0])
 		return (ft_strdup(s1));
 	join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (join == NULL)
