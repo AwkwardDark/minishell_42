@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:46:55 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 15:54:28 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:04:18 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 #include "minishell.h"
 
+/*
+will remove and free the node in export and env if it exists
+*/
 static void	remove_node(char *key, t_env **env)
 {
 	t_env	*prev;
@@ -40,6 +43,7 @@ static void	remove_node(char *key, t_env **env)
 	}
 }
 
+// handles the unset builtin
 void	ft_unset(t_token *token, t_data *data)
 {
 	if (token == NULL || token->token_type != WORD)

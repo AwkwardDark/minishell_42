@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/19 15:59:42 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:17:51 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,27 @@ static int	is_slashdots(char *cmd)
 	return (1);
 }
 
-/*
-	function that will execute a single command it's basicaly
-	the exec part of pipex but with different arguments,
-	TODO exit status with the signal (128 + signal)
-	this function most be called by a chld process the
-	redirectiosn most be made before !!
-	the t_pipe data TODO
- */
+/* 
+will check if there is any of the following errors:
+	127: command not found
+	127: no such file or directory
+	126: permission denied
+*/
+static void	check_validity(char *path, t_token *token,
+	t_data *data, char **argv)
+{
+	if ((path && access(path, X_OK) && !access(path, F_OK))
+		|| (access(token->content, X_OK) && !access(token->content, F_OK)))
+		permissiond_exit(token->content, data, argv, path);
+	if (!path || !ft_strcmp(*argv, ""))
+	{
+		if (ft_strchr(token->content, '/') || ft_strchr(token->content, '.'))
+			nosuchfile_exit(argv, data, token, 127);
+		cmdnotfound_exit(argv, data, token, 127);
+	}
+}
+
+// executes command and handles erros 
 void	executer(t_data *data, t_token *token)
 {
 	char	*path;
@@ -47,13 +60,9 @@ void	executer(t_data *data, t_token *token)
 	}
 	else
 	{
-		if (!ft_strncmp(token->content, "./", 2)
-			&& access(token->content, X_OK))
-			permissiond_exit(token->content, data);
 		path = test_path(get_paths(data->env), token->content);
 		argv = cmdlst_tocmdarr(token, 0);
-		if (!path || !ft_strcmp(*argv, ""))
-			cmdnotfound_exit(argv, data, token, 127);
+		check_validity(path, token, data, argv);
 	}
 	close_fds(data->bin);
 	env_arr = lstenv_towordarr(data->env);

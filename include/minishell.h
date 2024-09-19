@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 15:52:40 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 23:23:19 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		ft_is_special(char c);
 void	ft_token_symbol(char *content, t_token *token);
 int		ft_count_exp(char *str);
 int		ft_simple_wildcard(char *wildcard);
+void	ft_print_lst(t_token *lst);
 
 /*Testing utils*/
 void	ft_print_expand_table(int *tab, int len);
@@ -154,6 +155,9 @@ t_token	*contains_priority(t_token *token, int priority);
 void	display_btree(t_btree *tree);
 int		is_leaf(t_btree *tree);
 void	display_type(t_type type);
+
+// write_utils.c
+void	ft_putstr2(char *str, int fd);
 
 /* src/builtins */
 void	ft_cd(t_token *token, t_data *data);
@@ -228,10 +232,11 @@ void	exec_btree(t_btree *tree, t_data *data);
 void	error_disp(char *cmd, char *error_message);
 void	error_disp_exit(char *cmd, char *error_message, int eno);
 void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno);
-void	permissiond_exit(char *path, t_data *data);
+void	permissiond_exit(char *path, t_data *data, char **argv, char *path2);
 
 // src/errors/builtins_errors.c
 void	errorcmd_failed(char *cmd, char *error);
 void	errorcmd_failed2(char *cmd, char *arg, char *error);
+void	nosuchfile_exit(char **argv, t_data *data, t_token *token, int eno);
 
 #endif

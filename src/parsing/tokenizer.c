@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 16:00:09 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 22:38:04 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	ft_parser(char *input, t_data *data)
 	ft_tokenize(data->token_lst);
 	if (ft_grammar_syntax(data->token_lst, data))
 	{
-		ft_putstr_fd(RED"minishell: syntax error near unexpected token `", 2);
-		ft_putstr_fd(data->syntax_error, 2);
-		ft_putstr_fd("'\n"RESET, 2);
+		ft_putstr2(RED"minishell: syntax error near unexpected token `", 2);
+		ft_putstr2(data->syntax_error, 2);
+		ft_putstr2("'\n"RESET, 2);
 		data->lst_exit_status = 2;
 		return (0);
 	}

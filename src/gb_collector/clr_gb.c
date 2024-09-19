@@ -6,12 +6,13 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:42:53 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 23:49:47 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 00:10:05 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// close all filedescriptors only if they are open
 void	close_fds(t_gbcolector *bin)
 {
 	int			i;
@@ -27,6 +28,7 @@ void	close_fds(t_gbcolector *bin)
 	}
 }
 
+// clears the garabage colector
 void	clr_gb(t_gbcolector *bin)
 {
 	close_fds(bin);

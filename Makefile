@@ -1,7 +1,7 @@
 NAME = minishell
 MAIN = main.c
 BUILTINS = ft_cd.c ft_echo.c ft_export.c ft_env.c ft_pwd.c ft_unset.c exec_builtin.c ft_is_builtins.c ft_exit.c
-UTILS = ls_env.c lst_utils_1.c lst_utils_2.c symbols.c ft_cpyenv.c testing.c exec_utils.c free_exec.c exit_utils.c export_parse.c
+UTILS = ls_env.c lst_utils_1.c lst_utils_2.c symbols.c ft_cpyenv.c exec_utils.c free_exec.c exit_utils.c export_parse.c write_utils.c
 TREE = tree.c tree_utils.c
 EXEC= exec_utils.c exec.c heredoc.c heredoc_utils.c redirections.c single_exec.c exec_operators.c wait.c expand.c expand_utils.c wildcard.c
 ERROR= error.c builtins_errors.c

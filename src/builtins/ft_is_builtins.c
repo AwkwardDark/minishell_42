@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 22:57:03 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/16 17:37:32 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:03:03 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// checks if the command is a builtin
 int	ft_is_builtins(char *cmd)
 {
 	if (!ft_strcmp("echo", cmd) || !ft_strcmp("export", cmd)

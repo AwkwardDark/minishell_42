@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testing.c                                          :+:      :+:    :+:   */
+/*   write_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/09 15:01:14 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 11:06:32 by pajimene         ###   ########.fr       */
+/*   Created: 2024/09/19 22:29:42 by pierre            #+#    #+#             */
+/*   Updated: 2024/09/19 23:50:40 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_expand_table(int *tab, int len)
+void	ft_putstr2(char *str, int fd)
 {
-	int	i;
-
-	i = 0;
-	if (!tab)
-	{
-		printf("NULL\n");
-		return ;
-	}
-	while (i < len)
-	{
-		printf("%d\n", tab[i]);
-		i++;
-	}
+	if (ft_putstr_fd(str, fd) < 0)
+		ft_putstr_fd("minishell: write error: No space left on device", 2);
 }

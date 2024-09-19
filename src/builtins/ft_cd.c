@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:32:47 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:42:36 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 23:56:51 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// sets the env and export variables OLDPWD and PWD after the cd cmd
 static void	setcd_env(t_data *data, char *cwd, char *oldwd)
 {
 	add_or_replace(&data->env, ft_strdup("OLDPWD"), oldwd);
 	add_or_replace(&data->env, ft_strdup("PWD"), cwd);
 }
 
+// cahnge directory to $HOME
 static void	ft_cdhome(t_data *data)
 {
 	char	*path;
@@ -27,7 +29,7 @@ static void	ft_cdhome(t_data *data)
 	path = get_env(data->env, "HOME");
 	if (!path)
 	{
-		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		ft_putstr2("minishell: cd: HOME not set\n", 2);
 		data->exit_status = 1;
 		return ;
 	}
@@ -43,11 +45,7 @@ static void	ft_cdhome(t_data *data)
 	}
 }
 
-/* TODO
-   needs the function ft_strtrim
-   will not work properly if is given `cd..` cd 
-   most be followed by a space */
-
+// handles the cd builtin
 void	ft_cd(t_token *token, t_data *data)
 {
 	char	*path;

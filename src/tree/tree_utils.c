@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 12:24:44 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:15:24 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	*contains_priority(t_token *token, int priority)
 	{
 		if (token->token_type == C_PAR)
 		{
-			token = ignore_parenthesis(token->prev);
+			token = ignore_parenthesis(token);
 			token = token->prev;
 		}
 		if (priority == 3)
@@ -64,6 +64,16 @@ t_token	*contains_priority(t_token *token, int priority)
 		token = token->prev;
 	}
 	return (NULL);
+}
+
+/*
+	checks if the node is a leaf by checking left child and right child
+*/
+int	is_leaf(t_btree *tree)
+{
+	if (!tree->left_child && !tree->right_child)
+		return (1);
+	return (0);
 }
 
 /* void	display_type(t_type type)
@@ -106,10 +116,3 @@ t_token	*contains_priority(t_token *token, int priority)
 		printf(" )");
 	}
 } */
-
-int	is_leaf(t_btree *tree)
-{
-	if (!tree->left_child && !tree->right_child)
-		return (1);
-	return (0);
-}

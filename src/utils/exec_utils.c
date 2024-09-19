@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:37:28 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 11:16:45 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:41:57 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,3 +127,32 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut)
 	alloc_cmds(token, arr_cmd, len, absolut);
 	return (arr_cmd);
 }
+
+/* void	ft_print_lst(t_token *lst)
+{
+	int		i;
+	t_token	*current;
+
+	i = 0;
+	current = lst;
+	if (!lst)
+		return ;
+	while (current)
+	{
+		if ((current->token_type == R_IN) || (current->token_type == R_OUT) || \
+			(current->token_type == HEREDOC) || (current->token_type == APPEND))
+			printf("\n");
+		printf("n%d -> %s ----", i, current->content);
+		printf(" token -> %d\n", current->token_type);
+		if (current->redir)
+			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
+		current = current->next;
+		i++;
+	} 
+	while (lst != NULL)
+	{
+		printf("%s", lst->content);
+		lst = lst->next;
+	}
+	printf("\n");
+}*/

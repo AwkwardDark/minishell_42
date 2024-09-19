@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 23:44:01 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 23:23:09 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,14 @@ void	cmdnotfound_exit(char **argv, t_data *data, t_token *token, int eno)
 	error_disp_exit("command not found", buffer, eno);
 }
 
-void	permissiond_exit(char *path, t_data *data)
+void	permissiond_exit(char *path, t_data *data, char **argv, char *path2)
 {
 	char	buffer[500];
 
+	if (path2)
+		free(path2);
+	if (argv)
+		clear_wordar(argv);
 	ft_memcpy(buffer, path, ft_strlen(path));
 	buffer[ft_strlen(path)] = 0;
 	clr_gb(data->bin);
@@ -80,19 +84,19 @@ void	permissiond_exit(char *path, t_data *data)
 void	ft_error(int code)
 {
 	if (code == 0)
-		ft_putstr_fd("minishell: quote syntax error\n", 2);
+		ft_putstr2("minishell: quote syntax error\n", 2);
 	if (code == 1)
-		ft_putstr_fd("minishell: and (&&) logical operator syntax error\n", 2);
+		ft_putstr2("minishell: and (&&) logical operator syntax error\n", 2);
 	if (code == 2)
-		ft_putstr_fd("minishell: or (||) logical operator syntax error\n", 2);
+		ft_putstr2("minishell: or (||) logical operator syntax error\n", 2);
 	if (code == 3)
-		ft_putstr_fd("minishell: heredoc (<<) syntax error\n", 2);
+		ft_putstr2("minishell: heredoc (<<) syntax error\n", 2);
 	if (code == 4)
-		ft_putstr_fd("minishell: append (>>) syntax error\n", 2);
+		ft_putstr2("minishell: append (>>) syntax error\n", 2);
 	if (code == 5)
-		ft_putstr_fd("minishell: parenthesis syntax error\n", 2);
+		ft_putstr2("minishell: parenthesis syntax error\n", 2);
 	if (code == 6)
-		ft_putstr_fd("minishell: env list creation error\n", 2);
+		ft_putstr2("minishell: env list creation error\n", 2);
 	if (code == 7)
-		ft_putstr_fd("minishell: malloc error\n", 2);
+		ft_putstr2("minishell: malloc error\n", 2);
 }

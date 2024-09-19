@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   gb_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:01:54 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:21:24 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:10:27 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// adds fd the the array of fds
 void	add_fdtogb(t_gbcolector *gb, int fd)
 {
 	int	i;
@@ -20,7 +21,7 @@ void	add_fdtogb(t_gbcolector *gb, int fd)
 	while (gb->fds[i] != -1 && i < 1000)
 		i++;
 	if (i == 999 && gb->fds[i] != -1)
-		ft_putstr_fd("Too many fds\n", 2);
+		ft_putstr2("Too many fds\n", 2);
 	else
 		gb->fds[i] = fd;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:06:08 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:08:06 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 23:57:12 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "minishell.h"
 
 // displays envirement variables if they exist
-
 void	ft_env(t_data *data, int fd)
 {
 	t_env	*env;
@@ -25,10 +24,10 @@ void	ft_env(t_data *data, int fd)
 		return ;
 	while (env != NULL)
 	{
-		ft_putstr_fd(env->key, fd);
-		ft_putstr_fd("=", fd);
-		ft_putstr_fd(env->value, fd);
-		ft_putstr_fd("\n", fd);
+		ft_putstr2(env->key, fd);
+		ft_putstr2("=", fd);
+		ft_putstr2(env->value, fd);
+		ft_putstr2("\n", fd);
 		env = env->next;
 	}
 	data->exit_status = 0;

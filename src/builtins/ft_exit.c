@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 22:34:32 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 23:53:37 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 23:58:30 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	exit_routine(long long val, t_data *data)
 	exit(val);
 }
 
+// frees memory before exiting
 static void	free_end(int exno, t_data *data, char *str)
 {
 	if (str)
@@ -31,6 +32,7 @@ static void	free_end(int exno, t_data *data, char *str)
 	exit(exno);
 }
 
+// check if the exit number is not overflow
 static void	is_longlong(t_token *token, t_data *data)
 {
 	long long	val;
@@ -44,7 +46,7 @@ static void	is_longlong(t_token *token, t_data *data)
 	if (len == 0 || len < 0 || (*trim != '-' && len > 19)
 		|| (*trim == '-' && len > 20))
 	{
-		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+		ft_putstr2("minishell: exit: numeric argument required\n", 2);
 		free_end(2, data, trim);
 	}
 	ft_check_overflow(trim, &len, &ovrflw);
@@ -53,13 +55,14 @@ static void	is_longlong(t_token *token, t_data *data)
 	free(trim);
 	if (ovrflw == -1)
 	{
-		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+		ft_putstr2("minishell: exit: numeric argument required\n", 2);
 		free_end(2, data, NULL);
 	}
 	else
 		exit_routine(val, data);
 }
 
+// handles exit builtin
 void	ft_exit(t_token *token, t_data *data)
 {
 	if (token == NULL || token->token_type != WORD)
@@ -69,14 +72,14 @@ void	ft_exit(t_token *token, t_data *data)
 		if (get_errortype(token))
 		{
 			printf("exit\n");
-			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+			ft_putstr2("minishell: exit: too many arguments\n", 2);
 			data->exit_status = 1;
 			return ;
 		}
 		else
 		{
 			printf("exit\n");
-			ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+			ft_putstr2("minishell: exit: numeric argument required\n", 2);
 			free_end(2, data, NULL);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/19 15:59:16 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 22:38:04 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_token	*ft_getnextword(t_token *token, t_data *data)
 {
 	if (!token)
 	{
-		ft_putstr_fd("big problem man\n", 2);
+		ft_putstr2("big problem man\n", 2);
 		exit(1);
 	}
 	while (token != NULL && token->token_type != WORD)

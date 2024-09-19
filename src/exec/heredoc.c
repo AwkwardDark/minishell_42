@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/19 16:04:29 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:08:46 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// && line[limiter_len] == '\n'))
-// write(STDOUT_FILENO, "> ", 2);
-// line = get_next_line(STDIN_FILENO);
-// line = get_next_line(STDIN_FILENO);
+// reads in the stdin and writes in the pipe
 static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 {
 	int		limiter_len;
@@ -37,11 +34,12 @@ static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 	}
 	sigint_exit(data);
 	if (!line)
-		ft_putstr_fd("ctrl + d\n", 2);
+		ft_putstr2("ctrl + d\n", 2);
 	else
 		free(line);
 }
 
+// handles heredoc in case of multiple heredocs
 static void	do_mydocs_aux(t_token *token, t_data *data, int *pipe)
 {
 	char	*limiter;
@@ -65,6 +63,7 @@ static void	do_mydocs_aux(t_token *token, t_data *data, int *pipe)
 	exit(EXIT_SUCCESS);
 }
 
+// handles the child process pipes for the heredoc
 void	do_mydoc(t_token *token, t_data *data)
 {
 	int	fd[2];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:42:44 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 15:54:39 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 22:59:14 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	errorcmd_failed(char *cmd, char *error)
 	ft_memcpy(buffer + 11 + cmd_len, ": ", 2);
 	ft_memcpy(buffer + 11 + cmd_len + 2, error, error_len);
 	buffer[11 + cmd_len + 2 + error_len] = 0;
-	ft_putstr_fd(buffer, 2);
+	ft_putstr2(buffer, 2);
 }
 
 void	errorcmd_failed2(char *cmd, char *arg, char *error)
@@ -46,7 +46,7 @@ void	errorcmd_failed2(char *cmd, char *arg, char *error)
 	ft_memcpy(buffer + 11 + cmd_len + 4 + arg_len, error, error_len);
 	ft_memcpy(buffer + 11 + cmd_len + 4 + arg_len + error_len, "\n", 1);
 	buffer[11 + cmd_len + 4 + error_len + arg_len + 1] = 0;
-	ft_putstr_fd(buffer, 2);
+	ft_putstr2(buffer, 2);
 }
 
 /*Before exiting the program, it frees the environment list, the prompt input,
@@ -66,4 +66,19 @@ void	ft_free_exit(t_data *data)
 		free(data);
 	}
 	rl_clear_history();
+}
+
+// shoudl be in the file errors.c but too many functions
+void	nosuchfile_exit(char **argv, t_data *data, t_token *token, int eno)
+{
+	char	buffer[500];
+	int		len;
+
+	len = ft_strlen(token->content);
+	ft_memcpy(buffer, token->content, len);
+	buffer[len] = 0;
+	clr_gb(data->bin);
+	clear_wordar(argv);
+	ft_free_exit(data);
+	error_disp_exit("no such file or directory", buffer, eno);
 }

@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 23:50:20 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 00:16:30 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ t_token	*get_startlst(t_token *token)
 	return (token);
 }
 
+/*
+	ceates the token tree handles priority
+	and , or and pipes 
+*/
 t_btree	*create_tokentree(t_token **token)
 {
 	t_token	*temp;

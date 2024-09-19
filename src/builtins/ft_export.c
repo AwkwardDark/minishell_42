@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 12:43:01 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 15:54:22 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:02:47 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* 
+	searches in export and env for the key
+	if its found free value and replace it with new
+	or creates a new node with key and value
+*/
 void	add_or_replace(t_env **env, char *key, char *value)
 {
 	t_env	*cur;
@@ -37,6 +42,10 @@ void	add_or_replace(t_env **env, char *key, char *value)
 	ft_addlstenv(env, key, value);
 }
 
+/*
+	checks if the key for the export starts with an Alphabetical value
+	or '_' and if the reste of the key is alphabetical or numeric
+*/
 static int	check_params(t_token *token, t_data *data)
 {
 	while (token != NULL)
@@ -53,32 +62,34 @@ static int	check_params(t_token *token, t_data *data)
 	return (1);
 }
 
+// dispays the output for the export command alone
 static void	display_ordered(t_data *data, t_env *env, int fd)
 {
 	if (!env)
 		return ;
 	while (env != NULL)
 	{
-		ft_putstr_fd("export ", fd);
-		ft_putstr_fd(env->key, fd);
+		ft_putstr2("export ", fd);
+		ft_putstr2(env->key, fd);
 		if (env->value)
 		{
-			ft_putstr_fd("=", fd);
+			ft_putstr2("=", fd);
 			if (!*env->value)
-				ft_putstr_fd("\"\"", fd);
+				ft_putstr2("\"\"", fd);
 			else
 			{
-				ft_putstr_fd("\"", fd);
-				ft_putstr_fd(env->value, fd);
-				ft_putstr_fd("\"", fd);
+				ft_putstr2("\"", fd);
+				ft_putstr2(env->value, fd);
+				ft_putstr2("\"", fd);
 			}
 		}
-		ft_putstr_fd("\n", fd);
+		ft_putstr2("\n", fd);
 		env = env->next;
 	}
 	data->exit_status = 0;
 }
 
+// sorts the export in the ascii ordered
 static void	display_asciordr(t_env *env, t_data *data, int fd)
 {
 	t_env	*temp;
@@ -108,6 +119,7 @@ static void	display_asciordr(t_env *env, t_data *data, int fd)
 	display_ordered(data, env, fd);
 }
 
+// handles the export builtin
 void	ft_export(t_data *data, t_token *token, int fd)
 {
 	int		i;

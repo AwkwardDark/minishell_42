@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cpyenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:32:00 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 19:36:20 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 22:38:04 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_env	*add_defaultenv(void)
 	env = NULL;
 	if (!cwd)
 	{
-		ft_putstr_fd(CHDIR_PWD, 2);
+		ft_putstr2(CHDIR_PWD, 2);
 		return (NULL);
 	}
 	ft_addlstenv(&env, ft_strdup("SHLVL"), ft_strdup("1"));

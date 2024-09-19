@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/19 15:55:12 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 00:07:41 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// handles pipes, dup2 and fork
 static int	exec(t_token *token, t_data *data, int flag)
 {
 	int	child;
@@ -33,6 +34,7 @@ static int	exec(t_token *token, t_data *data, int flag)
 	return (child);
 }
 
+// handles expands, does the wildcards, heredoc
 static int	parse_exec(t_btree *tree, t_data *data, int flag)
 {
 	ft_expand(tree->token, data);
@@ -49,9 +51,7 @@ static int	parse_exec(t_btree *tree, t_data *data, int flag)
 	return (exec(tree->token, data, flag));
 }
 
-/*
-	general function of exewcution of the pipes
-*/
+// special recursive function for the PIPES cmds
 static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 {
 	if (is_leaf(tree))
@@ -72,9 +72,7 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 	}
 }
 
-/* 	General function of execution TODO: ADJUSTEMENT ON THE FI LE*/
-/* 	DESCRIPTOR FOR THE HEREDOC SAME PROBLEM AS FOR THE PIPES. */
-// ror_disp_exit("minishell: exec: ", strerror(errno), 126);
+// recursive function to execute the tree commands
 void	exec_btree_aux(t_btree *tree, t_data *data)
 {
 	if (is_leaf(tree))
@@ -87,6 +85,7 @@ void	exec_btree_aux(t_btree *tree, t_data *data)
 		exec_and(tree, data);
 }
 
+// main binary tree execution
 void	exec_btree(t_btree *tree, t_data *data)
 {
 	int	infd;

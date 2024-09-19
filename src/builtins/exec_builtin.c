@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 17:12:44 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/19 23:54:48 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	get_redir(t_token *token)
 	return (fd);
 }
 
+// execution of a builtin in a subprocess in case of pipe cmds
 void	exec_subbuiltin(t_token *token, t_data *data)
 {
 	int	status;
@@ -56,6 +57,7 @@ void	exec_subbuiltin(t_token *token, t_data *data)
 	exit(status);
 }
 
+// open files, and executes the builtins
 void	exec_builtin(t_token *token, t_data *data)
 {
 	int	redir;
