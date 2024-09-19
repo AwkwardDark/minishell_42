@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 16:00:55 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:15:16 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,41 @@
 
 int	g_signal;
 
+static int	main_loop(t_data *data)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, main_sigint);
+	data->input = readline(GREEN GRAS "minishell ~" RESET);
+	data->exit_status = 0;
+	if (!data->input)
+	{
+		printf("exit\n");
+		return (-1);
+	}
+	add_history(data->input);
+	if (data->input[0] != '\0' && ft_parser(data->input, data))
+	{
+		data->b_tree = create_tokentree(&data->token_lst);
+		data->bin->tree = data->b_tree;
+		exec_btree(data->b_tree, data);
+		data->lst_exit_status = data->exit_status;
+		clr_btree(data->b_tree);
+		data->token_lst = NULL;
+	}
+	else
+		ft_free_lst(&data->token_lst);
+	free(data->input);
+	data->input = NULL;
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-	t_btree	*tree;
 
-	(void)argc;
 	(void)argv;
+	if (argc != 1)
+		return (1);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (ft_error(7), 1);
@@ -29,7 +57,14 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
-		signal(SIGQUIT, SIG_IGN);
+		if (main_loop(data) == -1)
+			break ;
+	}
+	ft_free_exit(data);
+	return (0);
+}
+
+		/* signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, main_sigint);
 		data->input = readline(GREEN GRAS "minishell ~" RESET);
 		data->exit_status = 0;
@@ -52,8 +87,4 @@ int	main(int argc, char **argv, char **envp)
 		else
 			ft_free_lst(&data->token_lst);
 		free(data->input);
-		data->input = NULL;
-	}
-	ft_free_exit(data);
-	return (0);
-}
+		data->input = NULL; */

@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 11:26:40 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:06:32 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,36 +83,3 @@ void	ft_insert_after(t_token *current, t_token *new)
 		current->next->prev = new;
 	current->next = new;
 }
-
-void	ft_free_onetoken(t_token *token)
-{
-	if (!token)
-		return ;
-	free(token->content);
-	free(token);
-}
-
-/*Just for visual and debugging purpose*/
-// void	ft_print_lst(t_token *lst)
-// {
-// 	int		i;
-// 	t_token	*current;
-
-// 	i = 0;
-// 	current = lst;
-// 	if (!lst)
-// 		return ;
-// 	while (current)
-// 	{
-// 		if ((current->token_type == R_IN) || (current->token_type == R_OUT) || 
-//			(current->token_type == HEREDOC) || (current->token_type == APPEND))
-// 			printf("\n");
-// 		printf("n%d -> %s ----", i, current->content);
-// 		printf(" token -> %d\n", current->token_type);
-// 		if (current->redir)
-// 			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
-// 		printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-// 		current = current->next;
-// 		i++;
-// 	}
-// }

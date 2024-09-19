@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/19 15:58:53 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:04:29 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 		if (is_last)
 			write(pipe_fd[1], linenl, ft_strlen(line) + 1);
 		free(line);
+		free(linenl);
 		line = readline("> ");
 	}
 	sigint_exit(data);
