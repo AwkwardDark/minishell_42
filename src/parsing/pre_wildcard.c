@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pre_wildcard.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:07:09 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/11 16:53:24 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:45:23 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*Verifies that * is not on a quoted portion of the char*/
 static int	ft_check_wild(char *str)
 {
 	int	i;
@@ -41,16 +42,17 @@ static int	ft_check_wild(char *str)
 	return (0);
 }
 
+/*It cheks if the content of each token contains a valid * (nor quoted)*/
 void	ft_pre_wildcard(t_token *lst)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = lst;
 	while (current)
 	{
 		current->wildcard = 0;
 		if (current->token_type == WORD && ft_check_wild(current->content))
-				current->wildcard = 1;
+			current->wildcard = 1;
 		current = current->next;
 	}
 }

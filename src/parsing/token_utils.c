@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:36:24 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/05 15:58:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:55:52 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*It sets the token_type of each node depending of the sybol with matchs*/
 void	ft_token_symbol(char *content, t_token *token)
 {
 	if (content[0] == O_PAREN)

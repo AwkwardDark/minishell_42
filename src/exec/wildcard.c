@@ -6,13 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:57:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 16:14:52 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:14:55 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int ft_char_in_str(char c, char *entry, int *j)
+static int	ft_char_in_str(char c, char *entry, int *j)
 {
 	if (c == '\0')
 		return (1);
@@ -25,7 +25,9 @@ static int ft_char_in_str(char c, char *entry, int *j)
 	return (0);
 }
 
-static int ft_valid_start(char *wildcard, int *i, char *entry)
+/*Multiple * can be ignored, and if the begining is not an star it must match
+exactly*/
+static int	ft_valid_start(char *wildcard, int *i, char *entry)
 {
 	while (wildcard[*i] && wildcard[*i] != '*')
 		(*i)++;
@@ -36,14 +38,15 @@ static int ft_valid_start(char *wildcard, int *i, char *entry)
 	return (1);
 }
 
-static int ft_wild_match(char *entry, char *wildcard)
+/*It checks if the name matchs with the wildcard rules*/
+static int	ft_wild_match(char *entry, char *wildcard)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (ft_simple_wildcard(wildcard))
 		return (1);
-	if ((wildcard[ft_strlen(wildcard) - 1] != '*') &&
+	if ((wildcard[ft_strlen(wildcard) - 1] != '*') && \
 		(wildcard[ft_strlen(wildcard) - 1] != entry[ft_strlen(entry) - 1]))
 		return (0);
 	i = 0;
@@ -64,11 +67,13 @@ static int ft_wild_match(char *entry, char *wildcard)
 	return (1);
 }
 
-static void ft_expand_wildcard(t_token *current)
+/*It loops on the entry directory and checks if the files name will match with
+the wildcard*/
+static void	ft_expand_wildcard(t_token *current)
 {
-	struct dirent *entry;
-	DIR *dirp;
-	t_token *wild_node;
+	struct dirent	*entry;
+	DIR				*dirp;
+	t_token			*wild_node;
 
 	dirp = opendir(".");
 	entry = readdir(dirp);
@@ -79,7 +84,7 @@ static void ft_expand_wildcard(t_token *current)
 		{
 			if (ft_wild_match(entry->d_name, current->content))
 			{
-				current->delete_flag = 1;
+				current->del_wild_flag = 1;
 				ft_insert_after(wild_node, ft_lstnew(ft_strdup(entry->d_name)));
 				wild_node = wild_node->next;
 			}
@@ -89,10 +94,14 @@ static void ft_expand_wildcard(t_token *current)
 	closedir(dirp);
 }
 
-void ft_wildcard(t_token **lst, t_btree *tree)
+/*It checks if the wildcard matchs some files from the current directory, if so
+the actual wildcard node will be deleted and replace by a linked list of all
+the directory content. if not wildcard epansion wasn't found, the node will
+ remain unchanged*/
+void	ft_wildcard(t_token **lst, t_btree *tree)
 {
-	t_token *current;
-	t_token *next;
+	t_token	*current;
+	t_token	*next;
 
 	current = *lst;
 	while (current)
@@ -100,7 +109,7 @@ void ft_wildcard(t_token **lst, t_btree *tree)
 		next = current->next;
 		if (current->wildcard)
 			ft_expand_wildcard(current);
-		if (current->delete_flag)
+		if (current->del_wild_flag)
 		{
 			if (*lst == current)
 			{

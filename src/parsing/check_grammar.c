@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:01:05 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 12:23:54 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:09:58 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ static int	ft_parenthesis_grammar(t_token *curr)
 	return (0);
 }
 
+/*It analyses the token tye of the node before and after the current one.
+It checks that the grammar rules of bash are well respected*/
 int	ft_grammar_syntax(t_token *lst, t_data *data)
 {
 	t_token	*current;

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pre_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:56:01 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 12:41:31 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:46:44 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*If after a $ there no characters other than space it shouln't expand*/
 static int	ft_is_alone(char *str, int *i)
 {
 	while (str[*i])
@@ -23,6 +24,7 @@ static int	ft_is_alone(char *str, int *i)
 	return (1);
 }
 
+/*It gives the lenght of the char to expand*/
 static int	ft_save_expand(char *str, int *i, int *d_flag, int *s_flag)
 {
 	int	pre_expand_len;
@@ -65,6 +67,8 @@ int	ft_count_exp(char *str)
 	return (count);
 }
 
+/*It creates the array with the length of each expansion char that is inside
+a token->content*/
 static void	ft_create_exp_tab(t_token *cur, char *str, int *s_flag, int *d_flag)
 {
 	int		i;
@@ -93,6 +97,9 @@ static void	ft_create_exp_tab(t_token *cur, char *str, int *s_flag, int *d_flag)
 	}
 }
 
+/*If the $ (expand) it's not quoted it must expand, pre_expand will create an
+array with the length of each variable after the $, an non-alphanumeric 
+character will end the char to expand*/
 void	ft_pre_expand(t_token *lst)
 {
 	t_token	*current;

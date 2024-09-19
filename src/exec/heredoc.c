@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 15:41:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:05:06 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 	line = readline("> ");
 	while (line && !(ft_strncmp(limiter, line, limiter_len) == 0))
 	{
+		if (data->heredoc_flag == 0 && ft_count_exp(line) > 0 && is_last)
+			line = ft_heredoc_expansion(line, data);
 		linenl = ft_strjoin(line, "\n");
 		if (is_last)
 			write(pipe_fd[1], linenl, ft_strlen(line) + 1);
@@ -38,7 +40,6 @@ static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 		ft_putstr_fd("ctrl + d\n", 2);
 	else
 		free(line);
-	// exit(EXIT_SUCCESS);
 }
 
 static void	do_mydocs_aux(t_token *token, t_data *data, int *pipe)
@@ -53,6 +54,8 @@ static void	do_mydocs_aux(t_token *token, t_data *data, int *pipe)
 	while (token != NULL && token->token_type == HEREDOC && g_signal == 0)
 	{
 		limiter = get_limiter(token);
+		data->heredoc_flag = token->heredoc_quote_flag;
+		printf("%d\n", data->heredoc_flag);
 		if (token->next != NULL && token->next->token_type == HEREDOC)
 			heredoc_work(limiter, pipe, data, 0);
 		else

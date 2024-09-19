@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/17 15:02:13 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:42:23 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int is_slashdots(char *cmd)
+static int	is_slashdots(char *cmd)
 {
 	while (*cmd)
 	{
@@ -32,20 +32,23 @@ static int is_slashdots(char *cmd)
 	redirectiosn most be made before !!
 	the t_pipe data TODO
  */
-void executer(t_data *data, t_token *token)
+void	executer(t_data *data, t_token *token)
 {
-	char *path;
-	char **argv;
-	char **env_arr;
+	char	*path;
+	char	**argv;
+	char	**env_arr;
 
-	if (!ft_strncmp(token->content, "./", 2) && ft_strlen(token->content) > 2 && !is_slashdots(&token->content[2]) && !access(token->content, F_OK | X_OK))
+	if (!ft_strncmp(token->content, "./", 2) && ft_strlen(token->content) > 2
+		&& !is_slashdots(&token->content[2]) && !access(token->content,
+			F_OK | X_OK))
 	{
 		path = token->content;
 		argv = cmdlst_tocmdarr(token, 1);
 	}
 	else
 	{
-		if (!ft_strncmp(token->content, "./", 2) && access(token->content, X_OK))
+		if (!ft_strncmp(token->content, "./", 2)
+			&& access(token->content, X_OK))
 			permissiond_exit(token->content, data);
 		path = test_path(get_paths(data->env), token->content);
 		argv = cmdlst_tocmdarr(token, 0);
@@ -59,7 +62,7 @@ void executer(t_data *data, t_token *token)
 }
 
 /* returns a Pointer to whats after "PATH=" in the env */
-char *get_paths(t_env *env)
+char	*get_paths(t_env *env)
 {
 	if (!env)
 		return (NULL);
@@ -75,14 +78,13 @@ char *get_paths(t_env *env)
 	return (NULL);
 }
 
-
 /* searches for a Path to the executable using access */
-char *test_path(char *envpath, char *cmd)
+char	*test_path(char *envpath, char *cmd)
 {
-	char *path;
-	char **paths;
-	int cmd_len;
-	int i;
+	char	*path;
+	char	**paths;
+	int		cmd_len;
+	int		i;
 
 	if (!envpath || is_slashdots(cmd))
 		return (NULL);

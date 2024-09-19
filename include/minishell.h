@@ -3,34 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 17:13:50 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:48:58 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// Pablo 
+# include "../libft/includes/libft.h"
+# include "structs.h"
 # include <unistd.h>
 # include <stdio.h>
+# include <stdlib.h> //necessary?
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "structs.h"
-# include "../libft/includes/libft.h"
 # include <signal.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <dirent.h>
+# include <limits.h>
 
 /*Color for the minishell prompt*/
 # define GREEN "\033[0;92m"
 # define RED "\033[0;91m"
 # define GRAS "\033[1m"
 # define RESET "\033[0m"
-# define PWD_ERROR "pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n"
+# define PWD_ERROR "pwd: error retrieving current directory: getcwd: cannot \
+access parent directories: No such file or directory\n"
 # define CHDIR_PWD "Error: too many charachters in current working directory\n"
+
 /*Message error macros, it's useful or it makes the code cleaner?*/
+# define SIMPLE_COMMAND 2 
 
 /*Character macros*/
 # define S_QUOTE '\''
@@ -88,10 +95,6 @@ int		ft_simple_wildcard(char *wildcard);
 /*Testing utils*/
 void	ft_print_expand_table(int *tab, int len);
 
-// Pierre
-
-// src/gb_collector
-
 // clr_gb.c
 void	close_fds(t_gbcolector *bin);
 void	clr_gb(t_gbcolector *bin);
@@ -99,6 +102,14 @@ void	free_process(t_data *data);
 
 // gb_utils.c
 void	add_fdtogb(t_gbcolector *gb, int fd);
+
+// export_parse.c
+int		keyparse(char *str);
+
+// exit_utils.c
+int		get_errortype(t_token *token);
+int		parse_exnum(char *cmd);
+void	ft_check_overflow(char *trim, int *len, int *ovrflw);
 
 // src/signals
 // handler.c
@@ -138,7 +149,7 @@ t_btree	*create_tokentree(t_token **token);
 t_token	*ignore_parenthesis(t_token *token);
 t_token	*contains_priority(t_token *token, int priority);
 void	display_btree(t_btree *tree);
-int	is_leaf(t_btree *tree);
+int		is_leaf(t_btree *tree);
 void	display_type(t_type type);
 
 /* src/builtins */
@@ -164,7 +175,6 @@ void	simplecmd_wait(int pid, t_data *data);
 void	exec_or(t_btree *tree, t_data *data);
 void	exec_and(t_btree *tree, t_data *data);
 
-
 // exec/single_exec
 void	executer(t_data *data, t_token *token);
 char	**lstenv_towordarr(t_env *env);
@@ -178,14 +188,16 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut);
 
 // exec/exec_utils.c
 int		is_heredoc(t_token *token);
-char 	*get_limiter(t_token *token);
+char	*get_limiter(t_token *token);
 
 //src/exec/redirections.c
 void	in_redirection(t_token *token, t_data *data);
 void	out_redirection(t_token *token, t_data *data);
+
 // expand.c
 void	ft_expand(t_token *lst, t_data *data);
 char	*ft_find_exp_value(char *key, t_data *data);
+char	*ft_strjoin_expand(char *s1, char *s2);
 
 // wildcard.c
 void	ft_wildcard(t_token **lst, t_btree *tree);
@@ -196,6 +208,7 @@ char	*get_limiter(t_token *token);
 
 //heredoc.c
 void	do_mydoc(t_token *token, t_data *data);
+char	*ft_heredoc_expansion(char *line, t_data *data);
 //static void	heredoc_work(char *limiter, int *pipe_fd);
 
 //src/exec/redirections.c
@@ -214,6 +227,6 @@ void	permissiond_exit(char *path, t_data *data);
 
 // src/errors/builtins_errors.c
 void	errorcmd_failed(char *cmd, char *error);
-void	errorcmd_failed2(char *cmd, char *arg,  char *error);
+void	errorcmd_failed2(char *cmd, char *arg, char *error);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:43:42 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 17:07:11 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:17:46 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,6 @@ void	ft_clrenv(t_env **head)
 		ft_clrenvnode(temp);
 	}
 	*head = NULL;
-}
-
-// Finds for the expansion value of an enviroment variable
-char	*ft_find_exp_value(char *key, t_data *data)
-{
-	t_env	*current;
-
-	current = data->env;
-	while (current)
-	{
-		if (!ft_strcmp(key, "?"))
-		{
-			data->free_flag = 1;
-			if (g_signal == 0)
-				return (ft_itoa(data->lst_exit_status));
-			else
-				return (ft_itoa(g_signal + 128));
-		}
-		if (!ft_strcmp(key, current->key))
-		{
-			data->free_flag = 0;
-			return (current->value);
-		}
-		current = current->next;
-	}
-	return (NULL);
 }
 
 // free one node

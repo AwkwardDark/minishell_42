@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 17:33:38 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 23:50:20 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	clr_btree(t_btree *tree)
 	TODO
 	check for other free to do for char * content
 */
-t_token *remove_parenthesis(t_token *token)
+t_token	*remove_parenthesis(t_token *token)
 {
-	t_token *temp;
-	t_token *end;
+	t_token	*temp;
+	t_token	*end;
 
 	temp = token;
 	if (token->token_type != C_PAR || get_startlst(token)->token_type != O_PAR)

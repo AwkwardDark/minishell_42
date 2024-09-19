@@ -6,12 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:37:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/13 12:51:16 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:23:38 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*It extracts the old char to expand*/
 static char	*ft_extract_exp(char *str, int len)
 {
 	char	*pre_exp;
@@ -23,6 +24,7 @@ static char	*ft_extract_exp(char *str, int len)
 	return (pre_exp);
 }
 
+/*It creates the new char with the new key value expanded*/
 static char	*ft_create_new_expansion(char *str, int i, char *expanded, int n_l)
 {
 	char	*temp;
@@ -32,11 +34,13 @@ static char	*ft_create_new_expansion(char *str, int i, char *expanded, int n_l)
 	if (!temp)
 		return (NULL);
 	temp = ft_strncpy(temp, str, i);
-	new = ft_strjoin(temp, expanded);
+	new = ft_strjoin_expand(temp, expanded);
 	free(temp);
 	return (new);
 }
 
+/*Once the key value found, it will concatenate token->content with ft_strjoin
+and all the intermediate caltulations will be freed*/
 static char	*ft_calc_expand(char *str, t_data *data, t_index *x, t_token *curr)
 {
 	char	*pre_exp;
@@ -52,7 +56,7 @@ static char	*ft_calc_expand(char *str, t_data *data, t_index *x, t_token *curr)
 	if (new_len == 0)
 		new_len = 1;
 	new_temp = ft_create_new_expansion(str, x->i, expanded, new_len);
-	new = ft_strjoin(new_temp, str + x->i + curr->pre_expand[x->j] + 1);
+	new = ft_strjoin_expand(new_temp, str + x->i + curr->pre_expand[x->j] + 1);
 	free(new_temp);
 	if (ft_strlen(expanded) > 1)
 		x->i += ft_strlen(expanded) - 1;
@@ -66,6 +70,8 @@ static char	*ft_calc_expand(char *str, t_data *data, t_index *x, t_token *curr)
 	return (str);
 }
 
+/*It uses the pre_expansion array to extract the char to expand, it will search
+on the env list and it will calculate the new length to allocate*/
 static char	*ft_str_to_exp(char *str, t_data *data, t_token *curr)
 {
 	t_index	x;
@@ -90,6 +96,9 @@ static char	*ft_str_to_exp(char *str, t_data *data, t_token *curr)
 	return (str);
 }
 
+/*If theres a valid expand on the content, the old content will be free and
+if the envviroment variable exits, it will expand on the new char. Otherwise
+a null string will replace*/
 void	ft_expand(t_token *lst, t_data *data)
 {
 	t_token	*current;

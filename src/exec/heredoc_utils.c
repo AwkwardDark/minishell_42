@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 00:23:41 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 19:17:33 by pajimene         ###   ########.fr       */
+/*   Created: 2024/09/19 11:41:15 by pajimene          #+#    #+#             */
+/*   Updated: 2024/09/19 12:02:43 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static int	ft_pre_exp_len(char *line, int i)
 {
-	char	*join;
-	int		i;
+	int	len;
+
+	len = 0;
+	while (line[i] && !ft_is_symbol(line[i]))
+	{
+		len++;
+		i++;
+	}
+	return (len);
+}
+
+char *ft_heredoc_expansion(char *line, t_data *data)
+{
+	int	i;
 
 	i = 0;
-	join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (join == NULL)
-		return (NULL);
-	join[0] = '\0';
-	while (*s1)
+	while (line[i])
 	{
-		join[i] = *s1;
-		i++;
-		s1++;
+		if (line[i] == DOLLAR)
+		{
+			
+		}
 	}
-	while (*s2)
-	{
-		join[i] = *s2;
-		i++;
-		s2++;
-	}
-	join[i] = '\0';
-	return (join);
 }

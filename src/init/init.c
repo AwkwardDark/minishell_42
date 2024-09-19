@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:35:25 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 14:33:13 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:37:30 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	init_gb(t_data *data)
 }
 
 /*It verifies if envp exits, creates a copy in a linked list for an easier
-manipulation with expand, export and unset. It also initialise the elements of
+manipulation with expand, export and unset. It also initialises the elements of
 the data struct and garbage collector struct*/
 int	ft_init_data(char **envp, t_data *data)
 {
@@ -38,8 +38,9 @@ int	ft_init_data(char **envp, t_data *data)
 	data->quote_type = '0';
 	data->symbol = '\0';
 	data->lst_exit_status = 0;
-	data->token_lst = NULL; //we can ignore this initialisation?
-	data->bin = (struct s_garbagecolector*)malloc(sizeof(t_gbcolector));
+	data->heredoc_flag = 0;
+	data->token_lst = NULL;
+	data->bin = (struct s_garbagecolector *)malloc(sizeof(t_gbcolector));
 	if (!data->bin)
 		return (-1);
 	init_gb(data);

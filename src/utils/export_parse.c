@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mainp_handler.c                                    :+:      :+:    :+:   */
+/*   export_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 01:06:28 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 23:58:08 by pierre           ###   ########.fr       */
+/*   Created: 2024/09/18 23:31:51 by pierre            #+#    #+#             */
+/*   Updated: 2024/09/18 23:33:32 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parenthandler(int code)
-{
-	(void)code;
-	write(1, "\n", 1);
-}
+/* TODO In special parsing of the export check that the format 
+	of export is right
+	export key="value" => good
+	export key=value => good
+	export key = value => wrong
+	and display error messages
+*/
 
-void	main_sigint(int code)
+int	keyparse(char *str)
 {
-	g_signal = code;
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	main_sigquit(int code)
-{
-	g_signal = code;
-	write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
+	if (!ft_isalpha(*str) && *str != '_')
+		return (0);
+	str++;
+	while (*str != '=' && *str)
+	{
+		if (!ft_isdigit(*str) && !ft_isalpha(*str) && *str != '_')
+			return (0);
+		str++;
+	}
+	return (1);
 }
