@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 19:30:40 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:42:27 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ separated by spaces or special characters*/
 typedef struct s_token {
 	char			*content;
 	t_type			token_type;
-	int				*pre_expand; //expand
-	int				exp_tab_len; //expand
-	int				wildcard; //wildcard
-	int				delete_flag; //wildcard
-	int				quote_flag;//for heredoc expansion but useless at the moment
-	char			*redir; //redirections
+	int				*pre_expand;
+	int				exp_tab_len;
+	int				wildcard;
+	int				del_wild_flag;
+	int				heredoc_quote_flag;
+	char			*redir;
 	struct s_token	*next;
 	struct s_token	*prev;
 }		t_token;
@@ -81,6 +81,7 @@ typedef struct s_data {
 	int				exit_status;
 	int				lst_exit_status;
 	int				free_flag;
+	int				heredoc_flag;
 	char			*syntax_error;
 	int				*child_ps;
 	t_gbcolector	*bin;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 23:36:44 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:48:58 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ char	*get_limiter(t_token *token);
 //src/exec/redirections.c
 void	in_redirection(t_token *token, t_data *data);
 void	out_redirection(t_token *token, t_data *data);
+
 // expand.c
 void	ft_expand(t_token *lst, t_data *data);
 char	*ft_find_exp_value(char *key, t_data *data);
@@ -207,6 +208,7 @@ char	*get_limiter(t_token *token);
 
 //heredoc.c
 void	do_mydoc(t_token *token, t_data *data);
+char	*ft_heredoc_expansion(char *line, t_data *data);
 //static void	heredoc_work(char *limiter, int *pipe_fd);
 
 //src/exec/redirections.c

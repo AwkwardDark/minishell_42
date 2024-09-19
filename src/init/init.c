@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:35:25 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 23:47:53 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:37:30 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	ft_init_data(char **envp, t_data *data)
 	data->quote_type = '0';
 	data->symbol = '\0';
 	data->lst_exit_status = 0;
-	data->token_lst = NULL; //we can ignore this initialisation?
+	data->heredoc_flag = 0;
+	data->token_lst = NULL;
 	data->bin = (struct s_garbagecolector *)malloc(sizeof(t_gbcolector));
 	if (!data->bin)
 		return (-1);
