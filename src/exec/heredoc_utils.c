@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 11:41:15 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 12:02:43 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:02:31 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_pre_exp_len(char *line, int i)
+/* static int	ft_pre_exp_len(char *line, int i)
 {
 	int	len;
 
@@ -23,9 +23,9 @@ static int	ft_pre_exp_len(char *line, int i)
 		i++;
 	}
 	return (len);
-}
+} */
 
-char *ft_heredoc_expansion(char *line, t_data *data)
+/* char *ft_heredoc_expansion(char *line, t_data *data)
 {
 	int	i;
 
@@ -37,4 +37,4 @@ char *ft_heredoc_expansion(char *line, t_data *data)
 			
 		}
 	}
-}
+} */

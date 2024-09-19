@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 19:31:32 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:18:24 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 			data->bin->tree = tree;
 			data->b_tree = tree;
 			exec_btree(tree, data);
+			data->lst_exit_status = data->exit_status;
 			clr_btree(tree);
 			data->token_lst = NULL;
 		}

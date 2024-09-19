@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 11:42:27 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:32:01 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ parsing and the execution, also used for some small features
  on error management*/
 typedef struct s_data {
 	struct s_env	*env;
+	struct s_env	*export;
 	struct s_token	*token_lst;
 	struct s_btree	*b_tree;
 	char			*input;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 23:40:01 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 14:54:50 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ static int	exec(t_token *token, t_data *data, int flag)
 	int	fd[2];
 
 	if (pipe(fd) < 0)
-		error_disp_exit("minishell: pipe: ", strerror(errno), 1);
+		return (free_exec_pipe(data));
+	add_fdtogb(data->bin, fd[0]);
+	add_fdtogb(data->bin, fd[1]);
 	child = fork();
 	if (child < 0)
-		error_disp_exit("minishell: fork: ", strerror(errno), 1);
+		return (free_exec_fork(data));
 	if (child == 0)
 		redirect_files(token, fd, flag, data);
 	close(fd[1]);
 	if (dup2(fd[0], STDIN_FILENO) < 0)
-		error_disp_exit("minishell: dup2: ", strerror(errno), 1);
+		free_exec_dup2(data);
 	close(fd[0]);
 	return (child);
 }
@@ -42,9 +44,9 @@ static int	parse_exec(t_btree *tree, t_data *data, int flag)
 	}
 	if (is_heredoc(tree->token))
 		do_mydoc(tree->token, data);
-	if (data->exit_status == 0)
-		return (exec(tree->token, data, flag));
-	return (-1);
+	if (flag == PIPE && data->lst_exit_status != 0)
+		return (-1);
+	return (exec(tree->token, data, flag));
 }
 
 /*

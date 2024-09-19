@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:46:55 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/17 12:08:06 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:37:39 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_unset(t_token *token, t_data *data)
 	while (token != NULL && token->token_type == WORD)
 	{
 		remove_node(token->content, &data->env);
+		remove_node(token->content, &data->export);
 		token = token->next;
 	}
 }

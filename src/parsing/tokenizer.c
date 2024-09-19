@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 23:46:19 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 15:19:26 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ redirections, it also remove the quotes*/
 int	ft_parser(char *input, t_data *data)
 {
 	if (ft_quote_syntax(input) == 1)
-		return (ft_error(0), data->exit_status = 2, 0);
+		return (ft_error(0), data->lst_exit_status = 2, 0);
 	if (ft_operator_syntax(input, data) == 1)
 		return (0);
 	if (ft_parenthesis_syntax(input, data) == 1)
-		return (ft_error(5), data->exit_status = 2, 0);
+		return (ft_error(5), data->lst_exit_status = 2, 0);
 	ft_lexer(input, data);
 	if (!data->token_lst)
 		return (0);
@@ -35,7 +35,7 @@ int	ft_parser(char *input, t_data *data)
 		ft_putstr_fd(RED"minishell: syntax error near unexpected token `", 2);
 		ft_putstr_fd(data->syntax_error, 2);
 		ft_putstr_fd("'\n"RESET, 2);
-		data->exit_status = 2;
+		data->lst_exit_status = 2;
 		return (0);
 	}
 	ft_pre_expand(data->token_lst);

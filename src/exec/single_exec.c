@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 23:42:23 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 12:53:15 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	executer(t_data *data, t_token *token)
 	close_fds(data->bin);
 	env_arr = lstenv_towordarr(data->env);
 	if (execve(path, argv, env_arr) < 0)
-		free_exec(path, argv, env_arr);
+		free_execve(path, argv, env_arr);
 }
 
 /* returns a Pointer to whats after "PATH=" in the env */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 11:48:58 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:07:20 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,10 @@ void	main_sigint(int code);
 void	main_sigquit(int code);
 
 /* /src/utils/free_exec.c */
-void	free_exec(char *path, char **argv, char **env_arr);
+void	free_execve(char *path, char **argv, char **env_arr);
+int		free_exec_pipe(t_data *data);
+int		free_exec_fork(t_data *data);
+int		free_exec_dup2(t_data *data);
 
 /* src/utils/ls_env.c */
 t_env	*ft_initenv(char *key, char *value);

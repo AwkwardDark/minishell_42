@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:42:44 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 23:44:40 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 15:41:16 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	ft_free_exit(t_data *data)
 {
 	if (data->env)
 		ft_clrenv(&data->env);
+	if (data->export)
+		ft_clrenv(&data->export);
 	if (data->input)
 		free(data->input);
 	if (data)

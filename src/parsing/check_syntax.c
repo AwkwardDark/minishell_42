@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:04:29 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/17 10:56:35 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:20:19 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ int	ft_operator_syntax(char *input, t_data *data)
 		{
 			i++;
 			if (input[i] != '&' || input[i + 1] == '&')
-				return (ft_error(1), data->exit_status = 2, 1);
+				return (ft_error(1), data->lst_exit_status = 2, 1);
 		}
 		if ((input[i] == P) && (input[i + 1] == P) && (input[i + 2] == P))
-			return (ft_error(2), data->exit_status = 2, 1);
+			return (ft_error(2), data->lst_exit_status = 2, 1);
 		if ((input[i] == I_R) && (input[i + 1] == I_R) && (input[i + 2] == I_R))
-			return (ft_error(3), data->exit_status = 2, 1);
+			return (ft_error(3), data->lst_exit_status = 2, 1);
 		if ((input[i] == O_R) && (input[i + 1] == O_R) && (input[i + 2] == O_R))
-			return (ft_error(4), data->exit_status = 2, 1);
+			return (ft_error(4), data->lst_exit_status = 2, 1);
 		i++;
 	}
 	return (0);

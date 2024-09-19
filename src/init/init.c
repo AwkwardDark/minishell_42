@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:35:25 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 11:37:30 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:33:37 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ the data struct and garbage collector struct*/
 int	ft_init_data(char **envp, t_data *data)
 {
 	data->env = ft_cpyenv(envp);
-	if (!data->env)
+	data->export = ft_cpyenv(envp);
+	if (!data->env || !data->export)
 		return (ft_error(6), 1);
 	data->free_flag = 0;
 	data->exit_status = 0;

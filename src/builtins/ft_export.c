@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 12:43:01 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/18 23:51:49 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/19 15:44:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,17 @@ static void	display_ordered(t_data *data, t_env *env, int fd)
 	{
 		ft_putstr_fd("export ", fd);
 		ft_putstr_fd(env->key, fd);
-		ft_putstr_fd("=", fd);
 		if (env->value)
 		{
+			ft_putstr_fd("=", fd);
 			if (!*env->value)
 				ft_putstr_fd("\"\"", fd);
 			else
+			{
+				ft_putstr_fd("\"", fd);
 				ft_putstr_fd(env->value, fd);
+				ft_putstr_fd("\"", fd);
+			}
 		}
 		ft_putstr_fd("\n", fd);
 		env = env->next;
@@ -110,18 +114,20 @@ void	ft_export(t_data *data, t_token *token, int fd)
 
 	i = 0;
 	if (!token || token->token_type != WORD)
-		display_asciordr(data->env, data, fd);
+		display_asciordr(data->export, data, fd);
 	if (!check_params(token, data))
 		return ;
 	while (token != NULL)
 	{
 		if (!strchr(token->content, '='))
-			add_or_replace(&data->env, ft_strdup(token->content), NULL);
+			add_or_replace(&data->export, ft_strdup(token->content), NULL);
 		else
 		{
 			while (token->content[i] != '=')
 				i++;
 			add_or_replace(&data->env, ft_strndup(token->content, i),
+				ft_strdup(&token->content[i + 1]));
+			add_or_replace(&data->export, ft_strndup(token->content, i),
 				ft_strdup(&token->content[i + 1]));
 		}
 		i = 0;
