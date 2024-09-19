@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 11:48:58 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:56:52 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ void	out_redirection(t_token *token, t_data *data);
 void	ft_expand(t_token *lst, t_data *data);
 char	*ft_find_exp_value(char *key, t_data *data);
 char	*ft_strjoin_expand(char *s1, char *s2);
+char	*ft_extract_exp(char *str, int len);
+char	*ft_create_new_expansion(char *str, int i, char *expanded, int new_len);
 
 // wildcard.c
 void	ft_wildcard(t_token **lst, t_btree *tree);
@@ -208,7 +210,7 @@ char	*get_limiter(t_token *token);
 
 //heredoc.c
 void	do_mydoc(t_token *token, t_data *data);
-char	*ft_heredoc_expansion(char *line, t_data *data);
+char	*ft_heredoc_expansion(char *line, int i, t_data *data);
 //static void	heredoc_work(char *limiter, int *pipe_fd);
 
 //src/exec/redirections.c
