@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 17:58:32 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/21 00:51:46 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	redirect_files(t_token *token, int *pipe, int flag, t_data *data)
 	}
 	close(pipe[1]);
 	signal(SIGQUIT, SIG_DFL);
+	out_redirection(token, data);
 	if (ft_is_builtins(token->content))
 		exec_subbuiltin(token, data);
-	out_redirection(token, data);
 	executer(data, ft_getnextword(token, data));
 }

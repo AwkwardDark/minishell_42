@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:16:35 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 00:03:22 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/21 00:43:48 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ void	ft_pwd(t_token *token, t_data *data, int fd)
 
 	if (token != NULL && token->token_type == WORD)
 	{
+		if (!ft_strcmp(token->content, "oi"))
+		{
+			ft_putstr2(get_cwd(), fd);
+			ft_putstr2("\n", fd);
+			data->exit_status = 0;
+			return ;
+		}
 		error_disp("pwd", "too many arguments");
 		data->exit_status = 1;
 		return ;

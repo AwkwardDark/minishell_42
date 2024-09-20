@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 17:57:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/21 01:19:29 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	exec_builtin_fork(t_token *token, t_data *data)
 void	exec_subbuiltin(t_token *token, t_data *data)
 {
 	int	status;
-	
+
 	if (!ft_strcmp(token->content, "exit"))
 		ft_exit(token->next, data);
 	else

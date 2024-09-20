@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   exec_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:37:28 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 17:58:49 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/21 01:15:40 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,12 @@ static void	alloc_cmds(t_token *token, char **cmd_arr, int len, int absolut)
 	temp = token;
 	while (i < len)
 	{
-		if (absolut && i == 0)
-			cmd_arr[i] = (char *)malloc(sizeof(char)
-					* (ft_strlen(&temp->content[2]) + 1));
-		else
-			cmd_arr[i] = (char *)malloc(sizeof(char)
-					* (ft_strlen(temp->content) + 1));
-		if (!cmd_arr[i])
-			return ;
-		cmd_arr[i][0] = 0;
-		if (absolut && i == 0)
-			ft_strcpy(cmd_arr[i], &temp->content[2]);
-		else
-			ft_strcpy(cmd_arr[i], temp->content);
+		if (temp->token_type == WORD)
+		{
+			alloc_cmds_aux(cmd_arr, temp, i, absolut);
+			i++;
+		}
 		temp = temp->next;
-		i++;
 	}
 	cmd_arr[i] = NULL;
 }
@@ -113,10 +104,11 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut)
 
 	temp = token;
 	len = 0;
-	while (temp != NULL && temp->token_type == WORD)
+	while (temp != NULL)
 	{
+		if (temp->token_type == WORD)
+			len++;
 		temp = temp->next;
-		len++;
 	}
 	if (len == 0)
 		return (NULL);
@@ -128,31 +120,31 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut)
 	return (arr_cmd);
 }
 
-// void	ft_print_lst(t_token *lst)
-// {
-// 	int		i;
-// 	t_token	*current;
+/* void	ft_print_lst(t_token *lst)
+{
+	int		i;
+	t_token	*current;
 
-// 	i = 0;
-// 	current = lst;
-// 	if (!lst)
-// 		return ;
-// 	while (current)
-// 	{
-// 		if ((current->token_type == R_IN) || (current->token_type == R_OUT) ||
-// 			(current->token_type == HEREDOC) || (current->token_type == APPEND))
-// 			printf("\n");
-// 		printf("n%d -> %s ----", i, current->content);
-// 		printf(" token -> %d\n", current->token_type);
-// 		if (current->redir)
-// 			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
-// 		current = current->next;
-// 		i++;
-// 	}
-// 	while (lst != NULL)
-// 	{
-// 		printf("%s", lst->content);
-// 		lst = lst->next;
-// 	}
-// 	printf("\n");
-// }
+	i = 0;
+	current = lst;
+	if (!lst)
+		return ;
+	while (current)
+	{
+		if ((current->token_type == R_IN) || (current->token_type == R_OUT) ||
+			(current->token_type == HEREDOC) || (current->token_type == APPEND))
+			printf("\n");
+		printf("n%d -> %s ----", i, current->content);
+		printf(" token -> %d\n", current->token_type);
+		if (current->redir)
+			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
+		current = current->next;
+		i++;
+	}
+	while (lst != NULL)
+	{
+		printf("%s", lst->content);
+		lst = lst->next;
+	}
+	printf("\n");
+} */

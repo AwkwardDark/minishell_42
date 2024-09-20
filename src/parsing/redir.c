@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:50:41 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/20 14:42:14 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/21 01:18:17 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	ft_refresh_expand_struct(t_token *current, t_token *delete)
-{	
+{
 	current->wildcard = delete->wildcard;
 	current->del_wild_flag = 0;
 	current->old_redir = ft_strdup(delete->content);

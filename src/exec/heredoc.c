@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 09:57:35 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 20:30:13 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 // reads in the stdin and writes in the pipe
 static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 {
-	int		limiter_len;
 	char	*line;
 	char	*linenl;
 
-	limiter_len = ft_strlen(limiter);
 	line = readline("> ");
 	while (line && !(ft_strcmp(limiter, line) == 0))
 	{

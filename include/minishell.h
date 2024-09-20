@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 17:18:57 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/21 01:15:26 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,14 +183,13 @@ char	**lstenv_towordarr(t_env *env);
 char	*get_paths(t_env *env);
 char	*test_path(char *envpath, char *cmd);
 
-// utils/exec_utils.c
+// utils/exec_utils1.c
 char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
 char	**lstenv_towordarr(t_env *env);
 char	**cmdlst_tocmdarr(t_token *token, int absolut);
 
-// exec/exec_utils.c
-int		is_heredoc(t_token *token);
-char	*get_limiter(t_token *token);
+// utils/exec_utils2.c
+void	alloc_cmds_aux(char **cmd_arr, t_token *token, int i, int absolut);
 
 //src/exec/redirections.c
 void	in_redirection(t_token *token, t_data *data);
@@ -238,5 +237,7 @@ void	errorcmd_failed(char *cmd, char *error);
 void	errorcmd_failed2(char *cmd, char *arg, char *error);
 void	nosuchfile_exit(char **argv, t_data *data, t_token *token, int eno);
 void	isdirectory_exit(char **argv, t_data *data, t_token *token, int eno);
+
+void	ft_print_lst(t_token *lst);
 
 #endif

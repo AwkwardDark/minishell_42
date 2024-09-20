@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 17:48:34 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/21 01:19:46 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	exec_btree_aux(t_btree *tree, t_data *data)
 			ft_wildcard(&tree->token, tree);
 			exec_builtin(tree->token, data);
 			simplecmd_wait(-1, data);
-		}	
+		}
 		else
 			simplecmd_wait(parse_exec(tree, data, SIMPLE_COMMAND), data);
 	}
