@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 23:23:19 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:51:00 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	add_fdtogb(t_gbcolector *gb, int fd);
 int		keyparse(char *str);
 
 // exit_utils.c
+int		is_number(char *str);
 int		get_errortype(t_token *token);
 int		parse_exnum(char *cmd);
 void	ft_check_overflow(char *trim, int *len, int *ovrflw);
@@ -157,7 +158,7 @@ int		is_leaf(t_btree *tree);
 void	display_type(t_type type);
 
 // write_utils.c
-void	ft_putstr2(char *str, int fd);
+int		ft_putstr2(char *str, int fd);
 
 /* src/builtins */
 void	ft_cd(t_token *token, t_data *data);

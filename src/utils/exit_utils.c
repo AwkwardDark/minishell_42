@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 23:34:33 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/18 23:53:45 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:50:41 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_number(char *str)
+int	is_number(char *str)
 {
 	if (!str || !*str)
 		return (0);

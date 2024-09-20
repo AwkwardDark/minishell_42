@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:47:04 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 23:57:07 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:34:10 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	ft_echo(t_token *token, int fd, t_data *data)
 	}
 	while (token != NULL && token->token_type == WORD)
 	{
-		ft_putstr2(token->content, fd);
+		if (ft_putstr2(token->content, fd) < 0)
+		{
+			data->exit_status = 1;
+			return ;
+		}
 		if (token->next != NULL && token->next->token_type == WORD)
 			ft_putstr2(" ", fd);
 		token = token->next;

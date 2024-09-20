@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:06:08 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 23:57:12 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:34:53 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ void	ft_env(t_data *data, int fd)
 		return ;
 	while (env != NULL)
 	{
-		ft_putstr2(env->key, fd);
+		if (ft_putstr2(env->key, fd) < 0)
+		{
+			data->exit_status = 1;
+			return ;
+		}
 		ft_putstr2("=", fd);
 		ft_putstr2(env->value, fd);
 		ft_putstr2("\n", fd);

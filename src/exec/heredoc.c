@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 00:08:46 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:57:35 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 
 	limiter_len = ft_strlen(limiter);
 	line = readline("> ");
-	while (line && !(ft_strncmp(limiter, line, limiter_len) == 0))
+	while (line && !(ft_strcmp(limiter, line) == 0))
 	{
 		if (data->heredoc_flag == 0 && ft_count_exp(line) > 0 && is_last)
 			line = ft_heredoc_expansion(line, 0, data);

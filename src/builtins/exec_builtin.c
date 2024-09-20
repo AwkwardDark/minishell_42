@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/19 23:54:48 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:23:18 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	exec_builtin(t_token *token, t_data *data)
 	int	redir;
 
 	redir = get_redir(token);
+	add_fdtogb(data->bin, redir);
 	if (redir < 0)
 	{
 		data->exit_status = 1;

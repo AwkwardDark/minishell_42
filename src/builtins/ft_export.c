@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 12:43:01 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 00:02:47 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:14:13 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ static int	check_params(t_token *token, t_data *data)
 // dispays the output for the export command alone
 static void	display_ordered(t_data *data, t_env *env, int fd)
 {
-	if (!env)
+	if (!env || ft_putstr2("export ", fd) < 0)
+	{
+		data->exit_status = 1;
 		return ;
+	}
 	while (env != NULL)
 	{
 		ft_putstr2("export ", fd);

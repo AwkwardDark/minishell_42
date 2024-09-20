@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 22:34:32 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/19 23:58:30 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:52:31 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_exit(t_token *token, t_data *data)
 		free_end(data->lst_exit_status, data, NULL);
 	if (token->next != NULL )
 	{
-		if (get_errortype(token))
+		if (is_number(token->content) && get_errortype(token))
 		{
 			printf("exit\n");
 			ft_putstr2("minishell: exit: too many arguments\n", 2);
