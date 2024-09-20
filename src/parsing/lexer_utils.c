@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 14:38:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/18 23:45:06 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:30:43 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,12 @@ int	ft_is_operator(char *input, int *i, t_data *data)
 		if (input[*i + 1] == '&')
 			return ((*i)++, 1);
 	}
+	return (0);
+}
+
+int	ft_is_whitespace(char c)
+{
+	if (c == SPACE || c == TAB)
+		return (1);
 	return (0);
 }

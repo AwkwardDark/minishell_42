@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:49:48 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 22:38:04 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:36:55 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_parser(char *input, t_data *data)
 is stocked in a new node*/
 static void	ft_isolate_node(char *input, t_data *data, int *i)
 {
-	while (input[*i] != ' ' && input[*i])
+	while (input[*i] && !ft_is_whitespace(input[*i]))
 	{
 		if (ft_is_quote(input[*i], data))
 		{
@@ -77,7 +77,7 @@ void	ft_lexer(char *input, t_data *data)
 	end = 0;
 	while (input[i])
 	{
-		while (input[i] == ' ' && input[i])
+		while (input[i] && ft_is_whitespace(input[i]))
 			i++;
 		if (!input[i])
 			break ;

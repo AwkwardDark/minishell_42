@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:37:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 15:57:34 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:06:27 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,16 @@ void	ft_expand(t_token *lst, t_data *data)
 			if (result)
 			{
 				current->content = ft_strdup(result);
+				free(result);
+			}
+		}
+		if (((current->token_type == R_IN) || (current->token_type == R_OUT) || \
+		(current->token_type == APPEND)) && ft_count_exp(current->redir) > 0)
+		{
+			result = ft_str_to_exp(current->redir, data, current);
+			if (result)
+			{
+				current->redir = ft_strdup(result);
 				free(result);
 			}
 		}

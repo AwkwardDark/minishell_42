@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*   lst_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 16:06:32 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:43:06 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_free_lst(t_token **lst)
 			free((*lst)->content);
 		if ((*lst)->redir)
 			free((*lst)->redir);
+		if ((*lst)->old_redir)
+			free((*lst)->old_redir);
 		free(*lst);
 		*lst = temp;
 	}

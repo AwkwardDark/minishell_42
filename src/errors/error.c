@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:59:36 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/19 23:23:09 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 14:13:58 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,19 @@ void	permissiond_exit(char *path, t_data *data, char **argv, char *path2)
 void	ft_error(int code)
 {
 	if (code == 0)
-		ft_putstr2("minishell: quote syntax error\n", 2);
+		ft_putstr2(RED"minishell: quote syntax error\n"RESET, 2);
 	if (code == 1)
-		ft_putstr2("minishell: and (&&) logical operator syntax error\n", 2);
+		ft_putstr2(RED"minishell: && logical operator syntax error\n"RESET, 2);
 	if (code == 2)
-		ft_putstr2("minishell: or (||) logical operator syntax error\n", 2);
+		ft_putstr2(RED"minishell: || logical operator syntax error\n"RESET, 2);
 	if (code == 3)
-		ft_putstr2("minishell: heredoc (<<) syntax error\n", 2);
+		ft_putstr2(RED"minishell: heredoc (<<) syntax error\n"RESET, 2);
 	if (code == 4)
-		ft_putstr2("minishell: append (>>) syntax error\n", 2);
+		ft_putstr2(RED"minishell: append (>>) syntax error\n"RESET, 2);
 	if (code == 5)
-		ft_putstr2("minishell: parenthesis syntax error\n", 2);
+		ft_putstr2(RED"minishell: parenthesis syntax error\n"RESET, 2);
 	if (code == 6)
-		ft_putstr2("minishell: env list creation error\n", 2);
+		ft_putstr2(RED"minishell: env list creation error\n"RESET, 2);
 	if (code == 7)
-		ft_putstr2("minishell: malloc error\n", 2);
+		ft_putstr2(RED"minishell: malloc error\n"RESET, 2);
 }

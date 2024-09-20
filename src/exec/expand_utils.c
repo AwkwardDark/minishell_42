@@ -6,11 +6,13 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:14:35 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 15:57:14 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:15:21 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
 
 // Finds for the expansion value of an enviroment variable
 char	*ft_find_exp_value(char *key, t_data *data)

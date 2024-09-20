@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 11:23:18 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:44:46 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,26 @@ static int	get_redir(t_token *token)
 	{
 		if (token->token_type == R_OUT || token->token_type == APPEND)
 		{
-			if (token->token_type == R_OUT)
+			if (token->wildcard)
+				ft_redir_wildcard(token);
+			if (token->token_type == R_OUT && token->del_wild_flag == 0)
 				fd = open(token->redir, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-			else if (token->token_type == APPEND)
+			else if (token->token_type == APPEND && token->del_wild_flag == 0)
 				fd = open(token->redir, O_CREAT | O_WRONLY | O_APPEND, 0664);
+			if (token->del_wild_flag || token->redir[0] == '\0')
+			{
+				ft_putstr_fd("minishell: ", 2);
+				if (token->redir[0] == '\0')
+					ft_putstr_fd(token->old_redir, 2);
+				else
+					ft_putstr_fd(token->redir, 2);
+				ft_putstr_fd(": ambiguous redirect\n", 2);
+				return (-1);
+			}
 			if (fd < 0)
 			{
 				error_disp(token->redir, strerror(errno));
-				fd = -1;
-				break ;
+				return (-1);
 			}
 		}
 		token = token->next;
@@ -63,7 +74,6 @@ void	exec_builtin(t_token *token, t_data *data)
 	int	redir;
 
 	redir = get_redir(token);
-	add_fdtogb(data->bin, redir);
 	if (redir < 0)
 	{
 		data->exit_status = 1;

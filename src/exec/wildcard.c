@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:57:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 11:14:55 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:50:05 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_valid_start(char *wildcard, int *i, char *entry)
 }
 
 /*It checks if the name matchs with the wildcard rules*/
-static int	ft_wild_match(char *entry, char *wildcard)
+int	ft_wild_match(char *entry, char *wildcard)
 {
 	int	i;
 	int	j;
