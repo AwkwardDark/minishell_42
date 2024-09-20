@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:37:28 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 12:21:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:18:22 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,31 +128,31 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut)
 	return (arr_cmd);
 }
 
-void	ft_print_lst(t_token *lst)
-{
-	int		i;
-	t_token	*current;
+// void	ft_print_lst(t_token *lst)
+// {
+// 	int		i;
+// 	t_token	*current;
 
-	i = 0;
-	current = lst;
-	if (!lst)
-		return ;
-	while (current)
-	{
-		if ((current->token_type == R_IN) || (current->token_type == R_OUT) || \
-			(current->token_type == HEREDOC) || (current->token_type == APPEND))
-			printf("\n");
-		printf("n%d -> %s ----", i, current->content);
-		printf(" token -> %d\n", current->token_type);
-		if (current->redir)
-			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
-		current = current->next;
-		i++;
-	} 
-	while (lst != NULL)
-	{
-		printf("%s", lst->content);
-		lst = lst->next;
-	}
-	printf("\n");
-}
+// 	i = 0;
+// 	current = lst;
+// 	if (!lst)
+// 		return ;
+// 	while (current)
+// 	{
+// 		if ((current->token_type == R_IN) || (current->token_type == R_OUT) ||
+// 			(current->token_type == HEREDOC) || (current->token_type == APPEND))
+// 			printf("\n");
+// 		printf("n%d -> %s ----", i, current->content);
+// 		printf(" token -> %d\n", current->token_type);
+// 		if (current->redir)
+// 			printf(" ~~~ redir file -> %s ~~~\n\n", current->redir);
+// 		current = current->next;
+// 		i++;
+// 	}
+// 	while (lst != NULL)
+// 	{
+// 		printf("%s", lst->content);
+// 		lst = lst->next;
+// 	}
+// 	printf("\n");
+// }

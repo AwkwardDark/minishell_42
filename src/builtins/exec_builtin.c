@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 15:09:28 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:17:33 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,25 @@ static int	get_redirin(t_token *token)
 	{
 		if (token->token_type == R_IN)
 		{
-			fd = open(token->redir, O_RDONLY);
+			if (token->wildcard)
+				ft_redir_wildcard(token);
+			if (token->del_wild_flag == 0)
+				fd = open(token->redir, O_RDONLY);
+			if (token->del_wild_flag || token->redir[0] == '\0')
+			{
+				ft_putstr_fd("minishell: ", 2);
+				if (token->redir[0] == '\0')
+					ft_putstr_fd(token->old_redir, 2);
+				else
+					ft_putstr_fd(token->redir, 2);
+				ft_putstr_fd(": ambiguous redirect\n", 2);
+				return (-1);
+			}
 			if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
 			{
 				error_disp(token->redir, strerror(errno));
 				fd = -1;
-				return (-1) ;
+				return (-1);
 			}
 			close(fd);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 13:06:11 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:17:19 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_btree	*create_tokentree(t_token **token)
 
 	if (!token)
 		return (NULL);
-	temp = ft_lstlast(*token);	
+	temp = ft_lstlast(*token);
 	temp = remove_parenthesis(temp);
 	if (contains_priority(temp, 3) || contains_priority(temp, 2))
 	{

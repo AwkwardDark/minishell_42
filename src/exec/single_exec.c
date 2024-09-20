@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 11:45:07 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:16:34 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	check_validity(char *path, t_token *token,
 		permissiond_exit(token->content, data, argv, path);
 	if (!path || !ft_strcmp(*argv, ""))
 	{
-
 		if (ft_strchr(token->content, '/') || ft_strchr(token->content, '.'))
 		{
 			if (!access(token->content, R_OK))

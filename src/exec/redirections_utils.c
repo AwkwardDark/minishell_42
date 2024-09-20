@@ -6,12 +6,17 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:43:46 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/20 12:57:19 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:28:37 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+
+/*When we redirect to a wildcard, if its expand to more than 1 file, it will
+create an error (ambiguous redirect). So we have to treat the wildcard
+expansion differently in this scenario*/
 void	ft_redir_wildcard(t_token *current)
 {
 	struct dirent	*entry;
