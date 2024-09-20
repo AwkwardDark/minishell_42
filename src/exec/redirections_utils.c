@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 12:43:46 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/20 17:19:28 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:29:59 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_open_redirout(t_token *token, int *fd)
 {
 	if (token->wildcard)
 		ft_redir_wildcard(token, fd);
-	printf("redir_file=%s\n", token->redir);
 	if (token->token_type == R_OUT && token->del_wild_flag == 0)
 		*fd = open(token->redir, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	else if (token->token_type == APPEND && token->del_wild_flag == 0)
