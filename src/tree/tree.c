@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:21:21 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 00:16:30 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 13:06:11 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_token	*remove_parenthesis(t_token *token)
 	temp = token;
 	if (token->token_type != C_PAR || get_startlst(token)->token_type != O_PAR)
 		return (token);
+	if (ignore_parenthesis(token)->prev->prev != NULL || token->next != NULL)
+		return (token);
 	end = ignore_parenthesis(token);
 	if (end->prev->token_type == O_PAR)
 	{
@@ -85,7 +87,7 @@ t_btree	*create_tokentree(t_token **token)
 
 	if (!token)
 		return (NULL);
-	temp = ft_lstlast(*token);
+	temp = ft_lstlast(*token);	
 	temp = remove_parenthesis(temp);
 	if (contains_priority(temp, 3) || contains_priority(temp, 2))
 	{

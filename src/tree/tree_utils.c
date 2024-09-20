@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 23:24:22 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 00:15:24 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:20:44 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	is_leaf(t_btree *tree)
 	}
 	else if (tree->left_child == NULL && tree->right_child == NULL)
 	{
+		printf("\n");
 		display_type(tree->token->token_type);
 	}
 	else

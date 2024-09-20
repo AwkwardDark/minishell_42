@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 00:17:51 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:45:07 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,13 @@ static void	check_validity(char *path, t_token *token,
 		permissiond_exit(token->content, data, argv, path);
 	if (!path || !ft_strcmp(*argv, ""))
 	{
+
 		if (ft_strchr(token->content, '/') || ft_strchr(token->content, '.'))
-			nosuchfile_exit(argv, data, token, 127);
+		{
+			if (!access(token->content, R_OK))
+				isdirectory_exit(argv, data, token, 126);
+			nosuchfile_exit(argv, data, token, 126);
+		}
 		cmdnotfound_exit(argv, data, token, 127);
 	}
 }

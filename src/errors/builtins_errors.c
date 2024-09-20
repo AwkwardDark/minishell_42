@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:42:44 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 22:59:14 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:43:40 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,19 @@ void	nosuchfile_exit(char **argv, t_data *data, t_token *token, int eno)
 	clear_wordar(argv);
 	ft_free_exit(data);
 	error_disp_exit("no such file or directory", buffer, eno);
+}
+
+// shoudl be in the file errors.c but too many functions
+void	isdirectory_exit(char **argv, t_data *data, t_token *token, int eno)
+{
+	char	buffer[500];
+	int		len;
+
+	len = ft_strlen(token->content);
+	ft_memcpy(buffer, token->content, len);
+	buffer[len] = 0;
+	clr_gb(data->bin);
+	clear_wordar(argv);
+	ft_free_exit(data);
+	error_disp_exit("is a directory", buffer, eno);
 }

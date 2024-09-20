@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 23:34:33 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 09:50:41 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:08:24 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_number(char *str)
 {
 	if (!str || !*str)
 		return (0);
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 		str++;
 	while (*str)
 	{
@@ -55,7 +55,7 @@ int	parse_exnum(char *cmd)
 	len = 0;
 	if (!cmd)
 		return (-1);
-	if (*cmd == '-')
+	if (*cmd == '-' || *cmd == '+')
 	{
 		cmd++;
 		len++;

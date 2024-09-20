@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 12:59:11 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:08:27 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,5 +235,6 @@ void	permissiond_exit(char *path, t_data *data, char **argv, char *path2);
 void	errorcmd_failed(char *cmd, char *error);
 void	errorcmd_failed2(char *cmd, char *arg, char *error);
 void	nosuchfile_exit(char **argv, t_data *data, t_token *token, int eno);
+void	isdirectory_exit(char **argv, t_data *data, t_token *token, int eno);
 
 #endif
