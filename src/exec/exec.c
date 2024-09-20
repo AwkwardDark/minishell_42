@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 00:07:41 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 14:30:11 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	parse_exec(t_btree *tree, t_data *data, int flag)
 	}
 	if (is_heredoc(tree->token))
 		do_mydoc(tree->token, data);
-	if (flag == PIPE && data->lst_exit_status != 0)
+	if (flag == PIPE && data->lst_exit_status > 128)
 		return (-1);
 	return (exec(tree->token, data, flag));
 }

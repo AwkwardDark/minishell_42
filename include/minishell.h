@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 09:51:00 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:44:18 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,5 +239,6 @@ void	permissiond_exit(char *path, t_data *data, char **argv, char *path2);
 void	errorcmd_failed(char *cmd, char *error);
 void	errorcmd_failed2(char *cmd, char *arg, char *error);
 void	nosuchfile_exit(char **argv, t_data *data, t_token *token, int eno);
+void	isdirectory_exit(char **argv, t_data *data, t_token *token, int eno);
 
 #endif

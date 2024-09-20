@@ -6,22 +6,46 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 11:23:18 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:17:15 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	get_redirin(t_token *token)
+{
+	int	fd;
+
+	while (token != NULL)
+	{
+		if (token->token_type == R_IN)
+		{
+			fd = open(token->redir, O_RDONLY);
+			if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
+			{
+				error_disp(token->redir, strerror(errno));
+				fd = -1;
+				return (-1) ;
+			}
+			close(fd);
+		}
+		token = token->next;
+	}
+	return (1);
+}
 
 /*
 	returns positive value > 1 if there is a redir out to  a file
 	return 1 if nothing is found
 	and return -1 f there was any error during the open
 */
-static int	get_redir(t_token *token)
+static int	get_redirout(t_token *token)
 {
 	int	fd;
 
 	fd = 1;
+	if (get_redirin(token) < 0)
+		return (-1);
 	while (token != NULL)
 	{
 		if (token->token_type == R_OUT || token->token_type == APPEND)
@@ -62,8 +86,7 @@ void	exec_builtin(t_token *token, t_data *data)
 {
 	int	redir;
 
-	redir = get_redir(token);
-	add_fdtogb(data->bin, redir);
+	redir = get_redirout(token);
 	if (redir < 0)
 	{
 		data->exit_status = 1;

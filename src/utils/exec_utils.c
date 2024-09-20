@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:37:28 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/19 21:41:57 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:21:56 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut)
 	return (arr_cmd);
 }
 
-/* void	ft_print_lst(t_token *lst)
+void	ft_print_lst(t_token *lst)
 {
 	int		i;
 	t_token	*current;
@@ -155,4 +155,4 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut)
 		lst = lst->next;
 	}
 	printf("\n");
-}*/
+}
