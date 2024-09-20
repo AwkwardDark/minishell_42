@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:02:44 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 17:43:14 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:58:32 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@ void	in_redirection(t_token *token, t_data *data)
 	{
 		if (token->token_type == R_IN)
 		{
-			fd = open(token->redir, O_RDONLY);
-			if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
+			if (token->wildcard)
+				ft_redir_wildcard(token, &fd);
+			if (token->del_wild_flag == 0)
+				fd = open(token->redir, O_RDONLY);
+			if (fd < 0 || dup2(fd, STDIN_FILENO) < 0 || token->del_wild_flag)
 			{
-				error_disp_exit(strerror(errno), token->redir, -1);
+				if (token->del_wild_flag || token->redir[0] == '\0')
+					ft_ambiguous_redirect(token);
+				else
+					error_disp_exit(strerror(errno), token->redir, -1);
 				clr_gb(data->bin);
 				ft_free_exit(data);
 				exit(1);
@@ -44,13 +50,13 @@ void	out_redirection(t_token *token, t_data *data)
 	{
 		if (token->token_type == R_OUT || token->token_type == APPEND)
 		{
-			if (token->token_type == R_OUT)
-				fd = open(token->redir, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-			else if (token->token_type == APPEND)
-				fd = open(token->redir, O_CREAT | O_WRONLY | O_APPEND, 0664);
-			if (fd < 0 || dup2(fd, STDOUT_FILENO) < 0)
+			ft_open_redirout(token, &fd);
+			if (fd < 0 || dup2(fd, STDOUT_FILENO) < 0 || token->del_wild_flag)
 			{
-				error_disp_exit(strerror(errno), token->redir, -1);
+				if (token->del_wild_flag || token->redir[0] == '\0')
+					ft_ambiguous_redirect(token);
+				else
+					error_disp_exit(strerror(errno), token->redir, -1);
 				clr_gb(data->bin);
 				ft_free_exit(data);
 				exit(1);

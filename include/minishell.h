@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 11:44:18 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:18:57 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "structs.h"
 # include <unistd.h>
 # include <stdio.h>
-# include <stdlib.h> //necessary?
+# include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -35,15 +35,13 @@
 # define PWD_ERROR "pwd: error retrieving current directory: getcwd: cannot \
 access parent directories: No such file or directory\n"
 # define CHDIR_PWD "Error: too many charachters in current working directory\n"
-
-/*Message error macros, it's useful or it makes the code cleaner?*/
 # define SIMPLE_COMMAND 2 
 
 /*Character macros*/
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
 # define SPACE ' '
-# define TAB '\t'//we take in account the tabs for minishell?
+# define TAB '\t'
 # define O_PAREN '('
 # define C_PAREN ')'
 # define P '|'
@@ -61,7 +59,6 @@ t_token	*ft_lstnew(char *content);
 t_token	*ft_lstlast(t_token *lst);
 void	ft_lstadd_back(t_token **lst, t_token *new);
 void	ft_insert_after(t_token *current, t_token *new);
-void	ft_print_lst(t_token *lst);
 void	ft_free_lst(t_token **lst);
 void	ft_free_onetoken(t_token *token);
 
@@ -91,10 +88,7 @@ int		ft_is_special(char c);
 void	ft_token_symbol(char *content, t_token *token);
 int		ft_count_exp(char *str);
 int		ft_simple_wildcard(char *wildcard);
-void	ft_print_lst(t_token *lst);
-
-/*Testing utils*/
-void	ft_print_expand_table(int *tab, int len);
+int		ft_is_whitespace(char c);
 
 // clr_gb.c
 void	close_fds(t_gbcolector *bin);
@@ -201,6 +195,10 @@ char	*get_limiter(t_token *token);
 //src/exec/redirections.c
 void	in_redirection(t_token *token, t_data *data);
 void	out_redirection(t_token *token, t_data *data);
+void	ft_ambiguous_redirect(t_token *token);
+void	redirect_files(t_token *token, int *pipe, int flag, t_data *data);
+void	ft_redir_wildcard(t_token *current, int *fd);
+void	ft_open_redirout(t_token *token, int *fd);
 
 // expand.c
 void	ft_expand(t_token *lst, t_data *data);
@@ -208,9 +206,12 @@ char	*ft_find_exp_value(char *key, t_data *data);
 char	*ft_strjoin_expand(char *s1, char *s2);
 char	*ft_extract_exp(char *str, int len);
 char	*ft_create_new_expansion(char *str, int i, char *expanded, int new_len);
+void	ft_aux_exp_redir(char *result, t_token *current, t_data *data);
+char	*ft_str_to_exp(char *str, t_data *data, t_token *curr);
 
 // wildcard.c
 void	ft_wildcard(t_token **lst, t_btree *tree);
+int		ft_wild_match(char *entry, char *wildcard);
 
 // exec_utils.c
 int		is_heredoc(t_token *token);
@@ -220,9 +221,6 @@ char	*get_limiter(t_token *token);
 void	do_mydoc(t_token *token, t_data *data);
 char	*ft_heredoc_expansion(char *line, int i, t_data *data);
 //static void	heredoc_work(char *limiter, int *pipe_fd);
-
-//src/exec/redirections.c
-void	redirect_files(t_token *token, int *pipe, int flag, t_data *data);
 
 // exec.c
 void	exec_btree(t_btree *tree, t_data *data);

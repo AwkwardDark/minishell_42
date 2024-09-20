@@ -6,11 +6,23 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:14:35 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/19 15:57:14 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:43:06 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*It expands the redirection value because the token word after redirection
+was deleted before execution*/
+void	ft_aux_exp_redir(char *result, t_token *current, t_data *data)
+{
+	result = ft_str_to_exp(current->redir, data, current);
+	if (result)
+	{
+		current->redir = ft_strdup(result);
+		free(result);
+	}
+}
 
 // Finds for the expansion value of an enviroment variable
 char	*ft_find_exp_value(char *key, t_data *data)
