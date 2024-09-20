@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 15:17:33 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:24:07 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,21 @@ static int	get_redirin(t_token *token)
 {
 	int	fd;
 
+	fd = 1;
 	while (token != NULL)
 	{
 		if (token->token_type == R_IN)
 		{
 			if (token->wildcard)
-				ft_redir_wildcard(token);
+				ft_redir_wildcard(token, &fd);
 			if (token->del_wild_flag == 0)
 				fd = open(token->redir, O_RDONLY);
-			if (token->del_wild_flag || token->redir[0] == '\0')
+			if (fd < 0 || dup2(fd, STDIN_FILENO) < 0 || token->del_wild_flag)
 			{
-				ft_putstr_fd("minishell: ", 2);
-				if (token->redir[0] == '\0')
-					ft_putstr_fd(token->old_redir, 2);
+				if (token->del_wild_flag || token->redir[0] == '\0')
+					ft_ambiguous_redirect(token);
 				else
-					ft_putstr_fd(token->redir, 2);
-				ft_putstr_fd(": ambiguous redirect\n", 2);
-				return (-1);
-			}
-			if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
-			{
-				error_disp(token->redir, strerror(errno));
-				fd = -1;
+					error_disp(token->redir, strerror(errno));
 				return (-1);
 			}
 			close(fd);
@@ -63,25 +56,13 @@ static int	get_redirout(t_token *token)
 	{
 		if (token->token_type == R_OUT || token->token_type == APPEND)
 		{
-			if (token->wildcard)
-				ft_redir_wildcard(token);
-			if (token->token_type == R_OUT && token->del_wild_flag == 0)
-				fd = open(token->redir, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-			else if (token->token_type == APPEND && token->del_wild_flag == 0)
-				fd = open(token->redir, O_CREAT | O_WRONLY | O_APPEND, 0664);
-			if (token->del_wild_flag || token->redir[0] == '\0')
+			ft_open_redirout(token, &fd);
+			if (fd < 0 || token->del_wild_flag)
 			{
-				ft_putstr_fd("minishell: ", 2);
-				if (token->redir[0] == '\0')
-					ft_putstr_fd(token->old_redir, 2);
+				if (token->del_wild_flag || token->redir[0] == '\0')
+					ft_ambiguous_redirect(token);
 				else
-					ft_putstr_fd(token->redir, 2);
-				ft_putstr_fd(": ambiguous redirect\n", 2);
-				return (-1);
-			}
-			if (fd < 0)
-			{
-				error_disp(token->redir, strerror(errno));
+					error_disp(token->redir, strerror(errno));
 				return (-1);
 			}
 		}

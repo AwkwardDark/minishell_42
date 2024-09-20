@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:37:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/20 12:06:27 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:43:52 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*ft_calc_expand(char *str, t_data *data, t_index *x, t_token *curr)
 
 /*It uses the pre_expansion array to extract the char to expand, it will search
 on the env list and it will calculate the new length to allocate*/
-static char	*ft_str_to_exp(char *str, t_data *data, t_token *curr)
+char	*ft_str_to_exp(char *str, t_data *data, t_token *curr)
 {
 	t_index	x;
 	int		*tab;
@@ -118,14 +118,7 @@ void	ft_expand(t_token *lst, t_data *data)
 		}
 		if (((current->token_type == R_IN) || (current->token_type == R_OUT) || \
 		(current->token_type == APPEND)) && ft_count_exp(current->redir) > 0)
-		{
-			result = ft_str_to_exp(current->redir, data, current);
-			if (result)
-			{
-				current->redir = ft_strdup(result);
-				free(result);
-			}
-		}
+			ft_aux_exp_redir(result, current, data);
 		free(current->pre_expand);
 		current = current->next;
 	}
