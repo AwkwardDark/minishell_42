@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 14:30:11 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:48:34 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,9 @@ static int	parse_exec(t_btree *tree, t_data *data, int flag)
 {
 	ft_expand(tree->token, data);
 	ft_wildcard(&tree->token, tree);
-	if (flag != PIPE && ft_is_builtins(tree->token->content))
-	{
-		exec_builtin(tree->token, data);
-		return (-1);
-	}
 	if (is_heredoc(tree->token))
 		do_mydoc(tree->token, data);
-	if (flag == PIPE && data->lst_exit_status > 128)
+	if (flag == PIPE && data->lst_exit_status != 0)
 		return (-1);
 	return (exec(tree->token, data, flag));
 }
@@ -59,11 +54,8 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 	else if (last_command)
 	{
 		exec_pipes(tree->left_child, data, 0);
-		if (ft_is_builtins(tree->right_child->token->content))
-			wait_children(parse_exec(tree->right_child, data, PIPE), data);
-		else
-			wait_children(parse_exec(tree->right_child, data, SIMPLE_COMMAND),
-				data);
+		wait_children(parse_exec(tree->right_child, data, SIMPLE_COMMAND),
+			data);
 	}
 	else
 	{
@@ -76,7 +68,17 @@ static void	exec_pipes(t_btree *tree, t_data *data, int last_command)
 void	exec_btree_aux(t_btree *tree, t_data *data)
 {
 	if (is_leaf(tree))
-		simplecmd_wait(parse_exec(tree, data, SIMPLE_COMMAND), data);
+	{
+		if (ft_is_builtins(tree->token->content))
+		{
+			ft_expand(tree->token, data);
+			ft_wildcard(&tree->token, tree);
+			exec_builtin(tree->token, data);
+			simplecmd_wait(-1, data);
+		}	
+		else
+			simplecmd_wait(parse_exec(tree, data, SIMPLE_COMMAND), data);
+	}
 	else if (tree->token->token_type == PIPE)
 		exec_pipes(tree, data, 1);
 	else if (tree->token->token_type == OR)

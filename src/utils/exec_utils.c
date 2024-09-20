@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:37:28 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 12:21:56 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:28:24 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	alloc_keyvalue(t_env *env, char **word_arr, int len)
 		word_arr[i] = (char *)malloc(sizeof(char)
 				* (ft_strlen(temp->key) + ft_strlen(temp->value) + 2));
 		if (!word_arr[i])
-			fprintf(stderr, "error");
+			printf("error\n");
 		word_arr[i][0] = 0;
 		ft_strcat(word_arr[i], temp->key);
 		ft_strcat(&word_arr[i][ft_strlen(temp->key)], "=");

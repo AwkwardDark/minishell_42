@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 14:17:15 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:32:20 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	get_redirin(t_token *token)
 {
 	int	fd;
 
+	fd = 1;
 	while (token != NULL)
 	{
 		if (token->token_type == R_IN)
@@ -24,7 +25,6 @@ static int	get_redirin(t_token *token)
 			if (fd < 0 || dup2(fd, STDIN_FILENO) < 0)
 			{
 				error_disp(token->redir, strerror(errno));
-				fd = -1;
 				return (-1) ;
 			}
 			close(fd);
@@ -57,7 +57,6 @@ static int	get_redirout(t_token *token)
 			if (fd < 0)
 			{
 				error_disp(token->redir, strerror(errno));
-				fd = -1;
 				break ;
 			}
 		}
@@ -66,15 +65,33 @@ static int	get_redirout(t_token *token)
 	return (fd);
 }
 
+static void	exec_builtin_fork(t_token *token, t_data *data)
+{
+	if (!ft_strcmp(token->content, "echo"))
+		ft_echo(token->next, 1, data);
+	else if (!ft_strcmp(token->content, "cd"))
+		ft_cd(token->next, data);
+	else if (!ft_strcmp(token->content, "env"))
+		ft_env(data, 1);
+	else if (!ft_strcmp(token->content, "pwd"))
+		ft_pwd(token->next, data, 1);
+	else if (!ft_strcmp(token->content, "unset"))
+		ft_unset(token->next, data);
+	else if (!ft_strcmp(token->content, "export"))
+		ft_export(data, token->next, 1);
+	else
+		ft_exit(token->next, data);
+}
+
 // execution of a builtin in a subprocess in case of pipe cmds
 void	exec_subbuiltin(t_token *token, t_data *data)
 {
 	int	status;
-
+	
 	if (!ft_strcmp(token->content, "exit"))
 		ft_exit(token->next, data);
 	else
-		exec_builtin(token, data);
+		exec_builtin_fork(token, data);
 	status = data->exit_status;
 	clr_gb(data->bin);
 	ft_free_exit(data);
