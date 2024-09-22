@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:15:15 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 00:13:05 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/22 19:12:46 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	child_sigint(int code)
 	exit(128 + code);
 }
 
-// setsup signals for the heredoc
+// setsup signals for the heredoc and puts the signal to 0
 void	here_docsignals(void)
 {
+	g_signal = 0;
 	if (signal(SIGINT, heredoc_handler) == SIG_ERR)
 		ft_putstr2("error in signal function on SIGINT handler", 2);
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)

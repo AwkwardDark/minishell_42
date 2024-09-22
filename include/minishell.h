@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/21 01:15:26 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/23 01:31:54 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ extern int	g_signal;
 
 /*Error and Memory managment*/
 void	ft_free_exit(t_data *data);
+
+// utils
+int	is_directory(char *path);
 
 /*Double Linked List utils*/
 t_token	*ft_lstnew(char *content);
@@ -163,9 +166,10 @@ void	ft_unset(t_token *token, t_data *data);
 void	ft_export(t_data *data, t_token *token, int fd);
 void	add_or_replace(t_env **env, char *key, char *value);
 void	ft_echo(t_token *token, int fd, t_data *data);
-int		ft_is_builtins(char *cmd);
+int		ft_is_builtins(t_token *token);
 void	ft_exit(t_token *token, t_data *data);
-void	exec_builtin(t_token *token, t_data *data);
+int		get_redirbuiltin(t_token *token);
+void	exec_builtin(t_token *token, t_data *data, int redir);
 void	exec_subbuiltin(t_token *token, t_data *data);
 void	exec_btree_aux(t_btree *tree, t_data *data);
 
@@ -186,14 +190,15 @@ char	*test_path(char *envpath, char *cmd);
 // utils/exec_utils1.c
 char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);
 char	**lstenv_towordarr(t_env *env);
-char	**cmdlst_tocmdarr(t_token *token, int absolut);
+char	**cmdlst_tocmdarr(t_token *token);
 
 // utils/exec_utils2.c
-void	alloc_cmds_aux(char **cmd_arr, t_token *token, int i, int absolut);
+void	alloc_cmds_aux(char **cmd_arr, t_token *token, int i);
 
 //src/exec/redirections.c
 void	in_redirection(t_token *token, t_data *data);
 void	out_redirection(t_token *token, t_data *data);
+t_token	*ft_getnextword(t_token *token, t_data *data);
 void	ft_ambiguous_redirect(t_token *token);
 void	redirect_files(t_token *token, int *pipe, int flag, t_data *data);
 void	ft_redir_wildcard(t_token *current, int *fd);

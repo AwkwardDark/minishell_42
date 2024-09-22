@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 22:34:32 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 14:07:57 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/22 20:09:23 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ static void	is_longlong(t_token *token, t_data *data)
 void	ft_exit(t_token *token, t_data *data)
 {
 	if (token == NULL || token->token_type != WORD)
+	{
+		printf("exit\n");
 		free_end(data->lst_exit_status, data, NULL);
+	}
 	if (token->next != NULL)
 	{
 		if (is_number(token->content) && get_errortype(token))

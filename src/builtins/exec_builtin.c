@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/21 01:19:29 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/22 17:56:19 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	get_redirin(t_token *token)
 	return 1 if nothing is found
 	and return -1 f there was any error during the open
 */
-static int	get_redirout(t_token *token)
+int	get_redirbuiltin(t_token *token)
 {
 	int	fd;
 
@@ -105,11 +105,8 @@ void	exec_subbuiltin(t_token *token, t_data *data)
 }
 
 // open files, and executes the builtins
-void	exec_builtin(t_token *token, t_data *data)
+void	exec_builtin(t_token *token, t_data *data, int redir)
 {
-	int	redir;
-
-	redir = get_redirout(token);
 	if (redir < 0)
 	{
 		data->exit_status = 1;

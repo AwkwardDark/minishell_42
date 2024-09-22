@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:47:04 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/21 01:19:05 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/22 20:07:10 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ static int	get_nflag(t_token *token)
 		if (token->token_type == WORD)
 		{
 			if (!ft_strcmp(token->content, "-n"))
-			{
-				fprintf(stderr, "ici\n");
 				return (1);
-			}
 			return (0);
 		}
 		token = token->next;
@@ -53,6 +50,7 @@ void	ft_echo(t_token *token, int fd, t_data *data)
 {
 	int	newline;
 
+	newline = 1;
 	if (get_nflag(token))
 	{
 		newline = 0;

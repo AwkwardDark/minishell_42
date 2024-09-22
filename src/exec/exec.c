@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:30:13 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/21 01:19:46 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/22 20:19:02 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	parse_exec(t_btree *tree, t_data *data, int flag)
 	ft_wildcard(&tree->token, tree);
 	if (is_heredoc(tree->token))
 		do_mydoc(tree->token, data);
-	if (flag == PIPE && data->lst_exit_status != 0)
+	if (data->exit_status >= 128)
 		return (-1);
 	return (exec(tree->token, data, flag));
 }
@@ -69,11 +69,14 @@ void	exec_btree_aux(t_btree *tree, t_data *data)
 {
 	if (is_leaf(tree))
 	{
-		if (ft_is_builtins(tree->token->content))
+		if (is_heredoc(tree->token))
+			simplecmd_wait(parse_exec(tree, data, SIMPLE_COMMAND), data);
+		else if (ft_is_builtins(tree->token))
 		{
 			ft_expand(tree->token, data);
 			ft_wildcard(&tree->token, tree);
-			exec_builtin(tree->token, data);
+			exec_builtin(ft_getnextword(tree->token, data), data,
+				get_redirbuiltin(tree->token));
 			simplecmd_wait(-1, data);
 		}
 		else
@@ -90,14 +93,12 @@ void	exec_btree_aux(t_btree *tree, t_data *data)
 // main binary tree execution
 void	exec_btree(t_btree *tree, t_data *data)
 {
-	int	infd;
-
-	infd = dup(0);
-	add_fdtogb(data->bin, infd);
+	data->infd = dup(0);
+	add_fdtogb(data->bin, data->infd);
 	signal(SIGINT, parenthandler);
 	signal(SIGQUIT, main_sigquit);
 	exec_btree_aux(tree, data);
-	dup2(infd, STDIN_FILENO);
+	dup2(data->infd, STDIN_FILENO);
 	close_fds(data->bin);
 	g_signal = 0;
 }

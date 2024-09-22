@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:37:28 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/21 01:15:40 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/23 01:31:57 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**lstenv_towordarr(t_env *env)
 	return (arr_env);
 }
 
-static void	alloc_cmds(t_token *token, char **cmd_arr, int len, int absolut)
+static void	alloc_cmds(t_token *token, char **cmd_arr, int len)
 {
 	t_token	*temp;
 	int		i;
@@ -88,7 +88,7 @@ static void	alloc_cmds(t_token *token, char **cmd_arr, int len, int absolut)
 	{
 		if (temp->token_type == WORD)
 		{
-			alloc_cmds_aux(cmd_arr, temp, i, absolut);
+			alloc_cmds_aux(cmd_arr, temp, i);
 			i++;
 		}
 		temp = temp->next;
@@ -96,7 +96,7 @@ static void	alloc_cmds(t_token *token, char **cmd_arr, int len, int absolut)
 	cmd_arr[i] = NULL;
 }
 
-char	**cmdlst_tocmdarr(t_token *token, int absolut)
+char	**cmdlst_tocmdarr(t_token *token)
 {
 	int		len;
 	t_token	*temp;
@@ -116,7 +116,7 @@ char	**cmdlst_tocmdarr(t_token *token, int absolut)
 	if (!arr_cmd)
 		return (NULL);
 	temp = token;
-	alloc_cmds(token, arr_cmd, len, absolut);
+	alloc_cmds(token, arr_cmd, len);
 	return (arr_cmd);
 }
 

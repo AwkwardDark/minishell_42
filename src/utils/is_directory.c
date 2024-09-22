@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils2.c                                      :+:      :+:    :+:   */
+/*   is_directory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 01:12:42 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/23 01:30:40 by pierre           ###   ########.fr       */
+/*   Created: 2024/09/23 00:46:45 by pierre            #+#    #+#             */
+/*   Updated: 2024/09/23 01:27:36 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	alloc_cmds_aux(char **cmd_arr, t_token *token, int i)
+int	is_directory(char *path)
 {
-	cmd_arr[i] = (char *)malloc(sizeof(char)
-			* (ft_strlen(token->content) + 1));
-	if (!cmd_arr[i])
-		return ;
-	cmd_arr[i][0] = 0;
-	ft_strcpy(cmd_arr[i], token->content);
+	struct stat	mystat;
+
+	if (stat(path, &mystat) != 0)
+	{
+		perror("Error getting file status");
+		return (0);
+	}
+	if (S_ISDIR(mystat.st_mode))
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:38:09 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 20:30:13 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/22 20:02:04 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	heredoc_work(char *limiter, int *pipe_fd, t_data *data, int is_last)
 		free(line);
 }
 
-// handles heredoc in case of multiple heredocs
+// handles heredoc in case of multiple heredocs and does the expansion is needed
 static void	do_mydocs_aux(t_token *token, t_data *data, int *pipe)
 {
 	char	*limiter;
@@ -45,9 +45,11 @@ static void	do_mydocs_aux(t_token *token, t_data *data, int *pipe)
 	here_docsignals();
 	close(pipe[0]);
 	add_fdtogb(data->bin, pipe[1]);
+	while (token->token_type != HEREDOC)
+		token = token->next;
 	if (token->token_type == WORD)
 		token = token->next;
-	while (token != NULL && token->token_type == HEREDOC && g_signal == 0)
+	while (token != NULL && token->token_type == HEREDOC)
 	{
 		limiter = get_limiter(token);
 		data->heredoc_flag = token->heredoc_quote_flag;
@@ -67,6 +69,7 @@ void	do_mydoc(t_token *token, t_data *data)
 	int	fd[2];
 	int	ret;
 
+	dup2(data->infd, STDIN_FILENO);
 	if (pipe(fd) < 0)
 		error_disp_exit("pipex: pipe: ", strerror(errno), 1);
 	signal(SIGQUIT, SIG_IGN);
@@ -85,4 +88,6 @@ void	do_mydoc(t_token *token, t_data *data)
 		close(fd[0]);
 		return ;
 	}
+	close(fd[0]);
+	close(fd[1]);
 }

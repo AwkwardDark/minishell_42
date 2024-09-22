@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:25:20 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/20 14:42:29 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:32:47 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_data {
 	struct s_env	*export;
 	struct s_token	*token_lst;
 	struct s_btree	*b_tree;
+	int				infd;
+	int				outfd;
 	char			*input;
 	char			quote_type;
 	char			symbol;
