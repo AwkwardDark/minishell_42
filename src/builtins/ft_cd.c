@@ -6,7 +6,7 @@
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:32:47 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/20 09:33:45 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:58:19 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ static void	setcd_env(t_data *data, char *cwd, char *oldwd)
 }
 
 // cahnge directory to $HOME
-static void	ft_cdhome(t_data *data)
+static void	ft_cdhome(t_data *data, char *wd)
 {
 	char	*path;
-	char	*wd;
 
-	wd = get_cwd();
 	path = get_env(data->env, "HOME");
 	if (!path)
 	{
+		free(wd);
 		ft_putstr2("minishell: cd: HOME not set\n", 2);
 		data->exit_status = 1;
 		return ;
 	}
 	else if (chdir(path) < 0)
 	{
+		free(wd);
 		error_disp("cd", strerror(errno));
 		data->exit_status = 1;
 	}
@@ -54,7 +54,7 @@ void	ft_cd(t_token *token, t_data *data)
 	wd = get_cwd();
 	if (token == NULL || token->token_type != WORD)
 	{
-		ft_cdhome(data);
+		ft_cdhome(data, wd);
 		return ;
 	}
 	path = token->content;

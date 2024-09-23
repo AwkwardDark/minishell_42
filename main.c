@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:59 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/22 16:57:54 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:26:47 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	main_loop(t_data *data)
 		return (-1);
 	}
 	add_history(data->input);
-	if (data->input[0] != '\0' && ft_parser(data->input, data))
+	if (ft_parser(data->input, data))
 	{
 		data->b_tree = create_tokentree(&data->token_lst);
 		data->bin->tree = data->b_tree;

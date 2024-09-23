@@ -3,55 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   single_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:36:14 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/23 01:32:12 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:33:46 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* static int	is_slashdots(char *cmd)
+// parses error in case the excve fails
+static void	parse_error2(char *path, t_data *data, t_token *token, char **argv)
 {
-	while (*cmd)
-	{
-		if (*cmd == '.' || *cmd == '/')
-			cmd++;
-		else
-			return (0);
-	}
-	return (1);
-} */
+	if (is_directory(path))
+		isdirectory_exit(argv, data, token, 126);
+	permissiond_exit(token->content, data, argv, NULL);
+}
 
-/* !ft_strncmp(token->content, "./", 2) && ft_strlen(token->content) > 2
-&& !is_slashdots(&token->content[2]) && */
-// executes command and handles erros 
-/* void	executer(t_data *data, t_token *token)
-{
-	char	*path;
-	char	**argv;
-	char	**env_arr;
-
-	if (!ft_strncmp(token->content, "./", 2) && ft_strlen(token->content) > 2
-		&& !is_slashdots(&token->content[2]) &&
-		!access(token->content, F_OK | X_OK))
-	{
-		path = token->content;
-		argv = cmdlst_tocmdarr(token, 1);
-	}
-	else
-	{
-		path = test_path(get_paths(data->env), token->content);
-		argv = cmdlst_tocmdarr(token, 0);
-		check_validity(path, token, data, argv);
-	}
-	close_fds(data->bin);
-	env_arr = lstenv_towordarr(data->env);
-	if (execve(path, argv, env_arr) < 0)
-		free_execve(path, argv, env_arr);
-} */
-static void	check_validity(char *path, t_token *token,
+// parses error in case there was no path found for the exec
+static void	parse_error1(char *path, t_token *token,
 	t_data *data, char **argv)
 {
 	if (!access(path, F_OK) && is_directory(path))
@@ -67,7 +37,10 @@ void	executer(t_data *data, t_token *token)
 	char	**argv;
 	char	**env_arr;
 
-	if (!access(token->content, F_OK) || !ft_strcmp(token->content, ""))
+	if (!ft_strcmp(token->content, "") && token->next == NULL)
+		exit_success(data);
+	if ((!access(token->content, F_OK) || !ft_strcmp(token->content, ""))
+		&& ft_strchr(token->content, '/'))
 	{
 		path = token->content;
 		argv = cmdlst_tocmdarr(token);
@@ -78,14 +51,12 @@ void	executer(t_data *data, t_token *token)
 		path = test_path(get_paths(data->env), token->content);
 	}
 	if (!path)
-		check_validity(token->content, token, data, argv);
+		parse_error1(token->content, token, data, argv);
 	env_arr = lstenv_towordarr(data->env);
 	if (execve(path, argv, env_arr) < 0)
 	{
 		clear_wordar(env_arr);
-		if (is_directory(path))
-			isdirectory_exit(argv, data, token, 126);
-		permissiond_exit(token->content, data, argv, NULL);
+		parse_error2(path, data, token, argv);
 	}
 }
 

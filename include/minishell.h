@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:40:22 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/23 01:31:54 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/23 16:25:24 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ extern int	g_signal;
 void	ft_free_exit(t_data *data);
 
 // utils
-int	is_directory(char *path);
+int		is_directory(char *path);
 
 /*Double Linked List utils*/
 t_token	*ft_lstnew(char *content);
@@ -159,7 +159,7 @@ int		ft_putstr2(char *str, int fd);
 
 /* src/builtins */
 void	ft_cd(t_token *token, t_data *data);
-void	ft_pwd(t_token *token, t_data *data, int fd);
+void	ft_pwd(t_data *data, int fd);
 char	*get_cwd(void);
 void	ft_env(t_data *data, int fd);
 void	ft_unset(t_token *token, t_data *data);
@@ -186,6 +186,12 @@ void	executer(t_data *data, t_token *token);
 char	**lstenv_towordarr(t_env *env);
 char	*get_paths(t_env *env);
 char	*test_path(char *envpath, char *cmd);
+
+// utils/exit_success.c
+void	exit_success(t_data *data);
+
+// redirections_utils.c
+char	*get_error_message(char *path);
 
 // utils/exec_utils1.c
 char	*add_cmdtopath(char **paths, char *cmd, int cmd_len, int idx);

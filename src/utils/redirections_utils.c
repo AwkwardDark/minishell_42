@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   redirections_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 22:16:35 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/23 15:11:58 by pbeyloun         ###   ########.fr       */
+/*   Created: 2024/09/23 12:42:11 by pbeyloun          #+#    #+#             */
+/*   Updated: 2024/09/23 12:43:20 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* include "" */
 #include "minishell.h"
 
-// retreives the pwd
-char	*get_cwd(void)
+char	*get_error_message(char *path)
 {
-	char	buffer[1000];
-
-	if (!getcwd(buffer, 1000))
+	if (!access(path, F_OK))
 	{
-		ft_putstr2(PWD_ERROR, 2);
-		return (NULL);
+		if (is_directory(path))
+			return ("Is a directory");
+		else
+			return ("Permission denied");
 	}
-	return (ft_strdup(buffer));
-}
-
-// prints working directory
-void	ft_pwd(t_data *data, int fd)
-{
-	char	*path;
-
-	path = get_cwd();
-	if (path)
-	{
-		ft_putstr2(path, fd);
-		ft_putstr2("\n", fd);
-		free(path);
-		data->exit_status = 0;
-	}
+	return ("No such file or directory");
 }

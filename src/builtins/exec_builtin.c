@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 00:01:23 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/22 17:56:19 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/23 16:22:47 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_redirin(t_token *token)
 				if (token->del_wild_flag || token->redir[0] == '\0')
 					ft_ambiguous_redirect(token);
 				else
-					error_disp(token->redir, strerror(errno));
+					error_disp(token->redir, get_error_message(token->redir));
 				return (-1);
 			}
 			close(fd);
@@ -62,7 +62,7 @@ int	get_redirbuiltin(t_token *token)
 				if (token->del_wild_flag || token->redir[0] == '\0')
 					ft_ambiguous_redirect(token);
 				else
-					error_disp(token->redir, strerror(errno));
+					error_disp(token->redir, get_error_message(token->redir));
 				return (-1);
 			}
 		}
@@ -80,7 +80,7 @@ static void	exec_builtin_fork(t_token *token, t_data *data)
 	else if (!ft_strcmp(token->content, "env"))
 		ft_env(data, 1);
 	else if (!ft_strcmp(token->content, "pwd"))
-		ft_pwd(token->next, data, 1);
+		ft_pwd(data, 1);
 	else if (!ft_strcmp(token->content, "unset"))
 		ft_unset(token->next, data);
 	else if (!ft_strcmp(token->content, "export"))
@@ -119,7 +119,7 @@ void	exec_builtin(t_token *token, t_data *data, int redir)
 	else if (!ft_strcmp(token->content, "env"))
 		ft_env(data, redir);
 	else if (!ft_strcmp(token->content, "pwd"))
-		ft_pwd(token->next, data, redir);
+		ft_pwd(data, redir);
 	else if (!ft_strcmp(token->content, "unset"))
 		ft_unset(token->next, data);
 	else if (!ft_strcmp(token->content, "export"))

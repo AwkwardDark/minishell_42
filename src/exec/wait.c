@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:50:24 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/22 19:11:43 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/23 13:03:44 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void	wait_children(pid_t last_child, t_data *data)
 	{
 		if (waitpid(0, &status, 0) == last_child)
 		{
+			if (WIFSIGNALED(status))
+			{
+				g_signal = WTERMSIG(status);
+				data->exit_status = g_signal + 128;
+				return ;
+			}
 			if (WIFEXITED(status))
 				data->exit_status = WEXITSTATUS(status);
 			if (data->exit_status > 128)

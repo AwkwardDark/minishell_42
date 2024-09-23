@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre <pierre@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:47:04 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/22 20:07:10 by pierre           ###   ########.fr       */
+/*   Updated: 2024/09/23 16:24:48 by pbeyloun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_token	*get_disptoken(t_token *token)
+{
+	while (token != NULL)
+	{
+		if (token->token_type == WORD && ft_strncmp(token->content, "-n", 2)
+			!= 0)
+			return (token);
+		token = token->next;
+	}
+	return (NULL);
+}
 
 /*
 	goes through the token list searching for the first token_type
@@ -22,7 +34,7 @@ static int	get_nflag(t_token *token)
 	{
 		if (token->token_type == WORD)
 		{
-			if (!ft_strcmp(token->content, "-n"))
+			if (!ft_strncmp(token->content, "-n", 2))
 				return (1);
 			return (0);
 		}
@@ -54,9 +66,7 @@ void	ft_echo(t_token *token, int fd, t_data *data)
 	if (get_nflag(token))
 	{
 		newline = 0;
-		while (token->token_type != WORD)
-			token = token->next;
-		token = token->next;
+		token = get_disptoken(token);
 	}
 	while (token != NULL)
 	{
