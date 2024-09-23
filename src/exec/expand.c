@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:37:07 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/20 15:43:52 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:47:29 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	ft_expand(t_token *lst, t_data *data)
 		(current->token_type == APPEND)) && ft_count_exp(current->redir) > 0)
 			ft_aux_exp_redir(result, current, data);
 		free(current->pre_expand);
+		current->pre_expand = NULL;
 		current = current->next;
 	}
 }

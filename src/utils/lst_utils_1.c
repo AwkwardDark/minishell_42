@@ -6,7 +6,7 @@
 /*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:14:57 by pajimene          #+#    #+#             */
-/*   Updated: 2024/09/20 14:43:06 by pajimene         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:45:48 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_free_lst(t_token **lst)
 			free((*lst)->redir);
 		if ((*lst)->old_redir)
 			free((*lst)->old_redir);
+		if ((*lst)->pre_expand)
+			free((*lst)->pre_expand);
 		free(*lst);
 		*lst = temp;
 	}
