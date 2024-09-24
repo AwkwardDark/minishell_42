@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 23:34:33 by pierre            #+#    #+#             */
-/*   Updated: 2024/09/20 14:08:24 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:41:31 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	parse_exnum(char *cmd)
 		cmd++;
 		len++;
 	}
-	while (ft_isdigit(*cmd) && *cmd == '0')
+	while (ft_isdigit(*cmd) && *cmd == '0' && *(cmd + 1) != '\0')
 		cmd++;
 	while (ft_isdigit(*cmd))
 	{

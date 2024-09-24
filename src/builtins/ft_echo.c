@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbeyloun <pbeyloun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pajimene <pajimene@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:47:04 by pbeyloun          #+#    #+#             */
-/*   Updated: 2024/09/23 16:24:48 by pbeyloun         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:42:57 by pajimene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,24 @@ static t_token	*get_disptoken(t_token *token)
 */
 static int	get_nflag(t_token *token)
 {
+	int	i;
+
+	i = 0;
 	while (token != NULL)
 	{
 		if (token->token_type == WORD)
 		{
-			if (!ft_strncmp(token->content, "-n", 2))
-				return (1);
-			return (0);
+			if (token->content[i] != '-')
+				return (0);
+			else
+				i++;
+			while (token->content[i])
+			{
+				if (token->content[i] != 'n')
+					return (0);
+				i++;
+			}
+			return (1);
 		}
 		token = token->next;
 	}
